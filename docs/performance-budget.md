@@ -41,7 +41,8 @@ Budgets are targets rather than license to degrade visual quality. Regressions r
 ## Phase 3 implementation
 
 - The WebGL scene is dynamically split from the server-rendered route.
-- The production WebGL chunk measures approximately 321 KB gzip, within the
+- The current production WebGL chunk measures approximately 323 KB gzip,
+  including the Phase 4 project motifs, within the
   450 KB deferred-chunk budget.
 - DPR is clamped to 1.5 on high, 1.25 on medium, and 1 on low tiers.
 - Instancing is used for luminous nodes and data fragments.
@@ -49,6 +50,31 @@ Budgets are targets rather than license to degrade visual quality. Regressions r
 - Bloom is disabled on low-tier and reduced-motion devices.
 - The render loop changes to demand mode for reduced motion and while hidden.
 - Context loss restores the CSS fallback instead of removing content.
+
+## Phase 4 implementation
+
+- Project progress travels through a mutable ref and browser event rather than
+  React render state.
+- Desktop chapters use one scoped timeline each; mobile removes pinning and
+  uses normal document flow.
+- All repeated project motif nodes and signal fragments use instancing.
+- Project motifs reuse the persistent Phase 3 Canvas instead of mounting
+  additional renderers.
+- Reduced motion removes scrubbed timelines and holds each scene at a stable
+  representative state.
+
+## Phase 5 implementation
+
+- Case-study routes are statically generated from the shared typed project
+  model.
+- Architecture diagrams and interface explorations use no raster assets,
+  additional canvas, or visualization dependency.
+- Project sections reuse the existing reveal runtime and route-transition
+  layer.
+- Essential case-study content is server-rendered and visible before client
+  animation initializes.
+- The 1200×630 social-preview image is metadata-only and is not requested by
+  the visible page.
 
 ## Phase 1 measurement
 

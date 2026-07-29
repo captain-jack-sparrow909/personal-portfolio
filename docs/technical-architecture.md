@@ -8,6 +8,7 @@ Client Components are introduced only when their phase requires them:
 
 - Phase 2: motion provider, animated navigation, mobile menu, pointer interactions
 - Phase 3: persistent React Three Fiber canvas and scene controls
+- Phase 4: project timeline orchestration and route-transition overlay
 - Phase 7: contact form state
 
 ## Directory strategy
@@ -18,6 +19,7 @@ The application lives under `src/`:
 - `src/components/layout`: header and footer shells
 - `src/components/sections`: semantic home chapters
 - `src/components/ui`: reusable presentational primitives
+- `src/components/project`: shared case-study sections and visualizations
 - `src/components/fallback`: static visual fallback
 - `src/content`: typed editorial and project content
 - `src/styles`: tokens, typography, and shared utilities
@@ -29,7 +31,12 @@ validation remain deferred to their assigned phases.
 
 ## Content contracts
 
-Projects use a typed `Project` model containing identity, status, accent, descriptions, features, technologies, and visual motif. No component owns project facts. Future case-study pages and 3D scene modes will consume the same model.
+Projects use a typed `Project` model containing identity, status, accent,
+descriptions, problem framing, product concept, modules, conceptual
+architecture, decisions, interface explorations, current status, next focus,
+technologies, and visual motif. No component owns project facts. Home chapters,
+case-study routes, navigation, metadata, and 3D scene modes consume the same
+model.
 
 ## Styling
 
@@ -53,6 +60,39 @@ The renderer clamps DPR by tier, removes postprocessing on low-tier or
 reduced-motion devices, pauses its render loop when the page is hidden, and
 reacts to WebGL context loss by restoring the static CSS engine.
 
+## Project storytelling contract
+
+Phase 4 gives every selected project one semantic, viewport-scale chapter. A
+scoped GSAP timeline publishes normalized progress through a browser event into
+a mutable scene ref. The ref is consumed by the camera, lighting, Cognitive
+Engine, and `ProjectVisualSystem` without causing React renders or continuous
+Zustand writes.
+
+Desktop chapters use short pinning windows. Tablet and mobile keep normal
+document flow and lightweight entrance sequences. Reduced-motion mode bypasses
+scrubbing entirely while preserving all project content and links.
+
+The root route-transition overlay persists across navigation. Project links
+carry only route, accent, and display-name metadata; the transition layer owns
+the cinematic cover/reveal and falls back to opacity for reduced motion.
+
+## Case-study rendering contract
+
+Phase 5 statically generates all project routes from the shared content model.
+Server Components render the hero, overview, module breakdown, conceptual
+architecture, interface explorations, decisions, current status, and
+next-project navigation.
+
+Architecture diagrams are semantic ordered lists with CSS linework. Interface
+frames are explicitly labeled concepts and use CSS composition rather than
+invented screenshots. Project metadata is generated per route. The existing
+client motion layer only enhances server-rendered content and owns no project
+facts.
+
+The root and project metadata share one validated 1200×630 portfolio social
+card. It is referenced only through Open Graph and X metadata and does not enter
+the visible route payload.
+
 ## Failure behavior
 
 - Without JavaScript: the complete semantic portfolio remains visible.
@@ -62,4 +102,7 @@ reacts to WebGL context loss by restoring the static CSS engine.
 
 ## SEO
 
-Phase 1 supplies canonical metadata, Open Graph and Twitter metadata, sitemap, robots, and Person JSON-LD. Project-specific metadata arrives with the case-study routes.
+Phase 1 supplies canonical metadata, sitemap, robots, and Person JSON-LD.
+Phase 5 adds project-specific canonical, Open Graph, and X metadata plus the
+shared social-preview asset. Project structured data remains scheduled for
+Phase 7.

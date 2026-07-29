@@ -1,13 +1,14 @@
 "use client";
 
 import { useFrame } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, type RefObject } from "react";
 import * as THREE from "three";
 
 import type { SceneMode } from "@/store/scene-store";
 
 type LightingRigProps = {
   mode: SceneMode;
+  progress: RefObject<number>;
 };
 
 const accentByMode: Record<SceneMode, string> = {
@@ -20,7 +21,7 @@ const accentByMode: Record<SceneMode, string> = {
   contact: "#f2f1ec",
 };
 
-export function LightingRig({ mode }: LightingRigProps) {
+export function LightingRig({ mode, progress }: LightingRigProps) {
   const keyLight = useRef<THREE.SpotLight>(null);
   const rimLight = useRef<THREE.PointLight>(null);
   const targetColor = useMemo(
@@ -31,9 +32,21 @@ export function LightingRig({ mode }: LightingRigProps) {
   useFrame((_, delta) => {
     if (keyLight.current) {
       keyLight.current.color.lerp(targetColor, 1 - Math.exp(-delta * 3));
+      keyLight.current.intensity = THREE.MathUtils.damp(
+        keyLight.current.intensity,
+        18 + Math.sin(progress.current * Math.PI) * 4,
+        4,
+        delta,
+      );
     }
     if (rimLight.current) {
       rimLight.current.color.lerp(targetColor, 1 - Math.exp(-delta * 3));
+      rimLight.current.intensity = THREE.MathUtils.damp(
+        rimLight.current.intensity,
+        8 + progress.current * 2,
+        4,
+        delta,
+      );
     }
   });
 

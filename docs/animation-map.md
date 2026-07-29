@@ -111,3 +111,40 @@ Deferred:
 - Full project-specific geometry transformations and pinned choreography
 - Case-study transitions
 - Final GLB clips, named groups, and shader refinement
+
+## Phase 4 implementation status
+
+Implemented:
+
+- Four viewport-scale editorial project chapters
+- Scoped desktop pin-and-scrub timelines with unpinned mobile sequences
+- Ordered index, category, title, description, detail, visual, and CTA reveals
+- A continuously updated chapter progress line
+- Direct ref-based scroll progress for the WebGL scene, without per-frame React
+  or Zustand state
+- Project-specific waveform, scanner, knowledge-graph, and orchestration motifs
+- Scroll-linked engine separation, expansion, illumination, and camera push
+- Restrained title pointer response and CTA arrow behavior
+- Accent-aware circular route transitions with a reduced-motion opacity fallback
+- Valid case-study destination shells for all four routes
+
+Deferred:
+
+- Full case-study narrative timelines and next-project transitions
+- Final GLB clips, named groups, and shader refinement
+
+## Phase 5 implementation status
+
+Implemented:
+
+- Shared project-section reveals through the existing MotionProvider
+- Accent-preserving next-project transitions across all four case studies
+- Static architecture and concept visualizations that remain complete without
+  JavaScript
+- Normal document flow on every viewport with no case-study scroll pinning
+- Reduced-motion compatibility inherited from the shared reveal and transition
+  system
+
+Deferred:
+
+- Final GLB clips, named groups, and shader refinement

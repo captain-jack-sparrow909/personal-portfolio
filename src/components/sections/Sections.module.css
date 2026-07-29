@@ -204,14 +204,42 @@
 }
 
 .project {
+  --chapter-progress: 0;
   --project-accent: var(--color-text);
+  position: relative;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  min-height: min(58rem, 92svh);
+  min-height: 100svh;
   align-items: center;
   gap: 1rem;
+  overflow: clip;
   border-top: 1px solid
     color-mix(in srgb, var(--project-accent) 30%, transparent);
+  isolation: isolate;
+}
+
+.project::before {
+  position: absolute;
+  z-index: -2;
+  width: min(60vw, 62rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--project-accent) 12%, transparent),
+    transparent 66%
+  );
+  content: "";
+  opacity: calc(0.36 + (var(--chapter-progress) * 0.64));
+  pointer-events: none;
+}
+
+.project:nth-child(odd)::before {
+  right: -12%;
+}
+
+.project:nth-child(even)::before {
+  left: -12%;
 }
 
 .project:last-child {
@@ -236,6 +264,7 @@
 }
 
 .projectCopy {
+  z-index: 2;
   grid-column: 1 / span 6;
   padding: clamp(3.5rem, 7vw, 7rem) 0;
 }
@@ -264,11 +293,18 @@
   text-align: right;
 }
 
+.projectTitleMask {
+  padding: 0 0 0.08em;
+  overflow: hidden;
+}
+
 .project h3 {
   margin-top: clamp(2.5rem, 4vw, 4rem);
-  font-size: clamp(4rem, 8vw, 9.5rem);
+  font-size: clamp(4rem, 7.6vw, 9rem);
   line-height: 0.82;
   letter-spacing: -0.075em;
+  text-wrap: balance;
+  will-change: transform;
 }
 
 .projectSummary {
@@ -304,7 +340,7 @@
 
 .projectFoot {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) minmax(11rem, auto);
   gap: 1rem;
   margin-top: clamp(3rem, 5vw, 5rem);
   padding-top: 1rem;
@@ -322,28 +358,139 @@
   font-family: var(--font-mono), monospace;
   font-size: 0.62rem;
   letter-spacing: 0.05em;
+  text-align: right;
   text-transform: uppercase;
+}
+
+.projectCta {
+  display: grid;
+  width: min(100%, 24rem);
+  min-height: 4.5rem;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 0.55rem 0.55rem 0.55rem 1.15rem;
+  border: 1px solid color-mix(in srgb, var(--project-accent) 50%, transparent);
+  border-radius: var(--radius-pill);
+  font:
+    600 0.72rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition:
+    color 250ms ease,
+    background-color 250ms ease,
+    border-color 250ms ease;
+}
+
+.projectCta > span {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.projectCta small {
+  color: var(--color-secondary);
+  font-size: 0.52rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.projectCta i {
+  display: grid;
+  width: 3.3rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--color-background);
+  background: var(--project-accent);
+  font-size: 1rem;
+  font-style: normal;
+  transition: transform 500ms var(--ease-standard);
+}
+
+.projectCta:hover,
+.projectCta:focus-visible {
+  color: var(--color-background);
+  border-color: var(--project-accent);
+  background: var(--project-accent);
+}
+
+.projectCta:hover small,
+.projectCta:focus-visible small {
+  color: color-mix(in srgb, var(--color-background) 72%, transparent);
+}
+
+.projectCta:hover i,
+.projectCta:focus-visible i {
+  background: var(--color-background);
+  color: var(--project-accent);
+  transform: rotate(45deg) scale(1.04);
+}
+
+.projectProgress {
+  position: absolute;
+  z-index: 4;
+  top: 50%;
+  left: 0;
+  display: grid;
+  gap: 0.6rem;
+  justify-items: center;
+  color: var(--color-secondary);
+  font:
+    500 0.5rem/1 var(--font-mono),
+    monospace;
+  transform: translateY(-50%);
+}
+
+.projectProgress i {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: clamp(7rem, 18vh, 12rem);
+  overflow: hidden;
+  background: var(--color-border);
+}
+
+.projectProgress b {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: var(--project-accent);
+  box-shadow: 0 0 1rem var(--project-accent);
+  transform: scaleY(var(--chapter-progress));
+  transform-origin: center top;
+}
+
+.project:nth-child(even) .projectProgress {
+  right: 0;
+  left: auto;
 }
 
 .projectSignal {
   position: relative;
   display: grid;
-  width: min(100%, 34rem);
+  width: min(100%, 38rem);
   aspect-ratio: 1;
   place-items: center;
   border: 1px solid color-mix(in srgb, var(--project-accent) 20%, transparent);
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    color-mix(in srgb, var(--project-accent) 12%, transparent),
-    transparent 58%
+    color-mix(in srgb, var(--project-accent) 10%, transparent),
+    transparent 64%
   );
+  box-shadow: inset 0 0 8rem rgba(0, 0, 0, 0.32);
 }
 
 .projectVisual {
+  position: relative;
+  z-index: 1;
   grid-column: 8 / -1;
-  width: min(100%, 34rem);
+  width: min(100%, 38rem);
   justify-self: end;
+  opacity: calc(0.48 + (var(--chapter-progress) * 0.52));
+  pointer-events: none;
 }
 
 .project:nth-child(even) .projectVisual {
@@ -404,7 +551,7 @@
 }
 
 .signalCore {
-  width: 14%;
+  width: 12%;
   aspect-ratio: 1;
   border: 1px solid color-mix(in srgb, var(--project-accent) 78%, white 22%);
   border-radius: 50%;
@@ -417,15 +564,52 @@
     color-mix(in srgb, var(--project-accent) 48%, transparent);
 }
 
-.projectSignal p {
+.signalCoordinates {
   position: absolute;
+  top: 8%;
   right: 8%;
-  bottom: 8%;
+  left: 8%;
+  display: flex;
+  justify-content: space-between;
   color: var(--project-accent);
   font:
     500 0.56rem/1 var(--font-mono),
     monospace;
   letter-spacing: 0.08em;
+}
+
+.signalLabels {
+  position: absolute;
+  inset: 0;
+}
+
+.signalLabels span {
+  position: absolute;
+  padding: 0.38rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--project-accent) 32%, transparent);
+  color: var(--color-secondary);
+  background: rgba(5, 5, 6, 0.76);
+  font:
+    500 0.5rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.signalLabels span:nth-child(1) {
+  top: 21%;
+  left: -1%;
+}
+
+.signalLabels span:nth-child(2) {
+  top: 48%;
+  right: -4%;
+}
+
+.signalLabels span:nth-child(3) {
+  bottom: 12%;
+  left: 18%;
 }
 
 .capabilityLayout {
@@ -799,6 +983,15 @@
     padding: 5rem 0;
   }
 
+  .project::before {
+    top: 22%;
+    width: 92vw;
+  }
+
+  .projectProgress {
+    display: none;
+  }
+
   .project:nth-child(even) .projectCopy,
   .projectCopy {
     padding: 0;
@@ -813,6 +1006,14 @@
 
   .project:nth-child(even) .projectVisual {
     order: 2;
+  }
+
+  .projectTitleMask {
+    overflow: visible;
+  }
+
+  .project h3 {
+    will-change: auto;
   }
 
   .capabilityLayout {
@@ -932,6 +1133,18 @@
     grid-template-columns: 1fr;
   }
 
+  .projectFoot span {
+    text-align: left;
+  }
+
+  .projectCta {
+    width: 100%;
+  }
+
+  .signalLabels span {
+    font-size: 0.44rem;
+  }
+
   .capabilityGroup {
     grid-template-columns: 1fr;
   }
@@ -965,5 +1178,23 @@
   .contactPlaceholder {
     margin-top: 1rem;
     justify-self: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projectProgress {
+    display: none;
+  }
+
+  .projectTitleMask {
+    overflow: visible;
+  }
+
+  .project h3 {
+    will-change: auto;
+  }
+
+  .projectVisual {
+    opacity: 1;
   }
 }

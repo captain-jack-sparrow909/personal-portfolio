@@ -5,12 +5,14 @@ import type { RefObject } from "react";
 import * as THREE from "three";
 
 import type { NormalizedPointer } from "@/hooks/usePointerPosition";
-import type { SceneMode } from "@/store/scene-store";
+import type { SceneMode, TransitionState } from "@/store/scene-store";
 
 type CameraRigProps = {
   mode: SceneMode;
   pointer: RefObject<NormalizedPointer>;
+  progress: RefObject<number>;
   reducedMotion: boolean;
+  transitionState: TransitionState;
 };
 
 const cameraDepth: Record<SceneMode, number> = {
@@ -23,10 +25,25 @@ const cameraDepth: Record<SceneMode, number> = {
   contact: 8.7,
 };
 
-export function CameraRig({ mode, pointer, reducedMotion }: CameraRigProps) {
+export function CameraRig({
+  mode,
+  pointer,
+  progress,
+  reducedMotion,
+  transitionState,
+}: CameraRigProps) {
   useFrame(({ camera }, delta) => {
     const pointerX = reducedMotion ? 0 : pointer.current.x;
     const pointerY = reducedMotion ? 0 : pointer.current.y;
+    const projectProgress =
+      mode === "devpulse" ||
+      mode === "rontgen" ||
+      mode === "cognora" ||
+      mode === "orkestria"
+        ? progress.current
+        : 0;
+    const transitionPush = transitionState === "transitioning" ? 0.72 : 0;
+    const chapterPush = Math.sin(projectProgress * Math.PI) * 0.36;
 
     camera.position.x = THREE.MathUtils.damp(
       camera.position.x,
@@ -42,7 +59,7 @@ export function CameraRig({ mode, pointer, reducedMotion }: CameraRigProps) {
     );
     camera.position.z = THREE.MathUtils.damp(
       camera.position.z,
-      cameraDepth[mode],
+      cameraDepth[mode] - transitionPush - chapterPush,
       2.8,
       delta,
     );

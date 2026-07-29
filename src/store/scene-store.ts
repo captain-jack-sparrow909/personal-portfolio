@@ -15,7 +15,7 @@ export type SceneMode =
 
 export type ProjectMode = ProjectSceneMode;
 
-type TransitionState = "idle" | "transitioning";
+export type TransitionState = "idle" | "transitioning";
 
 type SceneState = {
   activeProject: ProjectMode | null;

@@ -1,0 +1,69 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+
+import { SiteFooter } from "@/components/layout/SiteFooter";
+import { SiteHeader } from "@/components/layout/SiteHeader";
+import { MotionProvider } from "@/components/motion/MotionProvider";
+import { ProjectCaseStudy } from "@/components/project/ProjectCaseStudy";
+import { getProjectBySlug, projects } from "@/content/projects";
+
+type ProjectRouteProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export function generateStaticParams() {
+  return projects.map((project) => ({ slug: project.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: ProjectRouteProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
+
+  if (!project) return {};
+
+  return {
+    title: `${project.name} — Jabir Khan`,
+    description: project.summary,
+    alternates: { canonical: `/work/${project.slug}` },
+    openGraph: {
+      title: `${project.name} — Jabir Khan`,
+      description: project.summary,
+      type: "website",
+      url: `/work/${project.slug}`,
+      images: [
+        {
+          url: "/og.png",
+          width: 1200,
+          height: 630,
+          alt: "Jabir Khan — Intelligence in Motion",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.name} — Jabir Khan`,
+      description: project.summary,
+      images: ["/og.png"],
+    },
+  };
+}
+
+export default async function ProjectRoute({ params }: ProjectRouteProps) {
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
+
+  if (!project) notFound();
+
+  return (
+    <MotionProvider>
+      <a className="skip-link" href="#project-content">
+        Skip to project
+      </a>
+      <SiteHeader />
+      <ProjectCaseStudy project={project} />
+      <SiteFooter />
+    </MotionProvider>
+  );
+}

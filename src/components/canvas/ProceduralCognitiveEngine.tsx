@@ -125,7 +125,9 @@ export function ProceduralCognitiveEngine({
   deviceTier,
   mode,
   pointer,
+  progress,
   reducedMotion,
+  transitionState,
 }: CognitiveEngineProps) {
   const root = useRef<THREE.Group>(null);
   const core = useRef<THREE.Mesh>(null);
@@ -185,6 +187,17 @@ export function ProceduralCognitiveEngine({
     const pose = poseByMode[mode];
     const pointerX = reducedMotion ? 0 : pointer.current.x;
     const pointerY = reducedMotion ? 0 : pointer.current.y;
+    const projectMode =
+      mode === "devpulse" ||
+      mode === "rontgen" ||
+      mode === "cognora" ||
+      mode === "orkestria";
+    const chapterProgress = projectMode
+      ? reducedMotion
+        ? 0.58
+        : progress.current
+      : 0;
+    const transitionScale = transitionState === "transitioning" ? 1.14 : 1;
 
     engine.position.x = THREE.MathUtils.damp(
       engine.position.x,
@@ -224,13 +237,24 @@ export function ProceduralCognitiveEngine({
     );
     const nextScale = THREE.MathUtils.damp(
       engine.scale.x,
-      pose.scale,
+      pose.scale * transitionScale,
       3.5,
       delta,
     );
     engine.scale.setScalar(nextScale);
 
-    const separation = mode === "identity" ? 0.18 : 0;
+    const separation =
+      mode === "identity"
+        ? 0.18
+        : mode === "rontgen"
+          ? chapterProgress * 0.22
+          : 0;
+    const ringExpansion =
+      mode === "orkestria"
+        ? 1 + chapterProgress * 0.28
+        : mode === "cognora"
+          ? 1 + chapterProgress * 0.12
+          : 1;
     if (outerRing.current) {
       outerRing.current.position.x = THREE.MathUtils.damp(
         outerRing.current.position.x,
@@ -238,6 +262,13 @@ export function ProceduralCognitiveEngine({
         3.5,
         delta,
       );
+      const outerScale = THREE.MathUtils.damp(
+        outerRing.current.scale.x,
+        ringExpansion,
+        4,
+        delta,
+      );
+      outerRing.current.scale.setScalar(outerScale);
     }
     if (middleRing.current) {
       middleRing.current.position.x = THREE.MathUtils.damp(
@@ -245,6 +276,48 @@ export function ProceduralCognitiveEngine({
         -separation,
         3.5,
         delta,
+      );
+      const middleScale = THREE.MathUtils.damp(
+        middleRing.current.scale.x,
+        mode === "orkestria" ? 1 + chapterProgress * 0.18 : 1,
+        4,
+        delta,
+      );
+      middleRing.current.scale.setScalar(middleScale);
+    }
+    if (innerRing.current) {
+      const innerScale = THREE.MathUtils.damp(
+        innerRing.current.scale.x,
+        mode === "devpulse"
+          ? 1 + Math.sin(chapterProgress * Math.PI) * 0.34
+          : 1,
+        4,
+        delta,
+      );
+      innerRing.current.scale.set(
+        innerScale,
+        mode === "devpulse" ? 1 - chapterProgress * 0.18 : innerScale,
+        innerScale,
+      );
+    }
+    if (nodes.current) {
+      const nodeScale = mode === "cognora" ? 1 + chapterProgress * 0.22 : 1;
+      nodes.current.scale.setScalar(
+        THREE.MathUtils.damp(nodes.current.scale.x, nodeScale, 4, delta),
+      );
+    }
+    if (fragments.current) {
+      const fragmentScale =
+        mode === "devpulse" ? 1 + chapterProgress * 0.28 : 1;
+      fragments.current.scale.set(
+        THREE.MathUtils.damp(
+          fragments.current.scale.x,
+          fragmentScale,
+          4,
+          delta,
+        ),
+        1,
+        1,
       );
     }
 
@@ -258,8 +331,13 @@ export function ProceduralCognitiveEngine({
       core.current?.scale.setScalar(pulse);
       if (coreMaterial.current) {
         coreMaterial.current.emissiveIntensity =
-          0.15 + Math.sin(clock.elapsedTime * 1.35) * 0.035;
+          0.15 +
+          Math.sin(clock.elapsedTime * 1.35) * 0.035 +
+          Math.sin(chapterProgress * Math.PI) * 0.12;
       }
+    } else if (coreMaterial.current) {
+      coreMaterial.current.emissiveIntensity =
+        0.15 + Math.sin(chapterProgress * Math.PI) * 0.1;
     }
   });
 

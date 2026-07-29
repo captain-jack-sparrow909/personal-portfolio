@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import { navigation } from "@/content/navigation";
@@ -8,6 +9,7 @@ import { projects } from "@/content/projects";
 import { siteConfig } from "@/content/site";
 
 export function SiteHeader() {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -69,6 +71,7 @@ export function SiteHeader() {
   }, [menuOpen]);
 
   const closeMenu = () => setMenuOpen(false);
+  const homeHref = (hash: string) => (pathname === "/" ? hash : `/${hash}`);
 
   return (
     <header className="site-header">
@@ -77,21 +80,25 @@ export function SiteHeader() {
           aria-label={`${siteConfig.name}, home`}
           className="site-header__monogram"
           data-magnetic
-          href="#top"
+          href={homeHref("#top")}
         >
           <span aria-hidden="true">JK</span>
         </Link>
 
         <div className="site-header__links">
           {navigation.map((item, index) => (
-            <Link data-magnetic href={item.href} key={item.href}>
+            <Link data-magnetic href={homeHref(item.href)} key={item.href}>
               <span className="site-header__number">0{index + 1}</span>
               {item.label}
             </Link>
           ))}
         </div>
 
-        <a className="site-header__availability" data-magnetic href="#contact">
+        <a
+          className="site-header__availability"
+          data-magnetic
+          href={homeHref("#contact")}
+        >
           <span aria-hidden="true" className="status-dot" />
           <span>{siteConfig.availability}</span>
         </a>
@@ -130,7 +137,7 @@ export function SiteHeader() {
           <div className="mobile-menu__primary">
             {navigation.map((item, index) => (
               <Link
-                href={item.href}
+                href={homeHref(item.href)}
                 key={item.href}
                 onClick={closeMenu}
                 tabIndex={menuOpen ? 0 : -1}
@@ -145,7 +152,7 @@ export function SiteHeader() {
             <p>Selected systems</p>
             {projects.map((project) => (
               <Link
-                href={`#project-${project.slug}`}
+                href={homeHref(`#project-${project.slug}`)}
                 key={project.slug}
                 onClick={closeMenu}
                 tabIndex={menuOpen ? 0 : -1}

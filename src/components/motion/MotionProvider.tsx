@@ -11,6 +11,7 @@ import type Lenis from "lenis";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { gsap, ScrollTrigger } from "@/lib/motion/gsap";
 import { createLenis } from "@/lib/motion/lenis";
+import { createProjectStorytellingTimelines } from "@/lib/motion/project-timelines";
 import { createHeroTimeline, revealImmediately } from "@/lib/motion/timelines";
 
 type MotionContextValue = {
@@ -57,6 +58,10 @@ export function MotionProvider({ children }: MotionProviderProps) {
 
     const context = gsap.context(() => {
       animations.push(createHeroTimeline());
+
+      const projectStorytelling = createProjectStorytellingTimelines();
+      animations.push(...projectStorytelling.animations);
+      cleanups.push(projectStorytelling.cleanup);
 
       gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((element) => {
         const animation = gsap.fromTo(
@@ -239,6 +244,44 @@ export function MotionProvider({ children }: MotionProviderProps) {
             cleanups.push(() => {
               element.removeEventListener("pointermove", handlePointerMove);
               element.removeEventListener("pointerleave", resetPosition);
+            });
+          });
+
+        gsap.utils
+          .toArray<HTMLElement>("[data-project-chapter]")
+          .forEach((chapter) => {
+            const title = chapter.querySelector<HTMLElement>(
+              "[data-project-title]",
+            );
+            if (!title) return;
+
+            const moveX = gsap.quickTo(title, "x", {
+              duration: 0.7,
+              ease: "power3.out",
+            });
+            const moveY = gsap.quickTo(title, "y", {
+              duration: 0.7,
+              ease: "power3.out",
+            });
+
+            const handlePointerMove = (event: PointerEvent) => {
+              const bounds = chapter.getBoundingClientRect();
+              const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+              const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+
+              moveX(x * 10);
+              moveY(y * 6);
+            };
+            const resetTitle = () => {
+              moveX(0);
+              moveY(0);
+            };
+
+            chapter.addEventListener("pointermove", handlePointerMove);
+            chapter.addEventListener("pointerleave", resetTitle);
+            cleanups.push(() => {
+              chapter.removeEventListener("pointermove", handlePointerMove);
+              chapter.removeEventListener("pointerleave", resetTitle);
             });
           });
       }

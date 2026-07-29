@@ -9,8 +9,12 @@ system, masked text reveals, layered parallax, responsive navigation
 transitions, and reduced-motion behavior. The persistent WebGL scene,
 introduced in Phase 3, adds a procedural Cognitive Engine with adaptive
 quality, lighting, particles, and failure-safe static fallbacks. Case-study
-routes and production contact integrations remain deliberately scheduled for
-later phases in [`project.md`](./project.md).
+transition shells, viewport-scale project chapters, scroll-linked project
+motifs, and progress UI arrive in Phase 4. Full case-study narratives and
+shared architecture, conceptual interface frames, project metadata, and
+next-project navigation arrive in Phase 5. Final model support and production
+contact integrations remain deliberately scheduled for later phases in
+[`project.md`](./project.md).
 
 ## Stack
 

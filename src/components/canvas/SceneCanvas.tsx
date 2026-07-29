@@ -14,10 +14,12 @@ import { LightingRig } from "./LightingRig";
 import { ParticleField } from "./ParticleField";
 import { PerformanceController } from "./PerformanceController";
 import { PostProcessing } from "./PostProcessing";
+import { ProjectVisualSystem } from "./ProjectVisualSystem";
 import { SceneEnvironment } from "./SceneEnvironment";
 
 type SceneCanvasProps = {
   pointer: RefObject<NormalizedPointer>;
+  progress: RefObject<number>;
 };
 
 function ContextController() {
@@ -45,10 +47,11 @@ function ContextController() {
   return null;
 }
 
-export default function SceneCanvas({ pointer }: SceneCanvasProps) {
+export default function SceneCanvas({ pointer, progress }: SceneCanvasProps) {
   const currentSection = useSceneStore((state) => state.currentSection);
   const deviceTier = useSceneStore((state) => state.deviceTier);
   const reducedMotion = useSceneStore((state) => state.reducedMotion);
+  const transitionState = useSceneStore((state) => state.transitionState);
   const setCanvasReady = useSceneStore((state) => state.setCanvasReady);
   const pageVisible = usePageVisibility();
 
@@ -75,18 +78,28 @@ export default function SceneCanvas({ pointer }: SceneCanvasProps) {
       }}
     >
       <SceneEnvironment />
-      <LightingRig mode={currentSection} />
+      <LightingRig mode={currentSection} progress={progress} />
       <ParticleField deviceTier={deviceTier} reducedMotion={reducedMotion} />
       <CognitiveEngine
         deviceTier={deviceTier}
         mode={currentSection}
         pointer={pointer}
+        progress={progress}
+        reducedMotion={reducedMotion}
+        transitionState={transitionState}
+      />
+      <ProjectVisualSystem
+        deviceTier={deviceTier}
+        mode={currentSection}
+        progress={progress}
         reducedMotion={reducedMotion}
       />
       <CameraRig
         mode={currentSection}
         pointer={pointer}
+        progress={progress}
         reducedMotion={reducedMotion}
+        transitionState={transitionState}
       />
       <PerformanceController />
       <PostProcessing deviceTier={deviceTier} reducedMotion={reducedMotion} />

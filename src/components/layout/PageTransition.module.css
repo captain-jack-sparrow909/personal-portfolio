@@ -1,0 +1,123 @@
+.transition {
+  --transition-accent: var(--color-cyan);
+  position: fixed;
+  z-index: 120;
+  inset: 0;
+  color: var(--color-text);
+  background: var(--color-background);
+  clip-path: circle(0 at var(--transition-x, 50%) var(--transition-y, 50%));
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.transition[data-accent="warm"] {
+  --transition-accent: var(--color-warm);
+}
+
+.transition[data-accent="phosphor"] {
+  --transition-accent: var(--color-phosphor);
+}
+
+.transition[data-accent="violet"] {
+  --transition-accent: var(--color-violet);
+}
+
+.transition[data-state="covering"] {
+  clip-path: circle(
+    150vmax at var(--transition-x, 50%) var(--transition-y, 50%)
+  );
+  opacity: 1;
+  transition:
+    clip-path 620ms var(--ease-standard),
+    opacity 160ms ease;
+  visibility: visible;
+}
+
+.transition[data-state="revealing"] {
+  clip-path: circle(
+    150vmax at var(--transition-x, 50%) var(--transition-y, 50%)
+  );
+  opacity: 0;
+  transition: opacity 620ms ease 90ms;
+  visibility: visible;
+}
+
+.transition::before,
+.transition::after {
+  position: absolute;
+  content: "";
+  pointer-events: none;
+}
+
+.transition::before {
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 49.95%,
+      color-mix(in srgb, var(--transition-accent) 32%, transparent) 50%,
+      transparent 50.05%
+    ),
+    radial-gradient(
+      circle at var(--transition-x, 50%) var(--transition-y, 50%),
+      color-mix(in srgb, var(--transition-accent) 18%, transparent),
+      transparent 32%
+    );
+}
+
+.transition::after {
+  width: 28vmin;
+  aspect-ratio: 1;
+  border: 1px solid var(--transition-accent);
+  border-radius: 50%;
+  inset: 50% auto auto 50%;
+  box-shadow:
+    0 0 4rem color-mix(in srgb, var(--transition-accent) 20%, transparent),
+    inset 0 0 4rem color-mix(in srgb, var(--transition-accent) 12%, transparent);
+  transform: translate(-50%, -50%);
+}
+
+.transitionField {
+  position: absolute;
+  inset: var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid
+    color-mix(in srgb, var(--transition-accent) 42%, transparent);
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--transition-accent) 42%, transparent);
+  font:
+    500 0.58rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.08em;
+}
+
+.transitionField strong {
+  color: var(--transition-accent);
+  font-size: clamp(2rem, 5vw, 5rem);
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 38rem) {
+  .transitionField {
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+
+  .transitionField strong {
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .transition,
+  .transition[data-state="covering"],
+  .transition[data-state="revealing"] {
+    clip-path: none;
+    transition: opacity 90ms ease;
+  }
+}

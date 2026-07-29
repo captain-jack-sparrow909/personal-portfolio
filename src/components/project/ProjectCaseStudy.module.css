@@ -1,0 +1,1139 @@
+.projectPage {
+  --project-accent: var(--color-cyan);
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  overflow: clip;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+    var(--color-background);
+  background-size: 5rem 5rem;
+}
+
+.projectPage[data-accent="warm"] {
+  --project-accent: var(--color-warm);
+}
+
+.projectPage[data-accent="phosphor"] {
+  --project-accent: var(--color-phosphor);
+}
+
+.projectPage[data-accent="violet"] {
+  --project-accent: var(--color-violet);
+}
+
+.hero,
+.section,
+.statusSection,
+.projectNavigation {
+  position: relative;
+  width: min(100%, var(--content-max));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.hero {
+  display: flex;
+  min-height: 100svh;
+  flex-direction: column;
+  padding-top: clamp(7.5rem, 12vh, 10rem);
+  padding-bottom: 1.5rem;
+}
+
+.hero::before {
+  position: absolute;
+  z-index: -1;
+  top: 3%;
+  right: -18%;
+  width: min(70vw, 78rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--project-accent) 13%, transparent),
+    transparent 68%
+  );
+  content: "";
+  pointer-events: none;
+}
+
+.heroMeta {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-secondary);
+  font:
+    500 0.62rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.heroMeta span:last-child {
+  color: var(--project-accent);
+  text-align: right;
+}
+
+.heroGrid {
+  display: grid;
+  flex: 1;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: center;
+  padding-block: clamp(3rem, 7vh, 6rem);
+}
+
+.heroCopy {
+  z-index: 2;
+  grid-column: 1 / span 8;
+}
+
+.eyebrow {
+  color: var(--project-accent);
+  font:
+    500 0.64rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 10ch;
+  margin-top: 1.2rem;
+  font-size: clamp(5rem, 13vw, 15rem);
+  line-height: 0.76;
+  letter-spacing: -0.085em;
+  text-wrap: balance;
+}
+
+.heroSummary {
+  max-width: 48rem;
+  margin-top: clamp(2rem, 5vw, 4rem);
+  margin-left: 25%;
+  font-size: clamp(1.15rem, 1.8vw, 1.85rem);
+  line-height: 1.4;
+}
+
+.heroArtifact {
+  position: relative;
+  grid-column: 8 / -1;
+  grid-row: 1;
+  width: min(100%, 38rem);
+  aspect-ratio: 1;
+  justify-self: end;
+  border: 1px solid color-mix(in srgb, var(--project-accent) 28%, transparent);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--project-accent) 13%, transparent),
+    transparent 62%
+  );
+  box-shadow:
+    inset 0 0 8rem rgba(0, 0, 0, 0.42),
+    0 0 8rem color-mix(in srgb, var(--project-accent) 5%, transparent);
+  opacity: 0.84;
+}
+
+.heroArtifact::before,
+.heroArtifact::after {
+  position: absolute;
+  border: 1px dashed color-mix(in srgb, var(--project-accent) 28%, transparent);
+  border-radius: 50%;
+  content: "";
+  inset: 12%;
+}
+
+.heroArtifact::after {
+  border-style: solid;
+  inset: 31%;
+}
+
+.artifactMeta {
+  position: absolute;
+  top: 8%;
+  right: 9%;
+  left: 9%;
+  display: flex;
+  justify-content: space-between;
+  color: var(--project-accent);
+  font:
+    500 0.52rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.08em;
+}
+
+.artifactRing,
+.artifactCore {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.artifactRing {
+  width: 61%;
+  height: 24%;
+  border: 1px solid var(--project-accent);
+  box-shadow: 0 0 2rem
+    color-mix(in srgb, var(--project-accent) 12%, transparent);
+  transform: translate(-50%, -50%) rotate(-24deg);
+}
+
+.artifactRing:nth-of-type(2) {
+  width: 43%;
+  height: 68%;
+  opacity: 0.55;
+  transform: translate(-50%, -50%) rotate(37deg);
+}
+
+.artifactCore {
+  width: 15%;
+  aspect-ratio: 1;
+  border: 1px solid
+    color-mix(in srgb, var(--project-accent) 70%, var(--color-text));
+  background: radial-gradient(
+    circle at 32% 25%,
+    var(--color-text),
+    var(--project-accent) 16%,
+    color-mix(in srgb, var(--project-accent) 20%, black) 62%
+  );
+  box-shadow: 0 0 3rem
+    color-mix(in srgb, var(--project-accent) 45%, transparent);
+}
+
+.heroArtifact > b {
+  position: absolute;
+  width: 0.55rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--project-accent);
+  box-shadow: 0 0 1.2rem var(--project-accent);
+}
+
+.heroArtifact > b:nth-of-type(1) {
+  top: 17%;
+  left: 38%;
+}
+
+.heroArtifact > b:nth-of-type(2) {
+  top: 48%;
+  right: 9%;
+}
+
+.heroArtifact > b:nth-of-type(3) {
+  right: 28%;
+  bottom: 11%;
+}
+
+.heroArtifact > b:nth-of-type(4) {
+  bottom: 34%;
+  left: 10%;
+}
+
+.heroArtifact[data-scene="devpulse"] .artifactRing {
+  height: 16%;
+  transform: translate(-50%, -50%) rotate(-7deg);
+}
+
+.heroArtifact[data-scene="rontgen"]::before {
+  border-radius: 0;
+  transform: rotate(-8deg);
+}
+
+.heroArtifact[data-scene="cognora"] .artifactCore {
+  box-shadow:
+    -8rem -4rem 0 -0.12rem
+      color-mix(in srgb, var(--project-accent) 55%, transparent),
+    7rem -5rem 0 -0.2rem
+      color-mix(in srgb, var(--project-accent) 45%, transparent),
+    8rem 5rem 0 -0.16rem
+      color-mix(in srgb, var(--project-accent) 50%, transparent),
+    -6rem 6rem 0 -0.18rem
+      color-mix(in srgb, var(--project-accent) 42%, transparent);
+}
+
+.heroArtifact[data-scene="orkestria"] .artifactRing {
+  width: 72%;
+  height: 42%;
+}
+
+.heroFooter {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr auto;
+  gap: 2rem;
+  align-items: end;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-secondary);
+  font-size: 0.78rem;
+}
+
+.heroFooter > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.heroFooter > div span {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--project-accent) 24%, transparent);
+  border-radius: var(--radius-pill);
+  font:
+    500 0.52rem/1 var(--font-mono),
+    monospace;
+  text-transform: uppercase;
+}
+
+.heroFooter > a,
+.heroFooter > span {
+  color: var(--project-accent);
+  font:
+    500 0.58rem/1.4 var(--font-mono),
+    monospace;
+  letter-spacing: 0.05em;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.section {
+  padding-top: var(--section-space);
+}
+
+.sectionHeader {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid
+    color-mix(in srgb, var(--project-accent) 28%, var(--color-border));
+}
+
+.sectionLabel {
+  grid-column: 1 / span 3;
+  display: flex;
+  gap: clamp(1rem, 3vw, 3.5rem);
+  color: var(--color-secondary);
+  font:
+    500 0.62rem/1.4 var(--font-mono),
+    monospace;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.sectionLabel span:first-child {
+  color: var(--project-accent);
+}
+
+.sectionHeading {
+  grid-column: 5 / -1;
+}
+
+.sectionHeading h2 {
+  max-width: 13ch;
+  font-size: clamp(3rem, 7vw, 8rem);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.sectionHeading > p {
+  max-width: 44rem;
+  margin-top: clamp(1.5rem, 3vw, 3rem);
+  color: var(--color-secondary);
+  font-size: clamp(1rem, 1.25vw, 1.2rem);
+}
+
+.overviewGrid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: clamp(5rem, 10vw, 10rem);
+}
+
+.overviewGrid article {
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.overviewGrid article:first-child {
+  grid-column: 1 / span 5;
+}
+
+.overviewGrid article:last-child {
+  grid-column: 7 / -1;
+  margin-top: clamp(6rem, 12vw, 12rem);
+}
+
+.overviewGrid article > span {
+  color: var(--project-accent);
+  font:
+    500 0.6rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.overviewGrid article > p {
+  margin-top: 2rem;
+  font-size: clamp(1.35rem, 2.7vw, 3rem);
+  line-height: 1.28;
+  letter-spacing: -0.035em;
+}
+
+.overviewGrid article:last-child > p::first-letter {
+  color: var(--project-accent);
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 2.5em;
+  font-style: italic;
+  line-height: 0;
+}
+
+.moduleList {
+  margin-top: clamp(5rem, 9vw, 9rem);
+}
+
+.moduleList li {
+  display: grid;
+  grid-template-columns: 0.55fr 3fr 3fr;
+  gap: 1rem;
+  align-items: baseline;
+  padding: clamp(1.8rem, 3vw, 3rem) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.moduleList li:last-child {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.moduleList li > span {
+  color: var(--project-accent);
+  font:
+    500 0.58rem/1 var(--font-mono),
+    monospace;
+}
+
+.moduleList h3 {
+  font-size: clamp(1.8rem, 3.5vw, 4rem);
+  line-height: 0.95;
+}
+
+.moduleList p {
+  max-width: 32rem;
+  color: var(--color-secondary);
+}
+
+.architecture {
+  margin-top: clamp(5rem, 9vw, 9rem);
+  padding: clamp(1.2rem, 2.5vw, 2.5rem);
+  border: 1px solid
+    color-mix(in srgb, var(--project-accent) 25%, var(--color-border));
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    rgba(10, 10, 12, 0.76);
+  background-size: 3rem 3rem;
+}
+
+.architecture figcaption {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-secondary);
+  font:
+    500 0.56rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.architecture ol {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: clamp(3rem, 7vw, 7rem);
+  padding-bottom: 2rem;
+}
+
+.architecture ol::before {
+  position: absolute;
+  top: 1.35rem;
+  right: 9%;
+  left: 9%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--project-accent),
+    transparent
+  );
+  content: "";
+}
+
+.architecture li {
+  position: relative;
+}
+
+.architecture li > div {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 2.7rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.architecture li > div > span {
+  display: grid;
+  width: 2.7rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid var(--project-accent);
+  border-radius: 50%;
+  background: var(--color-background-secondary);
+  color: var(--project-accent);
+  font:
+    500 0.55rem/1 var(--font-mono),
+    monospace;
+}
+
+.architecture li > div > i {
+  width: 0.4rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--project-accent);
+  box-shadow: 0 0 1rem var(--project-accent);
+}
+
+.architecture li > div > small {
+  color: var(--color-secondary);
+  font:
+    500 0.48rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.06em;
+}
+
+.architecture h3 {
+  margin-top: 2.2rem;
+  font-size: clamp(1.25rem, 1.8vw, 2rem);
+  line-height: 1;
+}
+
+.architecture li > p {
+  margin-top: 1rem;
+  color: var(--color-secondary);
+  font-size: 0.78rem;
+}
+
+.conceptGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: clamp(5rem, 9vw, 9rem);
+}
+
+.conceptGrid figure {
+  overflow: hidden;
+  border: 1px solid
+    color-mix(in srgb, var(--project-accent) 24%, var(--color-border));
+  background: var(--color-background-secondary);
+}
+
+.conceptCanvas {
+  position: relative;
+  min-height: clamp(22rem, 42vw, 40rem);
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 64% 48%,
+      color-mix(in srgb, var(--project-accent) 14%, transparent),
+      transparent 30%
+    ),
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    #08080a;
+  background-size:
+    auto,
+    2.5rem 2.5rem,
+    2.5rem 2.5rem,
+    auto;
+}
+
+.conceptTopbar {
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  right: 1rem;
+  left: 1rem;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-secondary);
+  font:
+    500 0.5rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.08em;
+}
+
+.conceptRail {
+  position: absolute;
+  top: 22%;
+  bottom: 10%;
+  left: 8%;
+  display: grid;
+  width: 2.25rem;
+  align-content: space-between;
+  justify-items: center;
+  padding-block: 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--project-accent) 24%, transparent);
+}
+
+.conceptRail i {
+  width: 0.35rem;
+  aspect-ratio: 1;
+  border: 1px solid var(--project-accent);
+  border-radius: 50%;
+}
+
+.conceptRail i:nth-child(2) {
+  background: var(--project-accent);
+  box-shadow: 0 0 0.8rem var(--project-accent);
+}
+
+.conceptFocus {
+  position: absolute;
+  top: 22%;
+  right: 9%;
+  bottom: 22%;
+  left: 22%;
+  border: 1px solid color-mix(in srgb, var(--project-accent) 30%, transparent);
+}
+
+.conceptFocus::before,
+.conceptFocus::after {
+  position: absolute;
+  content: "";
+}
+
+.conceptFocus::before {
+  top: 50%;
+  right: 10%;
+  left: 10%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--project-accent),
+    transparent
+  );
+}
+
+.conceptFocus::after {
+  top: 50%;
+  left: 50%;
+  width: 26%;
+  aspect-ratio: 1;
+  border: 1px solid var(--project-accent);
+  border-radius: 50%;
+  box-shadow:
+    0 0 3rem color-mix(in srgb, var(--project-accent) 25%, transparent),
+    inset 0 0 2rem color-mix(in srgb, var(--project-accent) 14%, transparent);
+  transform: translate(-50%, -50%);
+}
+
+.conceptFocus span {
+  position: absolute;
+  width: 0.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--project-accent);
+  box-shadow: 0 0 1rem var(--project-accent);
+}
+
+.conceptFocus span:nth-child(1) {
+  top: 12%;
+  left: 24%;
+}
+
+.conceptFocus span:nth-child(2) {
+  top: 37%;
+  right: 12%;
+}
+
+.conceptFocus span:nth-child(3) {
+  bottom: 13%;
+  left: 35%;
+}
+
+.conceptSignals {
+  position: absolute;
+  right: 9%;
+  bottom: 8%;
+  left: 22%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.conceptSignals span {
+  padding: 0.32rem 0.42rem;
+  border: 1px solid var(--color-border);
+  color: var(--color-secondary);
+  background: rgba(5, 5, 6, 0.82);
+  font:
+    500 0.45rem/1 var(--font-mono),
+    monospace;
+  text-transform: uppercase;
+}
+
+.conceptGrid figcaption {
+  padding: clamp(1.4rem, 3vw, 2.5rem);
+  border-top: 1px solid var(--color-border);
+}
+
+.conceptGrid figcaption > span,
+.conceptGrid figcaption > small {
+  color: var(--project-accent);
+  font:
+    500 0.54rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.conceptGrid h3 {
+  margin-top: 1.3rem;
+  font-size: clamp(2rem, 3.5vw, 4rem);
+  line-height: 0.95;
+}
+
+.conceptGrid figcaption > p {
+  max-width: 34rem;
+  margin-top: 1rem;
+  color: var(--color-secondary);
+}
+
+.conceptGrid figcaption > small {
+  display: block;
+  margin-top: 2rem;
+  color: var(--color-secondary);
+}
+
+.decisionList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: clamp(5rem, 9vw, 9rem);
+}
+
+.decisionList li {
+  min-height: clamp(22rem, 34vw, 34rem);
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.4rem, 2.5vw, 2.5rem);
+  border-top: 1px solid var(--project-accent);
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--project-accent) 8%, transparent),
+    rgba(10, 10, 12, 0.7) 42%
+  );
+}
+
+.decisionList li > span {
+  color: var(--project-accent);
+  font:
+    500 0.54rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.decisionList h3 {
+  margin-top: auto;
+  font-size: clamp(2rem, 3.5vw, 4rem);
+  line-height: 0.94;
+}
+
+.decisionList p {
+  margin-top: 1.5rem;
+  color: var(--color-secondary);
+}
+
+.statusSection {
+  margin-top: var(--section-space);
+  padding-top: clamp(3rem, 6vw, 6rem);
+  padding-bottom: clamp(4rem, 8vw, 8rem);
+  border-top: 1px solid var(--project-accent);
+  background:
+    radial-gradient(
+      circle at 72% 50%,
+      color-mix(in srgb, var(--project-accent) 13%, transparent),
+      transparent 30%
+    ),
+    rgba(10, 10, 12, 0.82);
+}
+
+.statusMeta {
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-secondary);
+  font:
+    500 0.6rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.statusMeta span:last-child {
+  color: var(--project-accent);
+}
+
+.statusGrid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: end;
+  margin-top: clamp(5rem, 9vw, 9rem);
+}
+
+.statusGrid h2 {
+  grid-column: 1 / span 7;
+  max-width: 11ch;
+  font-size: clamp(3.5rem, 8vw, 9rem);
+  line-height: 0.84;
+  letter-spacing: -0.07em;
+}
+
+.statusGrid > div {
+  grid-column: 9 / -1;
+}
+
+.statusGrid > div > p {
+  color: var(--color-secondary);
+}
+
+.statusGrid > div > span {
+  display: block;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--project-accent);
+  font:
+    500 0.58rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.statusGrid > div > span + p {
+  margin-top: 1rem;
+  color: var(--color-text);
+  font-size: 1.05rem;
+}
+
+.projectNavigation {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 1rem;
+  align-items: end;
+  padding-top: clamp(4rem, 8vw, 8rem);
+  padding-bottom: clamp(4rem, 8vw, 8rem);
+  border-top: 1px solid var(--color-border);
+}
+
+.allProjectsLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-secondary);
+  font:
+    500 0.62rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.allProjectsLink span {
+  color: var(--project-accent);
+  transition: transform 300ms var(--ease-standard);
+}
+
+.allProjectsLink:hover span {
+  transform: translateX(-0.35rem);
+}
+
+.nextProject {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--project-accent);
+}
+
+.nextProject > span {
+  color: var(--project-accent);
+  font:
+    500 0.58rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.nextProject > span small {
+  display: block;
+  margin-top: 0.65rem;
+  color: var(--color-secondary);
+  font: inherit;
+}
+
+.nextProject strong {
+  grid-column: 1 / -1;
+  font-size: clamp(4rem, 10vw, 12rem);
+  line-height: 0.78;
+  letter-spacing: -0.08em;
+  transition: color 250ms ease;
+}
+
+.nextProject > i {
+  grid-column: 2;
+  grid-row: 1;
+  color: var(--project-accent);
+  font-size: 1.5rem;
+  font-style: normal;
+  transition: transform 400ms var(--ease-standard);
+}
+
+.nextProject:hover strong {
+  color: var(--project-accent);
+}
+
+.nextProject:hover > i {
+  transform: rotate(45deg);
+}
+
+@media (max-width: 70rem) {
+  .heroCopy {
+    grid-column: 1 / span 9;
+  }
+
+  .heroArtifact {
+    grid-column: 7 / -1;
+    opacity: 0.66;
+  }
+
+  .architecture ol {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 4rem;
+  }
+
+  .architecture ol::before {
+    display: none;
+  }
+}
+
+@media (max-width: 56rem) {
+  .hero {
+    min-height: auto;
+  }
+
+  .heroGrid {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .heroCopy {
+    order: 1;
+  }
+
+  .heroArtifact {
+    width: min(78vw, 34rem);
+    margin: -3rem auto 0;
+    order: 2;
+  }
+
+  .heroSummary {
+    margin-left: 0;
+  }
+
+  .heroFooter {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .heroFooter > a,
+  .heroFooter > span {
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+
+  .sectionHeader {
+    row-gap: 2.5rem;
+  }
+
+  .sectionLabel,
+  .sectionHeading {
+    grid-column: 1 / -1;
+  }
+
+  .overviewGrid article:first-child,
+  .overviewGrid article:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .overviewGrid article:last-child {
+    margin-top: 5rem;
+  }
+
+  .moduleList li {
+    grid-template-columns: 3rem 1fr;
+  }
+
+  .moduleList p {
+    grid-column: 2;
+  }
+
+  .architecture ol {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-left: 1.35rem;
+  }
+
+  .architecture ol::before {
+    top: 1.35rem;
+    bottom: 1.35rem;
+    left: 2.7rem;
+    display: block;
+    width: 1px;
+    height: auto;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      var(--project-accent),
+      transparent
+    );
+  }
+
+  .architecture li {
+    min-height: 13rem;
+    padding-left: 4.5rem;
+  }
+
+  .architecture li > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .architecture li > div > i {
+    display: none;
+  }
+
+  .architecture li > div > small {
+    margin-left: auto;
+  }
+
+  .architecture h3 {
+    margin-top: 0.5rem;
+  }
+
+  .conceptGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .decisionList {
+    grid-template-columns: 1fr;
+  }
+
+  .decisionList li {
+    min-height: 24rem;
+  }
+
+  .statusGrid h2,
+  .statusGrid > div {
+    grid-column: 1 / -1;
+  }
+
+  .statusGrid > div {
+    margin-top: 3rem;
+  }
+
+  .projectNavigation {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+}
+
+@media (max-width: 38rem) {
+  .heroMeta {
+    grid-template-columns: 1fr auto;
+  }
+
+  .heroMeta span:nth-child(2) {
+    display: none;
+  }
+
+  .hero h1 {
+    font-size: clamp(4.2rem, 20vw, 6.5rem);
+  }
+
+  .heroFooter {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionHeader {
+    display: block;
+  }
+
+  .sectionLabel {
+    margin-bottom: 2rem;
+  }
+
+  .sectionHeading h2 {
+    font-size: clamp(3rem, 14vw, 5rem);
+  }
+
+  .moduleList li {
+    grid-template-columns: 2.4rem 1fr;
+  }
+
+  .architecture {
+    margin-inline: calc(var(--gutter) * -0.45);
+  }
+
+  .architecture figcaption span:last-child {
+    display: none;
+  }
+
+  .conceptCanvas {
+    min-height: 22rem;
+  }
+
+  .conceptSignals {
+    left: 9%;
+  }
+
+  .statusGrid h2 {
+    font-size: clamp(3.5rem, 16vw, 5.6rem);
+  }
+
+  .nextProject strong {
+    font-size: clamp(3.7rem, 17vw, 5.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nextProject > i,
+  .allProjectsLink span {
+    transition: none;
+  }
+}

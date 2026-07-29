@@ -18,10 +18,12 @@ One persistent dynamically imported Canvas, procedural Cognitive Engine, camera/
 ### Phase 4 — Project storytelling
 
 Viewport-scale project chapters, project scene modes, scoped scroll timelines, progress indicators, and transition scaffolding.
+**Complete.**
 
 ### Phase 5 — Case studies
 
 Dynamic project routes, shared case-study components, architecture diagrams, concept-frame treatment, metadata, and next-project navigation.
+**Complete.**
 
 ### Phase 6 — Final asset support
 
@@ -37,7 +39,7 @@ Bundle analysis, asset compression, cross-browser checks, Playwright coverage, m
 
 ## Proposed dependency list
 
-### Phase 1 through Phase 3 installed
+### Phase 1 through Phase 5 installed
 
 - `next`, `react`, `react-dom`
 - `tailwindcss`, `@tailwindcss/postcss`
@@ -57,6 +59,40 @@ Bundle analysis, asset compression, cross-browser checks, Playwright coverage, m
 - Testing: `vitest`, `@playwright/test`
 
 Dependencies are introduced only when their phase begins.
+
+Phase 4 reused the Phase 2 and Phase 3 runtime and introduced no additional
+packages.
+
+Phase 5 also introduced no runtime dependencies. Architecture diagrams and
+interface concept frames use semantic HTML and CSS.
+
+## Phase 5 file plan
+
+- `src/components/project/ProjectCaseStudy.tsx`
+- `src/components/project/ProjectHero.tsx`
+- `src/components/project/ProjectOverview.tsx`
+- `src/components/project/ProjectModules.tsx`
+- `src/components/project/ProjectArchitecture.tsx`
+- `src/components/project/ProjectConceptFrames.tsx`
+- `src/components/project/ProjectDecisions.tsx`
+- `src/components/project/ProjectStatus.tsx`
+- `src/components/project/ProjectNavigation.tsx`
+- `src/components/project/ProjectSectionHeader.tsx`
+- `src/components/project/ProjectCaseStudy.module.css`
+- `src/app/work/[slug]/page.tsx`
+- `src/app/work/[slug]/loading.tsx`
+- `public/og.png`
+
+## Phase 4 file plan
+
+- `src/components/sections/ProjectChapter.tsx`
+- `src/components/canvas/ProjectVisualSystem.tsx`
+- `src/components/layout/PageTransition.tsx`
+- `src/components/layout/PageTransition.module.css`
+- `src/hooks/useSectionProgress.ts`
+- `src/lib/motion/project-timelines.ts`
+- `src/app/work/[slug]/page.tsx`
+- `src/app/work/[slug]/page.module.css`
 
 ## Phase 3 file plan
 

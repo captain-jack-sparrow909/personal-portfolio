@@ -6,6 +6,7 @@ import { Component, useEffect, type ReactNode } from "react";
 import { useMotionPreferences } from "@/components/motion/MotionProvider";
 import { useDeviceTier } from "@/hooks/useDeviceTier";
 import { usePointerPosition } from "@/hooks/usePointerPosition";
+import { useSectionProgress } from "@/hooks/useSectionProgress";
 import { useWebGLSupport } from "@/hooks/useWebGLSupport";
 import {
   useSceneStore,
@@ -133,6 +134,7 @@ export function SceneExperience() {
   const setDeviceTier = useSceneStore((state) => state.setDeviceTier);
   const setReducedMotion = useSceneStore((state) => state.setReducedMotion);
   const pointer = usePointerPosition(!reducedMotion && deviceTier !== "low");
+  const progress = useSectionProgress();
 
   useSceneSections();
 
@@ -167,7 +169,7 @@ export function SceneExperience() {
   return (
     <div aria-hidden="true" className={styles.scene}>
       <SceneErrorBoundary>
-        <SceneCanvas pointer={pointer} />
+        <SceneCanvas pointer={pointer} progress={progress} />
       </SceneErrorBoundary>
       <div className={styles.hud}>
         <span>CE / PROCEDURAL-03</span>
