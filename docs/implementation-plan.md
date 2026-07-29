@@ -4,11 +4,11 @@
 
 ### Phase 1 — Foundation
 
-Strict TypeScript, pnpm, Tailwind, fonts, design tokens, typed content, semantic static sections, responsive editorial grid, metadata, sitemap, robots, and a polished static Cognitive Engine fallback.
+Strict TypeScript, pnpm, Tailwind, fonts, design tokens, typed content, semantic static sections, responsive editorial grid, metadata, sitemap, robots, and a polished static Cognitive Engine fallback. **Complete.**
 
 ### Phase 2 — Motion foundation
 
-MotionProvider, Lenis/ScrollTrigger integration, reveal primitives, navigation transitions, layered parallax, mobile menu, and reduced-motion behavior.
+MotionProvider, Lenis/ScrollTrigger integration, reveal primitives, navigation transitions, layered parallax, mobile menu, and reduced-motion behavior. **Complete.**
 
 ### Phase 3 — Procedural WebGL
 
@@ -36,7 +36,7 @@ Bundle analysis, asset compression, cross-browser checks, Playwright coverage, m
 
 ## Proposed dependency list
 
-### Phase 1 installed
+### Phase 1 and Phase 2 installed
 
 - `next`, `react`, `react-dom`
 - `tailwindcss`, `@tailwindcss/postcss`
@@ -44,16 +44,28 @@ Bundle analysis, asset compression, cross-browser checks, Playwright coverage, m
 - `typescript`, `@types/node`, `@types/react`, `@types/react-dom`
 - `eslint`, `eslint-config-next`
 - `prettier`, `prettier-plugin-tailwindcss`
+- Motion: `gsap`, `lenis`
 
 ### Later phases
 
-- Motion: `gsap`, `lenis`
 - 3D: `three`, `@react-three/fiber`, `@react-three/drei`, `@react-three/postprocessing`
 - State: `zustand`
 - Validation: `zod`
 - Testing: `vitest`, `@playwright/test`
 
 Dependencies are introduced only when their phase begins.
+
+## Phase 2 file plan
+
+- `src/components/motion/MotionProvider.tsx`
+- `src/hooks/useReducedMotion.ts`
+- `src/lib/motion/gsap.ts`
+- `src/lib/motion/lenis.ts`
+- `src/lib/motion/timelines.ts`
+- `src/components/layout/SiteHeader.tsx`
+- `src/components/sections/HeroSection.tsx`
+- `src/components/sections/Sections.module.css`
+- `src/app/globals.css`
 
 ## Exact Phase 1 file plan
 

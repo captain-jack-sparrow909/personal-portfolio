@@ -6,16 +6,12 @@ import {
   useLayoutEffect,
   type ReactNode,
 } from "react";
-import type { Animation } from "gsap";
 import type Lenis from "lenis";
 
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { gsap, ScrollTrigger } from "@/lib/motion/gsap";
 import { createLenis } from "@/lib/motion/lenis";
-import {
-  createHeroTimeline,
-  revealImmediately,
-} from "@/lib/motion/timelines";
+import { createHeroTimeline, revealImmediately } from "@/lib/motion/timelines";
 
 type MotionContextValue = {
   reducedMotion: boolean;
@@ -33,12 +29,17 @@ type MotionProviderProps = {
   children: ReactNode;
 };
 
+type PausableAnimation = {
+  pause: () => unknown;
+  resume: () => unknown;
+};
+
 export function MotionProvider({ children }: MotionProviderProps) {
   const reducedMotion = useReducedMotion();
 
   useLayoutEffect(() => {
     const root = document.documentElement;
-    const animations: Animation[] = [];
+    const animations: PausableAnimation[] = [];
     const cleanups: Array<() => void> = [];
     let lenis: Lenis | null = null;
     let disposed = false;
@@ -104,8 +105,9 @@ export function MotionProvider({ children }: MotionProviderProps) {
           );
         });
 
-      const processSignal =
-        document.querySelector<HTMLElement>("[data-process-signal]");
+      const processSignal = document.querySelector<HTMLElement>(
+        "[data-process-signal]",
+      );
       if (processSignal) {
         const matchMedia = gsap.matchMedia();
 
@@ -169,8 +171,9 @@ export function MotionProvider({ children }: MotionProviderProps) {
       });
       cleanups.push(() => parallaxMedia.revert());
 
-      const headerInner =
-        document.querySelector<HTMLElement>(".site-header__inner");
+      const headerInner = document.querySelector<HTMLElement>(
+        ".site-header__inner",
+      );
       if (headerInner) {
         ScrollTrigger.create({
           end: "max",
@@ -221,10 +224,8 @@ export function MotionProvider({ children }: MotionProviderProps) {
 
             const handlePointerMove = (event: PointerEvent) => {
               const bounds = element.getBoundingClientRect();
-              const offsetX =
-                event.clientX - bounds.left - bounds.width / 2;
-              const offsetY =
-                event.clientY - bounds.top - bounds.height / 2;
+              const offsetX = event.clientX - bounds.left - bounds.width / 2;
+              const offsetY = event.clientY - bounds.top - bounds.height / 2;
               moveX(offsetX * 0.12);
               moveY(offsetY * 0.12);
             };

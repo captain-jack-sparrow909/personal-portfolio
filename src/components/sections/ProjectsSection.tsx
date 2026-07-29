@@ -62,7 +62,7 @@ export function ProjectsSection() {
               </div>
             </div>
 
-            <div data-parallax="slow">
+            <div className={styles.projectVisual} data-parallax="slow">
               <ProjectSignal accent={project.accent} />
             </div>
           </article>

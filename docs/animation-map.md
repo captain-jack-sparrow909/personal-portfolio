@@ -1,6 +1,8 @@
 # Animation map
 
-This document defines later motion work. Phase 1 deliberately ships without JavaScript animation.
+This document defines the motion system across delivery phases. Phase 2 now
+implements the shared DOM motion foundation; WebGL and project-specific scene
+choreography remain reserved for their later phases.
 
 ## Global rules
 
@@ -70,3 +72,25 @@ Engine reassembles into an abstract JK mark while the contact headline resolves.
 ## Cleanup requirements
 
 All GSAP contexts, ScrollTriggers, Lenis listeners, pointer listeners, visibility listeners, and requestAnimationFrame callbacks must be disposed on unmount and route transition.
+
+## Phase 2 implementation status
+
+Implemented:
+
+- One `MotionProvider` connecting Lenis updates to ScrollTrigger
+- Font-ready refresh and page-visibility pause/resume behavior
+- Masked hero typography and supporting-copy entrance
+- Reusable viewport reveals through semantic data attributes
+- Desktop-only layered scroll parallax
+- Continuous technical ticker and restrained signal-orbit motion
+- Contracting navigation shell and active-section states
+- Magnetic pointer response below a six-pixel visual displacement
+- Accessible masked mobile navigation with focus trapping and restoration
+- Reduced-motion bypass for smooth scrolling, parallax, scrubbing, and loops
+
+Deferred:
+
+- WebGL camera, lighting, and scene motion
+- Project-specific engine transformations
+- Pinned project choreography
+- Case-study page transitions

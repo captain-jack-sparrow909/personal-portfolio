@@ -15,10 +15,11 @@ export function ProcessSection() {
       />
 
       <ol className={styles.process}>
-        <span
+        <li
           aria-hidden="true"
           className={styles.processSignal}
           data-process-signal
+          role="presentation"
         />
         {processStages.map((stage) => (
           <li data-reveal key={stage.name}>

@@ -18,12 +18,17 @@ export function SiteHeader() {
     const previouslyFocused = document.activeElement as HTMLElement | null;
     const previousOverflow = document.body.style.overflow;
     const overlay = overlayRef.current;
-    const focusableElements = overlay?.querySelectorAll<HTMLElement>(
+    const menuButton = menuButtonRef.current;
+    const overlayElements = overlay?.querySelectorAll<HTMLElement>(
       'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
     );
+    const main = document.querySelector<HTMLElement>("main");
+    const footer = document.querySelector<HTMLElement>("footer");
 
     document.body.style.overflow = "hidden";
-    focusableElements?.[0]?.focus();
+    if (main) main.inert = true;
+    if (footer) footer.inert = true;
+    overlayElements?.[0]?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -31,15 +36,22 @@ export function SiteHeader() {
         return;
       }
 
-      if (event.key !== "Tab" || !focusableElements?.length) return;
+      if (event.key !== "Tab" || !overlayElements?.length || !menuButton)
+        return;
 
-      const firstElement = focusableElements[0];
-      const lastElement = focusableElements[focusableElements.length - 1];
+      const firstElement = overlayElements[0];
+      const lastElement = overlayElements[overlayElements.length - 1];
 
       if (event.shiftKey && document.activeElement === firstElement) {
         event.preventDefault();
+        menuButton.focus();
+      } else if (event.shiftKey && document.activeElement === menuButton) {
+        event.preventDefault();
         lastElement.focus();
       } else if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault();
+        menuButton.focus();
+      } else if (!event.shiftKey && document.activeElement === menuButton) {
         event.preventDefault();
         firstElement.focus();
       }
@@ -49,8 +61,10 @@ export function SiteHeader() {
 
     return () => {
       document.body.style.overflow = previousOverflow;
+      if (main) main.inert = false;
+      if (footer) footer.inert = false;
       document.removeEventListener("keydown", handleKeyDown);
-      (previouslyFocused ?? menuButtonRef.current)?.focus();
+      (previouslyFocused ?? menuButton)?.focus();
     };
   }, [menuOpen]);
 
@@ -77,11 +91,7 @@ export function SiteHeader() {
           ))}
         </div>
 
-        <a
-          className="site-header__availability"
-          data-magnetic
-          href="#contact"
-        >
+        <a className="site-header__availability" data-magnetic href="#contact">
           <span aria-hidden="true" className="status-dot" />
           <span>{siteConfig.availability}</span>
         </a>
@@ -89,7 +99,9 @@ export function SiteHeader() {
         <button
           aria-controls="mobile-navigation"
           aria-expanded={menuOpen}
-          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-label={
+            menuOpen ? "Close navigation menu" : "Open navigation menu"
+          }
           className="site-header__menu-trigger"
           onClick={() => setMenuOpen((current) => !current)}
           ref={menuButtonRef}

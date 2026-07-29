@@ -6,6 +6,11 @@ import styles from "./Sections.module.css";
 export function HeroSection() {
   return (
     <section aria-labelledby="hero-title" className={styles.hero} id="top">
+      <div
+        aria-hidden="true"
+        className={styles.heroField}
+        data-parallax="slow"
+      />
       <div className={styles.heroGrid}>
         <div className={styles.heroCopy}>
           <p className="eyebrow" data-hero-eyebrow>
@@ -50,7 +55,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      <div className={styles.heroRail} data-hero-rail>
+      <div className={styles.heroRail} data-hero-rail data-parallax="fast">
         <p>
           <span>LOC</span> Dubai, UAE
         </p>
@@ -71,8 +76,8 @@ export function HeroSection() {
           {[0, 1].map((copy) => (
             <p aria-hidden={copy === 1} key={copy}>
               AI SYSTEMS <span>/</span> AGENTIC WORKFLOWS <span>/</span> WEB{" "}
-              <span>/</span> MOBILE <span>/</span> CLOUD <span>/</span>{" "}
-              DEVTOOLS <span>/</span>
+              <span>/</span> MOBILE <span>/</span> CLOUD <span>/</span> DEVTOOLS{" "}
+              <span>/</span>
             </p>
           ))}
         </div>

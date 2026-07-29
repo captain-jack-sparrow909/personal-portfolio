@@ -23,6 +23,22 @@
   pointer-events: none;
 }
 
+.heroField {
+  position: absolute;
+  top: 22%;
+  right: 8%;
+  width: min(42vw, 40rem);
+  aspect-ratio: 1;
+  border: 1px solid rgba(93, 228, 255, 0.08);
+  border-radius: 50%;
+  background:
+    linear-gradient(rgba(93, 228, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(93, 228, 255, 0.035) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+  mask-image: radial-gradient(circle, black 18%, transparent 68%);
+  pointer-events: none;
+}
+
 .heroGrid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -47,6 +63,10 @@
 .heroTitle span {
   display: block;
   white-space: nowrap;
+}
+
+.heroTitle .lineMask {
+  overflow: hidden;
 }
 
 .heroTitle .heroSerif {
@@ -111,9 +131,6 @@
 }
 
 .ticker {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
   padding-top: 1rem;
   overflow: hidden;
   color: rgba(242, 241, 236, 0.38);
@@ -122,6 +139,19 @@
     monospace;
   letter-spacing: 0.09em;
   white-space: nowrap;
+}
+
+.tickerTrack {
+  display: flex;
+  width: max-content;
+}
+
+.tickerTrack p {
+  display: flex;
+  min-width: min(100vw, var(--content-max));
+  justify-content: space-around;
+  gap: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .ticker span {
@@ -297,12 +327,10 @@
 
 .projectSignal {
   position: relative;
-  grid-column: 8 / -1;
   display: grid;
   width: min(100%, 34rem);
   aspect-ratio: 1;
   place-items: center;
-  justify-self: end;
   border: 1px solid color-mix(in srgb, var(--project-accent) 20%, transparent);
   border-radius: 50%;
   background: radial-gradient(
@@ -312,7 +340,13 @@
   );
 }
 
-.project:nth-child(even) .projectSignal {
+.projectVisual {
+  grid-column: 8 / -1;
+  width: min(100%, 34rem);
+  justify-self: end;
+}
+
+.project:nth-child(even) .projectVisual {
   grid-column: 1 / span 5;
   grid-row: 1;
   justify-self: start;
@@ -494,6 +528,25 @@
     var(--color-phosphor)
   );
   content: "";
+}
+
+.processSignal {
+  position: absolute !important;
+  z-index: 1;
+  top: 1rem !important;
+  right: 0;
+  left: 0 !important;
+  width: 100%;
+  min-height: 0 !important;
+  height: 1px;
+  padding: 0 !important;
+  background: linear-gradient(
+    90deg,
+    var(--color-cyan),
+    var(--color-violet),
+    var(--color-phosphor)
+  );
+  pointer-events: none;
 }
 
 .process li {
@@ -751,14 +804,14 @@
     padding: 0;
   }
 
-  .projectSignal,
-  .project:nth-child(even) .projectSignal {
+  .projectVisual,
+  .project:nth-child(even) .projectVisual {
     width: min(85vw, 30rem);
     margin: 3.5rem auto 0;
     justify-self: center;
   }
 
-  .project:nth-child(even) .projectSignal {
+  .project:nth-child(even) .projectVisual {
     order: 2;
   }
 
@@ -789,6 +842,15 @@
     left: 2rem;
     width: 1px;
     height: auto;
+  }
+
+  .processSignal {
+    top: 0 !important;
+    right: auto;
+    bottom: 0;
+    left: 2rem !important;
+    width: 1px;
+    height: 100%;
   }
 
   .process li {

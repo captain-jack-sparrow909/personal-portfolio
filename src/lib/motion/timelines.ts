@@ -1,10 +1,8 @@
 "use client";
 
-import type { GSAPTimeline } from "gsap";
-
 import { gsap } from "./gsap";
 
-export function createHeroTimeline(): GSAPTimeline {
+export function createHeroTimeline(): ReturnType<typeof gsap.timeline> {
   const timeline = gsap.timeline({
     defaults: {
       ease: "power3.out",
