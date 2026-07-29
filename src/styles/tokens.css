@@ -1,0 +1,17 @@
+:root {
+  --color-background: #050506;
+  --color-background-secondary: #0a0a0c;
+  --color-surface: #101014;
+  --color-text: #f2f1ec;
+  --color-secondary: #9b9b9f;
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-phosphor: #b8ff63;
+  --color-cyan: #5de4ff;
+  --color-violet: #8974ff;
+  --color-warm: #ff8a5c;
+  --content-max: 120rem;
+  --gutter: clamp(1rem, 3vw, 3.5rem);
+  --section-space: clamp(7rem, 14vw, 14rem);
+  --radius-pill: 999px;
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+}

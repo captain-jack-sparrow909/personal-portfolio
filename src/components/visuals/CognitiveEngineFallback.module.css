@@ -1,0 +1,236 @@
+.engine {
+  --engine-size: min(46vw, 42rem);
+  position: relative;
+  display: grid;
+  width: var(--engine-size);
+  aspect-ratio: 1;
+  place-items: center;
+  isolation: isolate;
+}
+
+.field {
+  position: absolute;
+  inset: 7%;
+  border: 1px solid color-mix(in srgb, var(--color-cyan) 24%, transparent);
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(93, 228, 255, 0.1),
+      transparent 26%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(137, 116, 255, 0.07),
+      transparent 62%
+    );
+  box-shadow:
+    inset 0 0 5rem rgba(93, 228, 255, 0.035),
+    0 0 7rem rgba(93, 228, 255, 0.055);
+}
+
+.field::before,
+.field::after {
+  position: absolute;
+  content: "";
+  inset: 8%;
+  border: 1px dashed rgba(242, 241, 236, 0.12);
+  border-radius: 50%;
+}
+
+.field::after {
+  inset: 22%;
+  border-style: solid;
+  border-color: rgba(184, 255, 99, 0.16);
+}
+
+.ring,
+.core,
+.coreHalo,
+.axis,
+.node,
+.fragment {
+  position: absolute;
+}
+
+.ring {
+  top: 50%;
+  left: 50%;
+  border: 1px solid rgba(242, 241, 236, 0.34);
+  border-radius: 50%;
+  box-shadow:
+    inset -0.5rem 0.2rem 1.4rem rgba(93, 228, 255, 0.07),
+    0 0 1.8rem rgba(93, 228, 255, 0.08);
+}
+
+.ring::before {
+  position: absolute;
+  top: -0.2rem;
+  left: 50%;
+  width: 13%;
+  height: 0.25rem;
+  border-radius: 999px;
+  background: var(--color-cyan);
+  box-shadow: 0 0 1rem rgba(93, 228, 255, 0.72);
+  content: "";
+}
+
+.ringOuter {
+  width: 84%;
+  height: 38%;
+  transform: translate(-50%, -50%) rotate(-18deg);
+}
+
+.ringMiddle {
+  width: 62%;
+  height: 62%;
+  transform: translate(-50%, -50%) rotate(58deg) skewX(-4deg);
+}
+
+.ringMiddle::before {
+  background: var(--color-violet);
+  box-shadow: 0 0 1rem rgba(137, 116, 255, 0.7);
+}
+
+.ringInner {
+  width: 46%;
+  height: 74%;
+  transform: translate(-50%, -50%) rotate(-38deg);
+}
+
+.ringInner::before {
+  background: var(--color-phosphor);
+  box-shadow: 0 0 1rem rgba(184, 255, 99, 0.68);
+}
+
+.coreHalo {
+  inset: 33%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(93, 228, 255, 0.25),
+    rgba(93, 228, 255, 0.045) 46%,
+    transparent 72%
+  );
+  filter: blur(0.15rem);
+}
+
+.core {
+  inset: 40%;
+  border: 1px solid rgba(242, 241, 236, 0.58);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 30%, #e8fbff 0 2%, transparent 5%),
+    radial-gradient(circle at 50% 50%, #1a2a31 0 10%, #090d11 44%, #020303 72%);
+  box-shadow:
+    inset 0 0 1.2rem rgba(93, 228, 255, 0.32),
+    0 0 2.5rem rgba(93, 228, 255, 0.2);
+}
+
+.axis {
+  top: 50%;
+  left: 50%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(242, 241, 236, 0.15),
+    transparent
+  );
+  transform: translate(-50%, -50%);
+}
+
+.axisHorizontal {
+  width: 112%;
+  height: 1px;
+}
+
+.axisVertical {
+  width: 1px;
+  height: 112%;
+  background: linear-gradient(
+    transparent,
+    rgba(242, 241, 236, 0.15),
+    transparent
+  );
+}
+
+.node {
+  width: 0.42rem;
+  aspect-ratio: 1;
+  border: 1px solid var(--color-text);
+  border-radius: 50%;
+  background: var(--color-background);
+  box-shadow: 0 0 1.2rem rgba(93, 228, 255, 0.8);
+}
+
+.nodeOne {
+  top: 15%;
+  left: 49%;
+}
+
+.nodeTwo {
+  top: 43%;
+  right: 4%;
+}
+
+.nodeThree {
+  right: 23%;
+  bottom: 12%;
+}
+
+.nodeFour {
+  bottom: 20%;
+  left: 13%;
+}
+
+.nodeFive {
+  top: 27%;
+  left: 8%;
+}
+
+.fragment {
+  padding: 0.25rem 0.4rem;
+  border: 1px solid rgba(242, 241, 236, 0.13);
+  background: rgba(5, 5, 6, 0.85);
+  color: var(--color-secondary);
+  font: 500 0.58rem/1 var(--font-mono);
+  letter-spacing: 0.12em;
+}
+
+.fragmentOne {
+  top: 5%;
+  right: 17%;
+}
+
+.fragmentTwo {
+  right: 0;
+  bottom: 28%;
+}
+
+.fragmentThree {
+  bottom: 7%;
+  left: 16%;
+}
+
+.engine figcaption {
+  position: absolute;
+  right: 4%;
+  bottom: 0;
+  left: 4%;
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-secondary);
+  font: 500 0.62rem/1 var(--font-mono);
+  letter-spacing: 0.12em;
+}
+
+.compact {
+  --engine-size: min(35vw, 30rem);
+}
+
+@media (max-width: 56rem) {
+  .engine,
+  .compact {
+    --engine-size: min(88vw, 35rem);
+  }
+}

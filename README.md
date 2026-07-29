@@ -1,34 +1,42 @@
 # Jabir Khan — Portfolio
 
-An original, space-inspired Next.js portfolio with scroll reveals, orbital graphics,
-procedural project artwork, responsive navigation, and reduced-motion support.
+A cinematic, systems-led portfolio for Jabir Khan: AI/ML engineer and
+full-stack web and mobile developer.
+
+The project is being delivered in phases. Phase 1 contains the polished,
+server-rendered static foundation. Motion, the persistent WebGL scene,
+case-study routes, and production contact integrations are deliberately
+scheduled for later phases in [`project.md`](./project.md).
+
+## Stack
+
+- Next.js App Router
+- React and strict TypeScript
+- Tailwind CSS and CSS Modules
+- `next/font` with Manrope, Instrument Serif, and IBM Plex Mono
+- pnpm
 
 ## Run locally
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
-Open `http://localhost:3000`. Create and run a production build with:
+Open `http://localhost:3000`.
+
+## Validation
 
 ```bash
-npm run build
-npm start
+pnpm typecheck
+pnpm lint
+pnpm format:check
+pnpm build
 ```
 
-## Update your information
+## Configuration
 
-All portfolio copy, projects, contact information, tools, and social links live in:
+Set `NEXT_PUBLIC_SITE_URL` to the verified production origin before
+deployment. Local metadata uses `http://localhost:3000` when it is absent.
 
-`src/data.js`
-
-Replace the placeholder email, project links, project descriptions, and social URLs
-there. The layout updates automatically from that data.
-
-## Visual system
-
-- `app/layout.js` controls metadata and the server-rendered document shell.
-- `app/globals.css` controls the complete design and responsive behavior.
-- `src/components/PortfolioPage.jsx` contains the interactive components and animation logic.
-- Project art is generated with CSS, so no third-party imagery is required.
+Planning and architecture decisions live in [`docs`](./docs).
