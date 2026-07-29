@@ -1,12 +1,13 @@
 "use client";
 
 import { useRef, useState, type FormEvent } from "react";
-import { z } from "zod";
 
+import { validateContactClient } from "@/lib/validation/contact-client";
 import {
-  contactSchema,
   projectTypeLabels,
   projectTypeValues,
+} from "@/lib/validation/contact-options";
+import {
   type ContactField,
   type ContactResponse,
 } from "@/lib/validation/contact";
@@ -44,10 +45,10 @@ export function ContactForm() {
     setFieldErrors({});
 
     const payload = Object.fromEntries(new FormData(event.currentTarget));
-    const parsed = contactSchema.safeParse(payload);
+    const parsed = validateContactClient(payload);
 
     if (!parsed.success) {
-      const errors = z.flattenError(parsed.error).fieldErrors;
+      const errors = parsed.fieldErrors;
       setFieldErrors(errors);
       setStatus({
         state: "error",

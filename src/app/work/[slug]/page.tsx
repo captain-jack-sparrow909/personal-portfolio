@@ -38,7 +38,7 @@ export async function generateMetadata({
       url: `/work/${project.slug}`,
       images: [
         {
-          url: "/og.png",
+          url: "/og.jpg",
           width: 1200,
           height: 630,
           alt: "Jabir Khan — Intelligence in Motion",
@@ -49,7 +49,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: `${project.name} — Jabir Khan`,
       description: project.summary,
-      images: ["/og.png"],
+      images: ["/og.jpg"],
     },
   };
 }

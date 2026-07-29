@@ -17,8 +17,10 @@ asset generation, animation clips, runtime contract validation, shader
 refinement, and procedural fallback parity arrive in Phase 6. Phase 7 adds the
 accessible project-enquiry form, server validation and spam controls, Resend
 delivery adapter, verified contact channels, project structured data, and
-opt-in analytics. Optimization and cross-browser QA remain scheduled in
-[`project.md`](./project.md).
+opt-in analytics. Phase 8 completes the planned build with deferred motion
+loading, lightweight client validation, Meshopt model compression, enforced
+bundle budgets, and automated Chromium, Firefox, WebKit, mobile,
+reduced-motion, keyboard, and WebGL-fallback coverage.
 
 ## Stack
 
@@ -29,7 +31,8 @@ opt-in analytics. Optimization and cross-browser QA remain scheduled in
 - GSAP, ScrollTrigger, and Lenis
 - Three.js, React Three Fiber, Drei, and controlled postprocessing
 - Zustand for discrete scene state
-- Zod for shared client/server contact validation
+- Zod for authoritative server contact validation
+- Vitest and Playwright for unit and cross-browser interaction coverage
 - pnpm
 
 ## Run locally
@@ -49,7 +52,14 @@ pnpm lint
 pnpm format:check
 pnpm build
 pnpm audit:model
+pnpm audit:bundles
+pnpm test:unit
+pnpm test:e2e
 ```
+
+`pnpm audit:bundles` reads the production output, so run `pnpm build` first.
+Use `pnpm generate:model` to regenerate and Meshopt-compress the Cognitive
+Engine before auditing its runtime contract.
 
 ## Configuration
 

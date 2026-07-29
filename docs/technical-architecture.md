@@ -10,6 +10,7 @@ Client Components are introduced only when their phase requires them:
 - Phase 3: persistent React Three Fiber canvas and scene controls
 - Phase 4: project timeline orchestration and route-transition overlay
 - Phase 7: contact form state
+- Phase 8: deferred motion bootstrap and lightweight browser-side validation
 
 ## Directory strategy
 
@@ -47,6 +48,13 @@ Phase 2 provides one `MotionProvider` that coordinates Lenis and ScrollTrigger,
 scopes GSAP timelines, responds to page visibility, and honors reduced motion.
 Motion enhances the server-rendered layout and never owns essential content.
 
+Phase 8 keeps that public contract while splitting its implementation. The
+provider publishes reduced-motion state immediately, then dynamically imports
+GSAP, ScrollTrigger, Lenis, and the project timelines only for visitors who can
+use motion. Initialization is cancellable and teardown removes every listener,
+ticker callback, media query, Lenis instance, GSAP context, and ScrollTrigger.
+Hash landings keep already-passed reveal content visible.
+
 ## WebGL contract
 
 Phase 3 uses one dynamically imported, fixed React Three Fiber Canvas. The
@@ -62,9 +70,10 @@ reacts to WebGL context loss by restoring the static CSS engine.
 ## Model asset contract
 
 Phase 6 adds a generated GLB at `public/models/cognitive-engine.glb`. A
-framework-free Node generator creates the mechanical-neural asset, and an audit
-script verifies GLB 2.0 integrity, the eight required named groups, the seven
-required clips, and the 3 MB size target.
+framework-free Node generator creates the mechanical-neural asset. Phase 8
+passes it through deterministic Meshopt compression, and the audit script
+verifies GLB 2.0 integrity, the compression extension, the eight required named
+groups, the seven required clips, and the 3 MB size target.
 
 The browser checks asset availability before mounting `useGLTF`. The loaded
 scene is cloned, its materials are isolated, and its contract is validated
@@ -114,8 +123,10 @@ the visible route payload.
 ## Contact and production boundary
 
 The contact form is the only client-owned production input surface. It performs
-the same Zod validation used by the server to produce immediate accessible
-field errors, but the route handler remains authoritative.
+the same field-level rules used by the server to produce immediate accessible
+errors, but the route handler remains authoritative. The lightweight browser
+validator avoids shipping Zod; the server-only Zod schema performs canonical
+normalization and validation.
 
 `POST /api/contact` applies the following sequence:
 
@@ -154,3 +165,11 @@ Phase 1 supplies canonical metadata, sitemap, robots, and Person JSON-LD.
 Phase 5 adds project-specific canonical, Open Graph, and X metadata plus the
 shared social-preview asset. Phase 7 expands the homepage into a linked
 Person/WebSite/project graph and adds one CreativeWork record per case study.
+
+## Quality gate
+
+Vitest covers deterministic validation logic. Playwright exercises the
+production build in Chromium, Firefox, WebKit, and a mobile viewport, including
+keyboard focus, overflow, reduced motion, WebGL failure, and runtime console
+errors. The bundle audit reads the emitted route graph and fails when initial
+JavaScript, deferred WebGL, the model, or the social card exceed their budgets.

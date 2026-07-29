@@ -38,10 +38,11 @@ Accessible form, Zod validation, honeypot, rate-limit abstraction, provider adap
 ### Phase 8 — Optimization and QA
 
 Bundle analysis, asset compression, cross-browser checks, Playwright coverage, mobile/reduced-motion audits, and memory/cleanup verification.
+**Complete.**
 
 ## Proposed dependency list
 
-### Phase 1 through Phase 7 installed
+### Phase 1 through Phase 8 installed
 
 - `next`, `react`, `react-dom`
 - `tailwindcss`, `@tailwindcss/postcss`
@@ -55,10 +56,8 @@ Bundle analysis, asset compression, cross-browser checks, Playwright coverage, m
 - State: `zustand`
 - Types: `@types/three`
 - Validation: `zod`
-
-### Later phases
-
 - Testing: `vitest`, `@playwright/test`
+- Asset optimization: `@gltf-transform/cli`
 
 Dependencies are introduced only when their phase begins.
 
@@ -75,6 +74,26 @@ package.
 Phase 7 adds only Zod. Email delivery uses the platform `fetch` API behind a
 small provider adapter, so provider credentials remain server-only and no email
 SDK enters the client bundle.
+
+Phase 8 adds Vitest and Playwright as development-only validation tools, plus
+the glTF Transform CLI for deterministic Meshopt compression. GSAP, Lenis,
+Three.js, and Zod remain deferred or server-only where their work is not needed
+for the initial page.
+
+## Phase 8 file plan
+
+- `playwright.config.ts`
+- `vitest.config.ts`
+- `tests/e2e/portfolio.spec.ts`
+- `tests/unit/contact.test.ts`
+- `scripts/audit-bundles.mjs`
+- `src/lib/motion/runtime.ts`
+- `src/lib/validation/contact-client.ts`
+- `src/lib/validation/contact-options.ts`
+- `public/models/cognitive-engine.glb`
+- `public/og.jpg`
+- `docs/performance-budget.md`
+- `docs/technical-architecture.md`
 
 ## Phase 7 file plan
 
@@ -117,7 +136,7 @@ SDK enters the client bundle.
 - `src/components/project/ProjectCaseStudy.module.css`
 - `src/app/work/[slug]/page.tsx`
 - `src/app/work/[slug]/loading.tsx`
-- `public/og.png`
+- `public/og.jpg`
 
 ## Phase 4 file plan
 

@@ -1,6 +1,6 @@
 import { siteConfig } from "@/content/site";
 import type { ContactInput } from "@/lib/validation/contact";
-import { projectTypeLabels } from "@/lib/validation/contact";
+import { projectTypeLabels } from "@/lib/validation/contact-options";
 
 type ContactMessage = Omit<ContactInput, "website">;
 

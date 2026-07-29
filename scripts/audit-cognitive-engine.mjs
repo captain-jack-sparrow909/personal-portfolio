@@ -74,6 +74,8 @@ const missingAnimations = expectedAnimations.filter(
   (name) => !animationNames.has(name),
 );
 const sizeBudget = 3 * 1024 * 1024;
+const extensionsUsed = document.extensionsUsed ?? [];
+const meshoptCompressed = extensionsUsed.includes("EXT_meshopt_compression");
 const errors = [];
 
 if (missingGroups.length > 0) {
@@ -87,6 +89,9 @@ if (binary.length > sizeBudget) {
     `Model exceeds the 3 MB preferred budget: ${binary.length} bytes`,
   );
 }
+if (!meshoptCompressed) {
+  errors.push("Model is missing EXT_meshopt_compression.");
+}
 
 console.log(
   JSON.stringify(
@@ -94,6 +99,7 @@ console.log(
       animations: [...animationNames],
       groups: expectedGroups.filter((name) => nodeNames.has(name)),
       meshes: document.meshes?.length ?? 0,
+      meshoptCompressed,
       path: path.relative(process.cwd(), modelPath),
       sizeBytes: binary.length,
       version,

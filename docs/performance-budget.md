@@ -78,8 +78,9 @@ Budgets are targets rather than license to degrade visual quality. Regressions r
 
 ## Phase 6 implementation
 
-- The generated GLB measures approximately 615 KB, below the preferred 3 MB
-  budget.
+- The uncompressed generated GLB measured approximately 615 KB. Phase 8
+  Meshopt compression reduces the production asset to approximately 131 KB,
+  below the preferred 3 MB budget.
 - The complete deferred WebGL chunk, including the GLB loader and shader patch,
   measures approximately 346 KB gzip, below the 450 KB budget.
 - Medium and high tiers load the GLB only after an inexpensive availability
@@ -88,6 +89,34 @@ Budgets are targets rather than license to degrade visual quality. Regressions r
   textures.
 - The asset audit fails when required groups or clips are missing, the file is
   not GLB 2.0, or the preferred size budget is exceeded.
+
+## Phase 8 implementation
+
+- The initial modern route JavaScript measures approximately 160 KB gzip,
+  within the 170 KB budget. GSAP and Lenis now enter through a deferred motion
+  runtime instead of the initial client graph.
+- The deferred WebGL and postprocessing chunk measures approximately 346 KB
+  gzip, within the 450 KB budget.
+- The production Cognitive Engine is Meshopt-compressed to approximately
+  131 KB, a reduction of about 79% from the generated source asset. Its audit
+  verifies both the semantic contract and the compression extension.
+- The 1200×630 social card is a progressive JPEG of approximately 111 KB, a
+  reduction of about 89% from the previous PNG.
+- Client-side contact validation no longer imports Zod. The server keeps the
+  authoritative Zod schema while the browser uses a small equivalent validator
+  for immediate accessible feedback.
+- Playwright covers Chromium, Firefox, WebKit, and a mobile Chromium profile.
+  It checks semantic rendering, duplicate IDs, horizontal overflow, keyboard
+  navigation, mobile focus containment, contact errors, reduced motion, and
+  WebGL fallback behavior.
+- Motion initialization is cancellable across route transitions. Its cleanup
+  destroys Lenis, listeners, GSAP contexts, media queries, ticker callbacks,
+  and remaining ScrollTriggers.
+- Direct hash navigation skips reveal initialization for content above the
+  landing position, preventing an invisible contact form at `/#contact`.
+
+Run `pnpm audit:bundles` after a production build to enforce the JavaScript and
+asset thresholds.
 
 ## Phase 1 measurement
 

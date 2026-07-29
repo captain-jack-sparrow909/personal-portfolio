@@ -8,8 +8,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "generate:model": "node scripts/generate-cognitive-engine.mjs",
+    "generate:model": "pnpm generate:model:raw && pnpm optimize:model",
+    "generate:model:raw": "node scripts/generate-cognitive-engine.mjs",
+    "optimize:model": "gltf-transform meshopt public/models/cognitive-engine.glb public/models/cognitive-engine.optimized.glb --level high && node scripts/audit-cognitive-engine.mjs public/models/cognitive-engine.optimized.glb && mv public/models/cognitive-engine.optimized.glb public/models/cognitive-engine.glb",
     "audit:model": "node scripts/audit-cognitive-engine.mjs",
+    "audit:bundles": "node scripts/audit-bundles.mjs",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test",
+    "test:e2e:chromium": "playwright test --project=chromium-desktop --project=chromium-mobile",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -32,6 +38,8 @@
     "zustand": "^5.0.14"
   },
   "devDependencies": {
+    "@gltf-transform/cli": "^4.4.2",
+    "@playwright/test": "^1.62.0",
     "@tailwindcss/postcss": "^4.1.14",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.7",
@@ -42,6 +50,7 @@
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "tailwindcss": "^4.1.14",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10"
   }
 }

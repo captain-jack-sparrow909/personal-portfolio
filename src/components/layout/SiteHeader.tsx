@@ -12,6 +12,7 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const firstMenuLinkRef = useRef<HTMLAnchorElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,13 +25,16 @@ export function SiteHeader() {
     const overlayElements = overlay?.querySelectorAll<HTMLElement>(
       'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
     );
+    let focusTimer = 0;
     const main = document.querySelector<HTMLElement>("main");
     const footer = document.querySelector<HTMLElement>("footer");
 
     document.body.style.overflow = "hidden";
     if (main) main.inert = true;
     if (footer) footer.inert = true;
-    overlayElements?.[0]?.focus();
+    focusTimer = window.setTimeout(() => {
+      firstMenuLinkRef.current?.focus();
+    }, 50);
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -65,6 +69,7 @@ export function SiteHeader() {
       document.body.style.overflow = previousOverflow;
       if (main) main.inert = false;
       if (footer) footer.inert = false;
+      window.clearTimeout(focusTimer);
       document.removeEventListener("keydown", handleKeyDown);
       (previouslyFocused ?? menuButton)?.focus();
     };
@@ -140,6 +145,7 @@ export function SiteHeader() {
                 href={homeHref(item.href)}
                 key={item.href}
                 onClick={closeMenu}
+                ref={index === 0 ? firstMenuLinkRef : undefined}
                 tabIndex={menuOpen ? 0 : -1}
               >
                 <span>0{index + 1}</span>

@@ -122,6 +122,8 @@ a {
 }
 
 .site-header__inner {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   width: min(100%, calc(var(--content-max) - (var(--gutter) * 2)));
@@ -283,6 +285,7 @@ a {
 }
 
 .mobile-menu[data-open="true"] {
+  z-index: 0;
   clip-path: circle(150% at calc(100% - 3.5rem) 3.2rem);
   opacity: 1;
   pointer-events: auto;

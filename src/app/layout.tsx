@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     url: "/",
     images: [
       {
-        url: "/og.png",
+        url: "/og.jpg",
         width: 1200,
         height: 630,
         alt: "Jabir Khan — Intelligence in Motion",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
-    images: ["/og.png"],
+    images: ["/og.jpg"],
   },
 };
 

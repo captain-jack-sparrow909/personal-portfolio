@@ -4,8 +4,9 @@ Phase 6 generates and loads the optimized production asset at:
 
 `public/models/cognitive-engine.glb`
 
-The generated GLB currently measures approximately 615 KB. It is built from
-custom procedural geometry and contains the required runtime contract.
+The generated source GLB is approximately 615 KB. The production copy is
+Meshopt-compressed to approximately 131 KB while preserving the required
+runtime contract.
 
 Animation clips:
 
@@ -28,12 +29,16 @@ Named groups:
 - DataFragments
 - AccentLights
 
-Regenerate and audit the asset with:
+Regenerate, compress, and audit the asset with:
 
 ```bash
 pnpm generate:model
 pnpm audit:model
 ```
+
+`pnpm generate:model:raw` rebuilds the uncompressed source form when inspection
+before optimization is useful. `pnpm optimize:model` compresses the current
+asset and verifies the optimized copy before replacing the production file.
 
 The runtime performs the same contract validation before showing the GLB. A
 missing, invalid, or failed model automatically leaves the procedural Cognitive
