@@ -1,0 +1,76 @@
+.scene {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.scene::after {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5, 5, 6, 0.62) 0%,
+      rgba(5, 5, 6, 0.22) 42%,
+      transparent 72%
+    ),
+    radial-gradient(circle at 70% 48%, transparent 18%, rgba(5, 5, 6, 0.18) 68%);
+  content: "";
+  pointer-events: none;
+}
+
+.scene canvas {
+  display: block;
+}
+
+.hud {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  color: rgba(242, 241, 236, 0.38);
+  font:
+    500 0.54rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.1em;
+}
+
+.hud span + span::before {
+  display: inline-block;
+  width: 0.24rem;
+  aspect-ratio: 1;
+  margin-right: 1.1rem;
+  border-radius: 50%;
+  background: var(--color-cyan);
+  box-shadow: 0 0 0.6rem rgba(93, 228, 255, 0.72);
+  content: "";
+  vertical-align: 0.1rem;
+}
+
+@media (max-width: 56rem) {
+  .scene {
+    opacity: 0.76;
+  }
+
+  .scene::after {
+    background: linear-gradient(
+      180deg,
+      rgba(5, 5, 6, 0.2),
+      rgba(5, 5, 6, 0.52)
+    );
+  }
+
+  .hud {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene {
+    opacity: 0.62;
+  }
+}

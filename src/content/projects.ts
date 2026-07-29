@@ -1,4 +1,5 @@
 export type ProjectAccent = "warm" | "cyan" | "phosphor" | "violet";
+export type ProjectSceneMode = "devpulse" | "rontgen" | "cognora" | "orkestria";
 
 export type Project = {
   slug: string;
@@ -13,6 +14,7 @@ export type Project = {
   accent: ProjectAccent;
   domain?: string;
   order: number;
+  sceneMode: ProjectSceneMode;
 };
 
 export const projects: readonly Project[] = [
@@ -37,6 +39,7 @@ export const projects: readonly Project[] = [
       "Live signals move through a research and publishing pipeline.",
     accent: "warm",
     order: 1,
+    sceneMode: "devpulse",
   },
   {
     slug: "rontgen-ai",
@@ -63,6 +66,7 @@ export const projects: readonly Project[] = [
     accent: "cyan",
     domain: "rontgenai.dev",
     order: 2,
+    sceneMode: "rontgen",
   },
   {
     slug: "cognora-ai",
@@ -85,6 +89,7 @@ export const projects: readonly Project[] = [
       "A knowledge graph grows, connects and reorganizes around the learner.",
     accent: "phosphor",
     order: 3,
+    sceneMode: "cognora",
   },
   {
     slug: "orkestria-ai",
@@ -107,5 +112,6 @@ export const projects: readonly Project[] = [
       "Agent nodes converge on a human-approval core before execution.",
     accent: "violet",
     order: 4,
+    sceneMode: "orkestria",
   },
 ] as const;

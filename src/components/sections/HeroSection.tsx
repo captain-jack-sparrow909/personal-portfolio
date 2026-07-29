@@ -5,7 +5,12 @@ import styles from "./Sections.module.css";
 
 export function HeroSection() {
   return (
-    <section aria-labelledby="hero-title" className={styles.hero} id="top">
+    <section
+      aria-labelledby="hero-title"
+      className={styles.hero}
+      data-scene-mode="hero"
+      id="top"
+    >
       <div
         aria-hidden="true"
         className={styles.heroField}

@@ -38,6 +38,18 @@ Budgets are targets rather than license to degrade visual quality. Regressions r
 - **Low:** simplified geometry, demand-based rendering, no postprocessing.
 - **Fallback:** optimized static visual with complete DOM content.
 
+## Phase 3 implementation
+
+- The WebGL scene is dynamically split from the server-rendered route.
+- The production WebGL chunk measures approximately 321 KB gzip, within the
+  450 KB deferred-chunk budget.
+- DPR is clamped to 1.5 on high, 1.25 on medium, and 1 on low tiers.
+- Instancing is used for luminous nodes and data fragments.
+- Particle and filament counts step down by device tier.
+- Bloom is disabled on low-tier and reduced-motion devices.
+- The render loop changes to demand mode for reduced motion and while hidden.
+- Context loss restores the CSS fallback instead of removing content.
+
 ## Phase 1 measurement
 
 Phase 1 contains no WebGL or client animation runtime. Validation focuses on semantic HTML, font loading, responsive CSS, zero horizontal overflow, and a production build without warnings.

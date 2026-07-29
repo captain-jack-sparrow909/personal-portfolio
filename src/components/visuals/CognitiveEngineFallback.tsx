@@ -13,6 +13,7 @@ export function CognitiveEngineFallback({
     <figure
       aria-label={`${label}, an abstract mechanical-neural artifact`}
       className={`${styles.engine} ${compact ? styles.compact : ""}`}
+      data-static-engine
     >
       <div aria-hidden="true" className={styles.field}>
         <span className={`${styles.axis} ${styles.axisHorizontal}`} />

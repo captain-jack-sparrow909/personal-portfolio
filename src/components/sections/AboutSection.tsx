@@ -12,7 +12,12 @@ const range = [
 
 export function AboutSection() {
   return (
-    <section aria-labelledby="about-title" className="section-shell" id="about">
+    <section
+      aria-labelledby="about-title"
+      className="section-shell"
+      data-scene-mode="identity"
+      id="about"
+    >
       <SectionIntro
         eyebrow="About"
         index="05"

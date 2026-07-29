@@ -7,8 +7,10 @@ The project is being delivered in phases. Phase 1 established the polished,
 server-rendered foundation. Phase 2 adds the shared GSAP and Lenis motion
 system, masked text reveals, layered parallax, responsive navigation
 transitions, and reduced-motion behavior. The persistent WebGL scene,
-case-study routes, and production contact integrations remain deliberately
-scheduled for later phases in [`project.md`](./project.md).
+introduced in Phase 3, adds a procedural Cognitive Engine with adaptive
+quality, lighting, particles, and failure-safe static fallbacks. Case-study
+routes and production contact integrations remain deliberately scheduled for
+later phases in [`project.md`](./project.md).
 
 ## Stack
 
@@ -17,6 +19,8 @@ scheduled for later phases in [`project.md`](./project.md).
 - Tailwind CSS and CSS Modules
 - `next/font` with Manrope, Instrument Serif, and IBM Plex Mono
 - GSAP, ScrollTrigger, and Lenis
+- Three.js, React Three Fiber, Drei, and controlled postprocessing
+- Zustand for discrete scene state
 - pnpm
 
 ## Run locally

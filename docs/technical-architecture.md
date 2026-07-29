@@ -23,7 +23,9 @@ The application lives under `src/`:
 - `src/styles`: tokens, typography, and shared utilities
 - `docs`: architecture and delivery documentation
 
-Future directories are added only in their implementation phase: `canvas`, `motion`, `hooks`, `lib/motion`, `lib/three`, `store`, and contact validation.
+Phase-specific directories now include `canvas`, `motion`, `hooks`,
+`lib/motion`, and `store`. GLB utilities, case-study components, and contact
+validation remain deferred to their assigned phases.
 
 ## Content contracts
 
@@ -35,17 +37,27 @@ Tailwind CSS supplies layout primitives and utilities. CSS Modules own section-s
 
 ## Motion contract
 
-Phase 1 includes no JavaScript animation. DOM structure exposes stable hooks and section IDs for Phase 2. Motion must enhance existing layouts, not become responsible for their legibility.
+Phase 2 provides one `MotionProvider` that coordinates Lenis and ScrollTrigger,
+scopes GSAP timelines, responds to page visibility, and honors reduced motion.
+Motion enhances the server-rendered layout and never owns essential content.
 
 ## WebGL contract
 
-Phase 3 adds one dynamically imported fixed Canvas. The procedural and GLB implementations will share the `CognitiveEngine` conceptual API. Continuous values remain in refs/useFrame; Zustand will store only discrete scene state.
+Phase 3 uses one dynamically imported, fixed React Three Fiber Canvas. The
+procedural engine implements the future GLB-facing `CognitiveEngine` API.
+Continuous camera, pointer, ring, particle, and material values remain in refs
+and `useFrame`; Zustand stores only scene mode, active project, transition
+state, device tier, reduced-motion state, and canvas readiness.
+
+The renderer clamps DPR by tier, removes postprocessing on low-tier or
+reduced-motion devices, pauses its render loop when the page is hidden, and
+reacts to WebGL context loss by restoring the static CSS engine.
 
 ## Failure behavior
 
 - Without JavaScript: the complete semantic portfolio remains visible.
 - Without WebGL: the static Cognitive Engine fallback remains.
-- Reduced motion: no Lenis or scrubbed sequences; future scene remains static.
+- Reduced motion: no Lenis or scrubbed sequences; the scene holds a stable pose.
 - Missing contact credentials: the future route logs a safe development message and returns a controlled response.
 
 ## SEO

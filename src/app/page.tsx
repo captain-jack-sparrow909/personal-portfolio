@@ -1,3 +1,4 @@
+import { SceneExperience } from "@/components/canvas/SceneExperience";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { MotionProvider } from "@/components/motion/MotionProvider";
@@ -19,6 +20,7 @@ export default function HomePage() {
         Skip to content
       </a>
       <SiteHeader />
+      <SceneExperience />
       <main id="main-content">
         <HeroSection />
         <ManifestoSection />

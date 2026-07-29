@@ -28,7 +28,11 @@ const disciplines = [
 
 export function ManifestoSection() {
   return (
-    <section aria-labelledby="identity-title" className="section-shell">
+    <section
+      aria-labelledby="identity-title"
+      className="section-shell"
+      data-scene-mode="identity"
+    >
       <SectionIntro
         description="From machine-learning workflows and autonomous agents to full-stack platforms and mobile experiences, I build across the complete path from idea to production."
         eyebrow="Operating range"

@@ -5,6 +5,7 @@ export function ContactSection() {
     <section
       aria-labelledby="contact-title"
       className={styles.contact}
+      data-scene-mode="contact"
       id="contact"
     >
       <div className={styles.contactMeta} data-reveal>

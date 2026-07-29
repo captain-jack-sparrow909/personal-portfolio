@@ -9,6 +9,7 @@ export function CapabilitiesSection() {
     <section
       aria-labelledby="capabilities-title"
       className="section-shell"
+      data-scene-mode="identity"
       id="expertise"
     >
       <SectionIntro

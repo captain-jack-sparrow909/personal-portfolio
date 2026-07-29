@@ -13,6 +13,7 @@ MotionProvider, Lenis/ScrollTrigger integration, reveal primitives, navigation t
 ### Phase 3 — Procedural WebGL
 
 One persistent dynamically imported Canvas, procedural Cognitive Engine, camera/lighting rigs, particles, quality tiers, failure handling, and section state.
+**Complete.**
 
 ### Phase 4 — Project storytelling
 
@@ -36,7 +37,7 @@ Bundle analysis, asset compression, cross-browser checks, Playwright coverage, m
 
 ## Proposed dependency list
 
-### Phase 1 and Phase 2 installed
+### Phase 1 through Phase 3 installed
 
 - `next`, `react`, `react-dom`
 - `tailwindcss`, `@tailwindcss/postcss`
@@ -45,15 +46,34 @@ Bundle analysis, asset compression, cross-browser checks, Playwright coverage, m
 - `eslint`, `eslint-config-next`
 - `prettier`, `prettier-plugin-tailwindcss`
 - Motion: `gsap`, `lenis`
+- 3D: `three`, `@react-three/fiber`, `@react-three/drei`,
+  `@react-three/postprocessing`, `postprocessing`
+- State: `zustand`
+- Types: `@types/three`
 
 ### Later phases
 
-- 3D: `three`, `@react-three/fiber`, `@react-three/drei`, `@react-three/postprocessing`
-- State: `zustand`
 - Validation: `zod`
 - Testing: `vitest`, `@playwright/test`
 
 Dependencies are introduced only when their phase begins.
+
+## Phase 3 file plan
+
+- `src/components/canvas/SceneExperience.tsx`
+- `src/components/canvas/SceneCanvas.tsx`
+- `src/components/canvas/CognitiveEngine.tsx`
+- `src/components/canvas/ProceduralCognitiveEngine.tsx`
+- `src/components/canvas/CameraRig.tsx`
+- `src/components/canvas/LightingRig.tsx`
+- `src/components/canvas/ParticleField.tsx`
+- `src/components/canvas/PerformanceController.tsx`
+- `src/components/canvas/PostProcessing.tsx`
+- `src/hooks/useDeviceTier.ts`
+- `src/hooks/useWebGLSupport.ts`
+- `src/hooks/usePageVisibility.ts`
+- `src/hooks/usePointerPosition.ts`
+- `src/store/scene-store.ts`
 
 ## Phase 2 file plan
 

@@ -5,7 +5,11 @@ import styles from "./Sections.module.css";
 
 export function ProcessSection() {
   return (
-    <section aria-labelledby="process-title" className="section-shell">
+    <section
+      aria-labelledby="process-title"
+      className="section-shell"
+      data-scene-mode="hero"
+    >
       <SectionIntro
         description="A systems-minded process that keeps product intent, engineering decisions, and operational reality connected."
         eyebrow="Engineering process"

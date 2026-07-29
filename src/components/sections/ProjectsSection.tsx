@@ -37,6 +37,7 @@ export function ProjectsSection() {
         {projects.map((project) => (
           <article
             className={cn(styles.project, styles[project.accent])}
+            data-scene-mode={project.sceneMode}
             id={`project-${project.slug}`}
             key={project.slug}
           >

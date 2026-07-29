@@ -90,7 +90,24 @@ Implemented:
 
 Deferred:
 
-- WebGL camera, lighting, and scene motion
 - Project-specific engine transformations
 - Pinned project choreography
 - Case-study page transitions
+
+## Phase 3 implementation status
+
+Implemented:
+
+- One persistent, dynamically loaded WebGL canvas
+- Procedural Cognitive Engine with core, rings, filaments, nodes, and fragments
+- Section-aware camera, pose, accent-light, and engine state
+- Pointer influence that is disabled for touch, low-tier, and reduced motion
+- Adaptive particle density, geometry detail, DPR, and bloom
+- Page-visibility pausing and WebGL context-loss fallback
+- Stable reduced-motion pose and persistent semantic DOM content
+
+Deferred:
+
+- Full project-specific geometry transformations and pinned choreography
+- Case-study transitions
+- Final GLB clips, named groups, and shader refinement
