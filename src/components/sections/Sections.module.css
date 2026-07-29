@@ -819,10 +819,10 @@
 .contact {
   position: relative;
   width: min(100%, var(--content-max));
-  min-height: min(64rem, 100svh);
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: clamp(4rem, 8vw, 8rem);
   margin: var(--section-space) auto 0;
   padding: clamp(4rem, 8vw, 8rem) var(--gutter) 2rem;
   overflow: hidden;
@@ -885,29 +885,106 @@
   font-weight: 400;
 }
 
-.contactBottom {
+.contactGrid {
   z-index: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  padding-top: 1.2rem;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(2rem, 4vw, 5rem);
+  padding-top: clamp(1.5rem, 3vw, 2.5rem);
   border-top: 1px solid var(--color-border);
 }
 
-.contactBottom > p:first-child {
-  max-width: 32rem;
+.contactChannels {
+  grid-column: 1 / span 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4rem;
+}
+
+.contactLead {
+  max-width: 28rem;
   font-size: clamp(1.05rem, 1.5vw, 1.4rem);
 }
 
-.contactPlaceholder {
-  max-width: 27rem;
-  justify-self: end;
+.contactEmail {
+  display: grid;
+  width: fit-content;
+  gap: 0.4rem;
+  margin-top: 2rem;
+  border-bottom: 1px solid rgba(242, 241, 236, 0.4);
+  padding-bottom: 0.35rem;
+  font-size: clamp(0.9rem, 1.25vw, 1.15rem);
+  transition: border-color 180ms ease;
+}
+
+.contactEmail:hover {
+  border-color: var(--color-phosphor);
+}
+
+.contactEmail span,
+.contactChannels nav > p,
+.contactChannels small {
   color: var(--color-secondary);
   font:
-    500 0.65rem/1.55 var(--font-mono),
+    500 0.6rem/1.5 var(--font-mono),
     monospace;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
+}
+
+.contactChannels nav > p {
+  margin-bottom: 1rem;
+}
+
+.contactChannels li {
+  display: grid;
+  gap: 0.3rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.contactChannels li:first-child {
+  border-top: 1px solid var(--color-border);
+}
+
+.contactChannels li > a {
+  display: grid;
+  grid-template-columns: 2rem 1fr auto;
+  align-items: baseline;
+  transition: color 180ms ease;
+}
+
+.contactChannels li > a:hover {
+  color: var(--color-phosphor);
+}
+
+.contactChannels li span,
+.contactChannels li i {
+  color: var(--color-secondary);
+  font:
+    500 0.55rem/1 var(--font-mono),
+    monospace;
+}
+
+.contactChannels li b {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.contactChannels li i {
+  color: var(--color-phosphor);
+  font-size: 0.85rem;
+  font-style: normal;
+}
+
+.contactChannels small {
+  padding-left: 2rem;
+  text-transform: none;
+}
+
+.contactGrid > form {
+  grid-column: 6 / -1;
 }
 
 @media (max-width: 70rem) {
@@ -1080,6 +1157,20 @@
   .contact {
     min-height: 50rem;
   }
+
+  .contactGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .contactChannels {
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .contactGrid > form {
+    grid-column: 1;
+  }
 }
 
 @media (max-width: 38rem) {
@@ -1171,13 +1262,19 @@
     margin-left: 0;
   }
 
-  .contactBottom {
+  .contactGrid {
+    display: grid;
     grid-template-columns: 1fr;
   }
 
-  .contactPlaceholder {
-    margin-top: 1rem;
-    justify-self: start;
+  .contactChannels,
+  .contactGrid > form {
+    grid-column: 1;
+  }
+
+  .contactChannels {
+    display: flex;
+    gap: 3rem;
   }
 }
 

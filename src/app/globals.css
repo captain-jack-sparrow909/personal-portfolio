@@ -388,12 +388,19 @@ a {
   text-transform: uppercase;
 }
 
-.site-footer p:nth-child(2) {
-  text-align: center;
+.site-footer__socials {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
 }
 
 .site-footer a {
   justify-self: end;
+  transition: color 160ms ease;
+}
+
+.site-footer a:hover {
+  color: var(--color-text);
 }
 
 @media (max-width: 56rem) {
@@ -500,10 +507,10 @@ a {
     row-gap: 0.6rem;
   }
 
-  .site-footer p:nth-child(2) {
+  .site-footer__socials {
     grid-column: 1 / -1;
     grid-row: 2;
-    text-align: left;
+    justify-content: flex-start;
   }
 }
 

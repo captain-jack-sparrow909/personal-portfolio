@@ -1,11 +1,13 @@
 # Cognitive Engine asset contract
 
-Phase 1 uses a CSS-rendered static visual fallback. A future 3D phase will
-place the optimized production asset at:
+Phase 6 generates and loads the optimized production asset at:
 
 `public/models/cognitive-engine.glb`
 
-Expected animation clips:
+The generated GLB currently measures approximately 615 KB. It is built from
+custom procedural geometry and contains the required runtime contract.
+
+Animation clips:
 
 - Idle
 - Awaken
@@ -15,7 +17,7 @@ Expected animation clips:
 - Pulse
 - Shutdown
 
-Expected named groups:
+Named groups:
 
 - Core
 - OuterRing
@@ -26,5 +28,13 @@ Expected named groups:
 - DataFragments
 - AccentLights
 
-The final GLB should preferably remain below approximately 3 MB and use
-compressed geometry and appropriately sized textures.
+Regenerate and audit the asset with:
+
+```bash
+pnpm generate:model
+pnpm audit:model
+```
+
+The runtime performs the same contract validation before showing the GLB. A
+missing, invalid, or failed model automatically leaves the procedural Cognitive
+Engine in place. Low-tier devices intentionally keep the procedural model.

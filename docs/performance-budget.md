@@ -76,6 +76,19 @@ Budgets are targets rather than license to degrade visual quality. Regressions r
 - The 1200×630 social-preview image is metadata-only and is not requested by
   the visible page.
 
+## Phase 6 implementation
+
+- The generated GLB measures approximately 615 KB, below the preferred 3 MB
+  budget.
+- The complete deferred WebGL chunk, including the GLB loader and shader patch,
+  measures approximately 346 KB gzip, below the 450 KB budget.
+- Medium and high tiers load the GLB only after an inexpensive availability
+  check; low-tier devices keep the procedural engine.
+- The model reuses geometry and materials inside the GLB and contains no raster
+  textures.
+- The asset audit fails when required groups or clips are missing, the file is
+  not GLB 2.0, or the preferred size budget is exceeded.
+
 ## Phase 1 measurement
 
 Phase 1 contains no WebGL or client animation runtime. Validation focuses on semantic HTML, font loading, responsive CSS, zero horizontal overflow, and a production build without warnings.

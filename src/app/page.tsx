@@ -9,7 +9,10 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { ManifestoSection } from "@/components/sections/ManifestoSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
-import { getPersonStructuredData } from "@/lib/seo/structuredData";
+import {
+  getPersonStructuredData,
+  serializeStructuredData,
+} from "@/lib/seo/structuredData";
 
 export default function HomePage() {
   const structuredData = getPersonStructuredData();
@@ -32,7 +35,9 @@ export default function HomePage() {
       </main>
       <SiteFooter />
       <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{
+          __html: serializeStructuredData(structuredData),
+        }}
         type="application/ld+json"
       />
     </MotionProvider>

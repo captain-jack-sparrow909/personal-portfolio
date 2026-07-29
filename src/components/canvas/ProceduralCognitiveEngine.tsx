@@ -1,65 +1,16 @@
 "use client";
 
 import { useFrame } from "@react-three/fiber";
-import { useLayoutEffect, useMemo, useRef } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 
+import { ENGINE_ACCENT_BY_MODE, ENGINE_POSE_BY_MODE } from "@/lib/three/model";
+import {
+  installEngineShaderPatch,
+  updateEngineShader,
+} from "@/lib/three/materials";
+
 import type { CognitiveEngineProps } from "./CognitiveEngine";
-
-const accentByMode = {
-  hero: "#5de4ff",
-  identity: "#b8ff63",
-  devpulse: "#ff8a5c",
-  rontgen: "#5de4ff",
-  cognora: "#b8ff63",
-  orkestria: "#8974ff",
-  contact: "#f2f1ec",
-} as const;
-
-const poseByMode = {
-  hero: {
-    position: [1.15, -0.12, 0],
-    rotation: [0.05, -0.15, -0.02],
-    scale: 1,
-  },
-  identity: {
-    position: [-1.35, 0.05, -0.1],
-    rotation: [-0.06, 0.34, 0.05],
-    scale: 0.92,
-  },
-  devpulse: {
-    position: [1.4, 0.03, -0.2],
-    rotation: [0.15, 0.52, -0.16],
-    scale: 1.02,
-  },
-  rontgen: {
-    position: [-1.35, 0.05, -0.15],
-    rotation: [-0.08, -0.46, 0.08],
-    scale: 1,
-  },
-  cognora: {
-    position: [1.3, 0.04, -0.2],
-    rotation: [0.12, 0.44, -0.08],
-    scale: 1.04,
-  },
-  orkestria: {
-    position: [-1.3, 0.02, -0.2],
-    rotation: [-0.14, -0.52, 0.12],
-    scale: 1.05,
-  },
-  contact: {
-    position: [1.55, -0.08, -0.3],
-    rotation: [0.02, 0.08, 0],
-    scale: 0.88,
-  },
-} satisfies Record<
-  CognitiveEngineProps["mode"],
-  {
-    position: [number, number, number];
-    rotation: [number, number, number];
-    scale: number;
-  }
->;
 
 function buildNodePositions(count: number): THREE.Vector3[] {
   const goldenAngle = Math.PI * (3 - Math.sqrt(5));
@@ -138,7 +89,7 @@ export function ProceduralCognitiveEngine({
   const nodes = useRef<THREE.InstancedMesh>(null);
   const fragments = useRef<THREE.InstancedMesh>(null);
 
-  const accent = accentByMode[mode];
+  const accent = ENGINE_ACCENT_BY_MODE[mode];
   const nodeCount =
     deviceTier === "high" ? 28 : deviceTier === "medium" ? 18 : 10;
   const fragmentCount =
@@ -180,11 +131,17 @@ export function ProceduralCognitiveEngine({
     if (fragments.current) fragments.current.instanceMatrix.needsUpdate = true;
   }, [fragmentTransforms, nodePositions]);
 
+  useEffect(() => {
+    if (coreMaterial.current) {
+      installEngineShaderPatch(coreMaterial.current, accent);
+    }
+  }, [accent]);
+
   useFrame(({ clock }, delta) => {
     const engine = root.current;
     if (!engine) return;
 
-    const pose = poseByMode[mode];
+    const pose = ENGINE_POSE_BY_MODE[mode];
     const pointerX = reducedMotion ? 0 : pointer.current.x;
     const pointerY = reducedMotion ? 0 : pointer.current.y;
     const projectMode =
@@ -198,6 +155,7 @@ export function ProceduralCognitiveEngine({
         : progress.current
       : 0;
     const transitionScale = transitionState === "transitioning" ? 1.14 : 1;
+    const transition = transitionState === "transitioning" ? 1 : 0;
 
     engine.position.x = THREE.MathUtils.damp(
       engine.position.x,
@@ -338,6 +296,15 @@ export function ProceduralCognitiveEngine({
     } else if (coreMaterial.current) {
       coreMaterial.current.emissiveIntensity =
         0.15 + Math.sin(chapterProgress * Math.PI) * 0.1;
+    }
+
+    if (coreMaterial.current) {
+      updateEngineShader(coreMaterial.current, {
+        accent,
+        motion: reducedMotion ? 0 : 1,
+        time: clock.elapsedTime,
+        transition,
+      });
     }
   });
 

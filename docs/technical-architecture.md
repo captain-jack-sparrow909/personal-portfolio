@@ -25,9 +25,8 @@ The application lives under `src/`:
 - `src/styles`: tokens, typography, and shared utilities
 - `docs`: architecture and delivery documentation
 
-Phase-specific directories now include `canvas`, `motion`, `hooks`,
-`lib/motion`, and `store`. GLB utilities, case-study components, and contact
-validation remain deferred to their assigned phases.
+Phase-specific directories now include `canvas`, `contact`, `motion`, `hooks`,
+`lib/contact`, `lib/motion`, `lib/three`, `lib/validation`, and `store`.
 
 ## Content contracts
 
@@ -59,6 +58,25 @@ state, device tier, reduced-motion state, and canvas readiness.
 The renderer clamps DPR by tier, removes postprocessing on low-tier or
 reduced-motion devices, pauses its render loop when the page is hidden, and
 reacts to WebGL context loss by restoring the static CSS engine.
+
+## Model asset contract
+
+Phase 6 adds a generated GLB at `public/models/cognitive-engine.glb`. A
+framework-free Node generator creates the mechanical-neural asset, and an audit
+script verifies GLB 2.0 integrity, the eight required named groups, the seven
+required clips, and the 3 MB size target.
+
+The browser checks asset availability before mounting `useGLTF`. The loaded
+scene is cloned, its materials are isolated, and its contract is validated
+again. `ModelCognitiveEngine` and `ProceduralCognitiveEngine` consume the same
+mode, progress, pointer, reduced-motion, and transition props. Suspense, an
+engine-specific error boundary, and low-tier policy all resolve to the
+procedural implementation.
+
+Both implementations use the same material patch: subtle Fresnel emissive
+response, low-amplitude vertex motion, and a restrained transition-only color
+separation. Shader uniforms are updated through refs and `useFrame`, never
+through React state.
 
 ## Project storytelling contract
 
@@ -93,16 +111,46 @@ The root and project metadata share one validated 1200×630 portfolio social
 card. It is referenced only through Open Graph and X metadata and does not enter
 the visible route payload.
 
+## Contact and production boundary
+
+The contact form is the only client-owned production input surface. It performs
+the same Zod validation used by the server to produce immediate accessible
+field errors, but the route handler remains authoritative.
+
+`POST /api/contact` applies the following sequence:
+
+1. Reject oversized or unreadable request bodies.
+2. Silently absorb honeypot submissions.
+3. Validate and normalize every accepted field with Zod.
+4. Apply the `RateLimiter` abstraction using a connection key.
+5. Pass only normalized fields to the server-only email adapter.
+6. Return a generic delivery state without provider credentials or internals.
+
+The initial limiter is intentionally process-local and suitable as a basic
+defense. Its interface can be replaced by a durable distributed implementation
+without changing the route. The initial email adapter targets Resend through
+the standard `fetch` API. Provider keys, sender identity and recipient overrides
+are read only from server environment variables.
+
+Plausible analytics is opt-in: the script component renders nothing unless
+`NEXT_PUBLIC_PLAUSIBLE_DOMAIN` is configured.
+
+The homepage structured-data graph connects the portfolio `WebSite`, Jabir's
+verified `Person` identity and an `ItemList` of selected projects. Each
+case-study route also emits its own `CreativeWork` record.
+
 ## Failure behavior
 
 - Without JavaScript: the complete semantic portfolio remains visible.
 - Without WebGL: the static Cognitive Engine fallback remains.
 - Reduced motion: no Lenis or scrubbed sequences; the scene holds a stable pose.
-- Missing contact credentials: the future route logs a safe development message and returns a controlled response.
+- Missing contact credentials: development logs a safe delivery summary;
+  production returns a controlled configuration response and leaves the direct
+  email channel available.
 
 ## SEO
 
 Phase 1 supplies canonical metadata, sitemap, robots, and Person JSON-LD.
 Phase 5 adds project-specific canonical, Open Graph, and X metadata plus the
-shared social-preview asset. Project structured data remains scheduled for
-Phase 7.
+shared social-preview asset. Phase 7 expands the homepage into a linked
+Person/WebSite/project graph and adds one CreativeWork record per case study.

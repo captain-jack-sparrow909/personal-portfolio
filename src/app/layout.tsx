@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Instrument_Serif, Manrope } from "next/font/google";
 
+import { Analytics } from "@/components/analytics/Analytics";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { siteConfig, getSiteUrl } from "@/content/site";
 
@@ -82,6 +83,7 @@ export default function RootLayout({
       <body>
         <PageTransition />
         {children}
+        <Analytics />
       </body>
     </html>
   );

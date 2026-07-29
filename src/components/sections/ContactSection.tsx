@@ -1,3 +1,6 @@
+import { ContactForm } from "@/components/contact/ContactForm";
+import { siteConfig } from "@/content/site";
+
 import styles from "./Sections.module.css";
 
 export function ContactSection() {
@@ -16,15 +19,38 @@ export function ContactSection() {
         Let&apos;s build what
         <span>does not exist yet.</span>
       </h2>
-      <div className={styles.contactBottom} data-reveal>
-        <p>
-          Available for ambitious AI, web, mobile and product-engineering
-          collaborations.
-        </p>
-        <p className={styles.contactPlaceholder}>
-          Verified contact and social channels will be connected in the
-          production features phase.
-        </p>
+      <div className={styles.contactGrid} data-reveal>
+        <aside className={styles.contactChannels}>
+          <div>
+            <p className={styles.contactLead}>
+              Available for ambitious AI, web, mobile and product-engineering
+              collaborations.
+            </p>
+            <a
+              className={styles.contactEmail}
+              href={`mailto:${siteConfig.email}`}
+            >
+              <span>Direct email</span>
+              {siteConfig.email}
+            </a>
+          </div>
+          <nav aria-label="Social profiles">
+            <p>Elsewhere / verified channels</p>
+            <ul>
+              {siteConfig.socialLinks.map((link, index) => (
+                <li key={link.label}>
+                  <a href={link.href} rel="noreferrer" target="_blank">
+                    <span>0{index + 1}</span>
+                    <b>{link.label}</b>
+                    <i aria-hidden="true">↗</i>
+                  </a>
+                  <small>{link.handle}</small>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </aside>
+        <ContactForm />
       </div>
     </section>
   );

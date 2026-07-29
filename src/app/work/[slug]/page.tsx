@@ -6,6 +6,10 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { ProjectCaseStudy } from "@/components/project/ProjectCaseStudy";
 import { getProjectBySlug, projects } from "@/content/projects";
+import {
+  getProjectStructuredData,
+  serializeStructuredData,
+} from "@/lib/seo/structuredData";
 
 type ProjectRouteProps = {
   params: Promise<{ slug: string }>;
@@ -56,6 +60,8 @@ export default async function ProjectRoute({ params }: ProjectRouteProps) {
 
   if (!project) notFound();
 
+  const structuredData = getProjectStructuredData(project);
+
   return (
     <MotionProvider>
       <a className="skip-link" href="#project-content">
@@ -64,6 +70,12 @@ export default async function ProjectRoute({ params }: ProjectRouteProps) {
       <SiteHeader />
       <ProjectCaseStudy project={project} />
       <SiteFooter />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: serializeStructuredData(structuredData),
+        }}
+        type="application/ld+json"
+      />
     </MotionProvider>
   );
 }

@@ -148,3 +148,23 @@ Implemented:
 Deferred:
 
 - Final GLB clips, named groups, and shader refinement
+
+## Phase 6 implementation status
+
+Implemented:
+
+- Asset-gated GLB loading that never blocks the semantic hero
+- Initial `Awaken` playback and mode mapping for `Idle`, `Orbit`,
+  `Disassemble`, `Reassemble`, `Pulse`, and `Shutdown`
+- Scroll-synchronized project clip time for the four selected systems
+- Crossfaded discrete scene transitions and stable reduced-motion poses
+- Matching pointer, camera, scale, accent, and route-transition response across
+  the GLB and procedural implementations
+- Automatic procedural fallback for missing assets, contract failures, loading
+  failures, and low-tier devices
+- Restrained Fresnel, low-amplitude vertex motion, and transition-only
+  chromatic accent response
+
+Deferred:
+
+- Contact form and production integrations

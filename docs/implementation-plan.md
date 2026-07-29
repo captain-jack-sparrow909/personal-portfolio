@@ -28,10 +28,12 @@ Dynamic project routes, shared case-study components, architecture diagrams, con
 ### Phase 6 — Final asset support
 
 GLB loader, named groups and animation clips, procedural fallback parity, shader refinement, and asset compression.
+**Complete.**
 
 ### Phase 7 — Contact and production
 
 Accessible form, Zod validation, honeypot, rate-limit abstraction, provider adapter, social links, structured project data, and configuration documentation.
+**Complete.**
 
 ### Phase 8 — Optimization and QA
 
@@ -39,7 +41,7 @@ Bundle analysis, asset compression, cross-browser checks, Playwright coverage, m
 
 ## Proposed dependency list
 
-### Phase 1 through Phase 5 installed
+### Phase 1 through Phase 7 installed
 
 - `next`, `react`, `react-dom`
 - `tailwindcss`, `@tailwindcss/postcss`
@@ -52,10 +54,10 @@ Bundle analysis, asset compression, cross-browser checks, Playwright coverage, m
   `@react-three/postprocessing`, `postprocessing`
 - State: `zustand`
 - Types: `@types/three`
+- Validation: `zod`
 
 ### Later phases
 
-- Validation: `zod`
 - Testing: `vitest`, `@playwright/test`
 
 Dependencies are introduced only when their phase begins.
@@ -65,6 +67,40 @@ packages.
 
 Phase 5 also introduced no runtime dependencies. Architecture diagrams and
 interface concept frames use semantic HTML and CSS.
+
+Phase 6 reuses Three.js, Drei, and the existing deferred scene chunk. The model
+generator and contract audit use Three.js and Node.js without adding another
+package.
+
+Phase 7 adds only Zod. Email delivery uses the platform `fetch` API behind a
+small provider adapter, so provider credentials remain server-only and no email
+SDK enters the client bundle.
+
+## Phase 7 file plan
+
+- `.env.example`
+- `src/app/api/contact/route.ts`
+- `src/components/analytics/Analytics.tsx`
+- `src/components/contact/ContactForm.tsx`
+- `src/components/contact/ContactForm.module.css`
+- `src/components/sections/ContactSection.tsx`
+- `src/content/site.ts`
+- `src/lib/contact/email.ts`
+- `src/lib/contact/rate-limit.ts`
+- `src/lib/seo/structuredData.ts`
+- `src/lib/validation/contact.ts`
+
+## Phase 6 file plan
+
+- `public/models/cognitive-engine.glb`
+- `public/models/README.md`
+- `scripts/generate-cognitive-engine.mjs`
+- `scripts/audit-cognitive-engine.mjs`
+- `src/components/canvas/ModelCognitiveEngine.tsx`
+- `src/components/canvas/CognitiveEngine.tsx`
+- `src/components/canvas/ProceduralCognitiveEngine.tsx`
+- `src/lib/three/model.ts`
+- `src/lib/three/materials.ts`
 
 ## Phase 5 file plan
 

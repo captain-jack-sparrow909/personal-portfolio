@@ -172,7 +172,7 @@ export function SceneExperience() {
         <SceneCanvas pointer={pointer} progress={progress} />
       </SceneErrorBoundary>
       <div className={styles.hud}>
-        <span>CE / PROCEDURAL-03</span>
+        <span>CE / HYBRID-06</span>
         <span>{currentSection.toUpperCase()}</span>
         <span>{deviceTier.toUpperCase()} TIER</span>
       </div>

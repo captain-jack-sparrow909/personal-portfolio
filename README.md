@@ -13,7 +13,11 @@ transition shells, viewport-scale project chapters, scroll-linked project
 motifs, and progress UI arrive in Phase 4. Full case-study narratives and
 shared architecture, conceptual interface frames, project metadata, and
 next-project navigation arrive in Phase 5. Final model support and production
-contact integrations remain deliberately scheduled for later phases in
+asset generation, animation clips, runtime contract validation, shader
+refinement, and procedural fallback parity arrive in Phase 6. Phase 7 adds the
+accessible project-enquiry form, server validation and spam controls, Resend
+delivery adapter, verified contact channels, project structured data, and
+opt-in analytics. Optimization and cross-browser QA remain scheduled in
 [`project.md`](./project.md).
 
 ## Stack
@@ -25,6 +29,7 @@ contact integrations remain deliberately scheduled for later phases in
 - GSAP, ScrollTrigger, and Lenis
 - Three.js, React Three Fiber, Drei, and controlled postprocessing
 - Zustand for discrete scene state
+- Zod for shared client/server contact validation
 - pnpm
 
 ## Run locally
@@ -43,11 +48,26 @@ pnpm typecheck
 pnpm lint
 pnpm format:check
 pnpm build
+pnpm audit:model
 ```
 
 ## Configuration
 
-Set `NEXT_PUBLIC_SITE_URL` to the verified production origin before
-deployment. Local metadata uses `http://localhost:3000` when it is absent.
+Copy `.env.example` to `.env.local` and fill only the services you intend to
+use.
+
+- `NEXT_PUBLIC_SITE_URL` sets canonical, sitemap and structured-data URLs.
+- `RESEND_API_KEY` and `CONTACT_EMAIL_FROM` activate server-side contact
+  delivery. The sender must use a domain verified in Resend.
+- `CONTACT_EMAIL_TO` defaults to `khanjabir909@gmail.com`.
+- `CONTACT_RATE_LIMIT_MAX` and `CONTACT_RATE_LIMIT_WINDOW_MS` tune the basic
+  in-memory limiter.
+- `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` enables Plausible analytics. When it is blank,
+  no analytics script is rendered.
+
+In development, missing email credentials produce a safe server message and a
+successful simulated delivery. In production, the endpoint returns a clear
+configuration response and directs visitors to the published email link rather
+than claiming delivery.
 
 Planning and architecture decisions live in [`docs`](./docs).
