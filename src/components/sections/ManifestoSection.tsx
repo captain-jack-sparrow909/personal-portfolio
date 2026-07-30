@@ -7,22 +7,22 @@ const disciplines = [
     index: "01",
     name: "Intelligence",
     description:
-      "AI systems, machine learning, LLM applications, agents and automation.",
-    meta: "REASON · RETRIEVE · ADAPT",
+      "AI and ML across the full lifecycle: data, deep learning, LLMs, retrieval, agents, evaluation, automation, serving and deployment.",
+    meta: "LEARN · REASON · AUTOMATE",
   },
   {
     index: "02",
     name: "Product",
     description:
-      "Web platforms, mobile applications, frontend systems and user experience.",
-    meta: "DESIGN · BUILD · SHIP",
+      "Full-stack web and mobile products with equal depth across frontend, backend, architecture, performance and user experience.",
+    meta: "DESIGN · ENGINEER · SHIP",
   },
   {
     index: "03",
     name: "Infrastructure",
     description:
-      "APIs, microservices, cloud systems, DevOps and scalable architecture.",
-    meta: "CONNECT · SCALE · OPERATE",
+      "APIs, data systems, MLOps, cloud platforms, CI/CD, observability, DevOps and resilient production architecture.",
+    meta: "DEPLOY · SCALE · OPERATE",
   },
 ] as const;
 
@@ -34,10 +34,10 @@ export function ManifestoSection() {
       data-scene-mode="identity"
     >
       <SectionIntro
-        description="From machine-learning workflows and autonomous agents to full-stack platforms and mobile experiences, I build across the complete path from idea to production."
+        description="I own the complete engineering path: intelligence, automation, frontend, backend, web, mobile, data, infrastructure, deployment and reliable production operation."
         eyebrow="Operating range"
         index="01"
-        title="I work where intelligent systems meet product engineering."
+        title="Mastery across intelligence, product, and production."
         titleId="identity-title"
       />
 

@@ -1,27 +1,27 @@
 export const experienceTimeline = [
   {
     marker: "NOW",
-    role: "Independent product engineering",
+    role: "Independent AI and full-stack systems engineering",
     detail:
-      "Building AI/ML products and focused experiments across developer tooling, product systems and applied intelligence.",
+      "Architecting complete AI/ML products across models, agents, automation, frontend, backend, web, mobile, cloud and deployment.",
   },
   {
     marker: "CURRENT ROLE",
     role: "Senior Software Engineer",
     detail:
-      "Large-scale AI-integrated financial and digital product engineering, with frontend leadership and full-stack delivery responsibilities.",
+      "Large-scale AI-integrated financial and digital product engineering with equal ownership across frontend, backend, architecture, integration and full-stack delivery.",
   },
   {
     marker: "EARLIER",
-    role: "Full-stack web, mobile and backend systems",
+    role: "Full-stack web, mobile, backend and cloud systems",
     detail:
-      "Product work spanning frontend architecture, APIs, mobile experiences, cloud delivery and developer infrastructure.",
+      "End-to-end product work spanning frontend and backend architecture, APIs, data, mobile experiences, cloud delivery and developer infrastructure.",
   },
   {
     marker: "ONGOING",
-    role: "Open-source and local-AI experiments",
+    role: "AI systems, automation and open-source engineering",
     detail:
-      "Exploring agents, local models, retrieval, developer tools and ways to make advanced software easier to understand.",
+      "Advancing agents, local models, retrieval, evaluation, automation, model deployment, developer tools and production AI workflows.",
   },
 ] as const;
 

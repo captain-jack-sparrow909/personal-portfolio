@@ -13,10 +13,10 @@ export function CapabilitiesSection() {
       id="expertise"
     >
       <SectionIntro
-        description="A multidisciplinary practice spanning models, interfaces, services, and the systems that keep them running."
-        eyebrow="Capability constellation"
+        description="Equal command of the intelligence layer, frontend, backend, web, mobile, data, automation, deployment, and the production systems connecting them."
+        eyebrow="End-to-end mastery"
         index="03"
-        title="Across the stack"
+        title="Every layer. One engineering practice."
         titleId="capabilities-title"
       />
 

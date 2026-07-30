@@ -1,7 +1,8 @@
 # Jabir Khan — Portfolio
 
-A cinematic, systems-led portfolio for Jabir Khan: AI/ML engineer and
-full-stack web and mobile developer.
+A cinematic, systems-led portfolio for Jabir Khan: an AI/ML and full-stack
+systems engineer spanning frontend, backend, web, mobile, automation, MLOps,
+cloud and production deployment.
 
 The project is being delivered in phases. Phase 1 established the polished,
 server-rendered foundation. Phase 2 adds the shared GSAP and Lenis motion

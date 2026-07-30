@@ -19,7 +19,7 @@ export function HeroSection() {
       <div className={styles.heroGrid}>
         <div className={styles.heroCopy}>
           <p className="eyebrow" data-hero-eyebrow>
-            AI/ML ENGINEER · FULL-STACK WEB/MOBILE DEVELOPER
+            AI/ML &amp; AUTOMATION · FULL-STACK WEB/MOBILE ENGINEERING
           </p>
           <h1 className={styles.heroTitle} id="hero-title">
             <span className={styles.lineMask}>
@@ -39,9 +39,9 @@ export function HeroSection() {
             data-hero-support
             data-parallax="slow"
           >
-            I build AI-native systems, web platforms, mobile experiences, and
-            developer infrastructure that turn ambitious ideas into working
-            products.
+            I architect, build, automate, and deploy complete intelligent
+            products—across models, agents, frontend, backend, web, mobile,
+            data, cloud, and production infrastructure.
           </p>
           <div className={styles.heroActions} data-hero-support>
             <ArrowLink href="#work">Explore the systems</ArrowLink>
@@ -65,7 +65,7 @@ export function HeroSection() {
           <span>LOC</span> Dubai, UAE
         </p>
         <p>
-          <span>FOCUS</span> Intelligent product systems
+          <span>FOCUS</span> End-to-end intelligent systems
         </p>
         <p>
           <span>STATUS</span> Building globally
@@ -80,9 +80,10 @@ export function HeroSection() {
         <div className={styles.tickerTrack} data-ticker-track>
           {[0, 1].map((copy) => (
             <p aria-hidden={copy === 1} key={copy}>
-              AI SYSTEMS <span>/</span> AGENTIC WORKFLOWS <span>/</span> WEB{" "}
-              <span>/</span> MOBILE <span>/</span> CLOUD <span>/</span> DEVTOOLS{" "}
-              <span>/</span>
+              AI <span>/</span> ML <span>/</span> AGENTS <span>/</span>{" "}
+              AUTOMATION <span>/</span> FRONTEND <span>/</span> BACKEND{" "}
+              <span>/</span> WEB <span>/</span> MOBILE <span>/</span> MLOPS{" "}
+              <span>/</span> CLOUD <span>/</span>
             </p>
           ))}
         </div>

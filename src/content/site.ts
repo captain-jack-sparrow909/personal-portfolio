@@ -1,9 +1,9 @@
 export const siteConfig = {
   name: "Jabir Khan",
   shortName: "JK",
-  title: "Jabir Khan — AI/ML Engineer and Full-Stack Developer",
+  title: "Jabir Khan — AI/ML and Full-Stack Systems Engineer",
   description:
-    "Portfolio of Jabir Khan, an AI/ML engineer and full-stack web and mobile developer building intelligent products, developer tools and scalable digital systems.",
+    "Portfolio of Jabir Khan, an AI/ML and full-stack systems engineer building complete intelligent products across models, agents, automation, frontend, backend, web, mobile, MLOps, cloud and production deployment.",
   location: "Dubai, UAE",
   availability: "Open to ambitious product collaborations",
   email: "khanjabir909@gmail.com",

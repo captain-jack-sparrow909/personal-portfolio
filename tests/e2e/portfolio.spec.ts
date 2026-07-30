@@ -94,7 +94,7 @@ test("short desktop layouts keep hero actions and contact pills contained", asyn
   const contactLink = page.getByRole("link", {
     name: "Start a conversation",
   });
-  const focusRail = page.getByText("Intelligent product systems", {
+  const focusRail = page.getByText("End-to-end intelligent systems", {
     exact: false,
   });
   const rail = focusRail.locator("..");

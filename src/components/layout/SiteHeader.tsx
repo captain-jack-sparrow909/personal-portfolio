@@ -173,7 +173,7 @@ export function SiteHeader() {
         </div>
         <div className="mobile-menu__footer">
           <span>{siteConfig.availability}</span>
-          <span>AI / WEB / MOBILE / CLOUD</span>
+          <span>AI / ML / FULL STACK / MOBILE / CLOUD</span>
         </div>
       </div>
     </header>
