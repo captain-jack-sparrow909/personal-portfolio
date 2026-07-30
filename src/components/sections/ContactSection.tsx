@@ -13,7 +13,7 @@ export function ContactSection() {
       id="contact"
     >
       <div className={styles.contactMeta} data-reveal>
-        <p className="eyebrow">OPEN CHANNEL / DUBAI — GLOBAL</p>
+        <p className="eyebrow">Saudi Arabia · UAE · GCC - Global</p>
         <span>07 / CONTACT</span>
       </div>
       <h2 data-reveal id="contact-title">

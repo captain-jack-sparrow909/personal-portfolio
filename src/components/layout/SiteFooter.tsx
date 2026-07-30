@@ -5,7 +5,7 @@ export function SiteFooter() {
     <footer className="site-footer">
       <p>
         <span aria-hidden="true">©</span> {new Date().getFullYear()}{" "}
-        {siteConfig.name} / Dubai
+        {siteConfig.name}
       </p>
       <nav aria-label="Footer social links" className="site-footer__socials">
         {siteConfig.socialLinks.map((link) => (

@@ -32,8 +32,8 @@ export function AboutSection() {
       <div className={styles.about}>
         <div className={styles.aboutLead} data-reveal>
           <p>
-            I&apos;m Jabir Khan, an AI/ML and full-stack systems engineer based
-            in Dubai, working end to end across web and mobile.
+            I&apos;m Jabir Khan, an AI/ML and full-stack systems engineer
+            working end to end across web and mobile.
           </p>
           <p>
             I design the intelligence, engineer every product layer, automate
@@ -51,7 +51,7 @@ export function AboutSection() {
             />
           </div>
           <figcaption>
-            <span>Profile / Dubai</span>
+            <span>Profile / GCC</span>
             <span>JK — 2026</span>
           </figcaption>
         </figure>

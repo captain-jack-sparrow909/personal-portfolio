@@ -62,7 +62,7 @@ export function HeroSection() {
 
       <div className={styles.heroRail} data-hero-rail>
         <p>
-          <span>LOC</span> Dubai, UAE
+          <span>LOC</span> UAE · Saudi Arabia · GCC
         </p>
         <p>
           <span>FOCUS</span> End-to-end intelligent systems

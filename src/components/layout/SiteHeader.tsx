@@ -139,7 +139,7 @@ export function SiteHeader() {
       >
         <div className="mobile-menu__meta">
           <p>Navigation / Jabir Khan</p>
-          <p>Dubai — Global</p>
+          <p>Saudi Arabia · UAE · GCC — Global</p>
         </div>
         <div className="mobile-menu__body">
           <div className="mobile-menu__primary">

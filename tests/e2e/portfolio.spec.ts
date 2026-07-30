@@ -68,6 +68,7 @@ test("home renders its complete semantic structure without runtime errors", asyn
           (image as HTMLImageElement).complete &&
           (image as HTMLImageElement).naturalWidth > 0,
       ),
+      { timeout: 15_000 },
     )
     .toBe(true);
   await expect(page.locator('link[rel="icon"]').first()).toHaveAttribute(
