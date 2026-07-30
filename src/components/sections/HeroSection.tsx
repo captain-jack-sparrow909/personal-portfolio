@@ -60,7 +60,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      <div className={styles.heroRail} data-hero-rail data-parallax="fast">
+      <div className={styles.heroRail} data-hero-rail>
         <p>
           <span>LOC</span> Dubai, UAE
         </p>

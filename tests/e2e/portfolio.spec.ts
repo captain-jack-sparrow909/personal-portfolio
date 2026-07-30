@@ -63,6 +63,82 @@ test("home renders its complete semantic structure without runtime errors", asyn
   expect(errors).toEqual([]);
 });
 
+test("short desktop layouts keep hero actions and contact pills contained", async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name === "chromium-mobile");
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveAttribute("data-motion", "ready");
+  await page.waitForTimeout(1_400);
+
+  const exploreLink = page.getByRole("link", {
+    name: "Explore the systems",
+  });
+  const contactLink = page.getByRole("link", {
+    name: "Start a conversation",
+  });
+  const focusRail = page.getByText("Intelligent product systems", {
+    exact: false,
+  });
+  const rail = focusRail.locator("..");
+  const [exploreBox, contactBox, railBox] = await Promise.all([
+    exploreLink.boundingBox(),
+    contactLink.boundingBox(),
+    rail.boundingBox(),
+  ]);
+
+  expect(exploreBox).not.toBeNull();
+  expect(contactBox).not.toBeNull();
+  expect(railBox).not.toBeNull();
+  expect(Math.abs(exploreBox!.y - contactBox!.y)).toBeLessThan(2);
+  expect(
+    Math.max(
+      exploreBox!.y + exploreBox!.height,
+      contactBox!.y + contactBox!.height,
+    ),
+  ).toBeLessThanOrEqual(railBox!.y - 16);
+  await expect(rail).toHaveCSS("transform", "none");
+
+  await page.goto("/#contact");
+  const bestFitLabels = [
+    "AI products and applied ML",
+    "Developer tools and platform engineering",
+    "High-craft web and mobile products",
+    "Technical product architecture",
+  ];
+
+  for (const label of bestFitLabels) {
+    const capsule = page.getByText(label, { exact: true });
+    await expect(capsule).toHaveCSS("white-space", "nowrap");
+    const dimensions = await capsule.evaluate((element) => ({
+      clientHeight: element.clientHeight,
+      clientWidth: element.clientWidth,
+      horizontalInsets: (() => {
+        const capsuleBox = element.getBoundingClientRect();
+        const textRange = document.createRange();
+        textRange.selectNodeContents(element);
+        const textBox = textRange.getBoundingClientRect();
+
+        return {
+          left: textBox.left - capsuleBox.left,
+          right: capsuleBox.right - textBox.right,
+        };
+      })(),
+      scrollHeight: element.scrollHeight,
+      scrollWidth: element.scrollWidth,
+    }));
+    expect(dimensions.scrollWidth).toBeLessThanOrEqual(
+      dimensions.clientWidth + 1,
+    );
+    expect(dimensions.scrollHeight).toBeLessThanOrEqual(
+      dimensions.clientHeight + 1,
+    );
+    expect(dimensions.horizontalInsets.left).toBeGreaterThanOrEqual(8);
+    expect(dimensions.horizontalInsets.right).toBeGreaterThanOrEqual(8);
+  }
+});
+
 test("desktop navigation and case-study routes work", async ({
   page,
 }, testInfo) => {

@@ -88,7 +88,7 @@
 
 .heroActions {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0.75rem;
   margin-top: 2.25rem;
   margin-left: calc((100% / 7) * 2);
@@ -1202,13 +1202,16 @@
 }
 
 .contactFit li {
+  flex: 0 0 auto;
+  max-width: 100%;
   padding: 0.48rem 0.62rem;
   border: 1px solid rgba(184, 255, 99, 0.22);
   border-radius: var(--radius-pill);
   color: var(--color-secondary);
   font:
-    500 0.54rem/1 var(--font-mono),
+    500 0.54rem/1.35 var(--font-mono),
     monospace;
+  white-space: nowrap;
 }
 
 .contactBrief {
@@ -1232,42 +1235,42 @@
   margin-bottom: 1rem;
 }
 
-.contactChannels li {
+.contactChannels nav li {
   display: grid;
   gap: 0.3rem;
   padding: 0.8rem 0;
   border-bottom: 1px solid var(--color-border);
 }
 
-.contactChannels li:first-child {
+.contactChannels nav li:first-child {
   border-top: 1px solid var(--color-border);
 }
 
-.contactChannels li > a {
+.contactChannels nav li > a {
   display: grid;
   grid-template-columns: 2rem 1fr auto;
   align-items: baseline;
   transition: color 180ms ease;
 }
 
-.contactChannels li > a:hover {
+.contactChannels nav li > a:hover {
   color: var(--color-phosphor);
 }
 
-.contactChannels li span,
-.contactChannels li i {
+.contactChannels nav li span,
+.contactChannels nav li i {
   color: var(--color-secondary);
   font:
     500 0.55rem/1 var(--font-mono),
     monospace;
 }
 
-.contactChannels li b {
+.contactChannels nav li b {
   font-size: 1rem;
   font-weight: 500;
 }
 
-.contactChannels li i {
+.contactChannels nav li i {
   color: var(--color-phosphor);
   font-size: 0.85rem;
   font-style: normal;
@@ -1298,6 +1301,12 @@
 
   .discipline small {
     display: none;
+  }
+}
+
+@media (min-width: 56.0625rem) and (max-height: 50rem) {
+  .heroActions {
+    margin-top: 1.25rem;
   }
 }
 
