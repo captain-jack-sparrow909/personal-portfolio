@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { currentExplorations, experienceTimeline } from "@/content/experience";
 
 import { SectionIntro } from "../ui/SectionIntro";
@@ -38,6 +40,21 @@ export function AboutSection() {
             use.
           </p>
         </div>
+        <figure className={styles.aboutPortrait} data-reveal>
+          <div className={styles.aboutPortraitFrame}>
+            <Image
+              alt="Portrait of Jabir Khan"
+              height={1000}
+              sizes="(max-width: 608px) 78vw, (max-width: 896px) 32vw, 24vw"
+              src="/images/jabir-khan-portrait-2026.webp"
+              width={800}
+            />
+          </div>
+          <figcaption>
+            <span>Profile / Dubai</span>
+            <span>JK — 2026</span>
+          </figcaption>
+        </figure>
         <div className={styles.aboutDetail} data-reveal>
           <p>
             My work moves between intelligent products, frontend systems, mobile

@@ -58,6 +58,22 @@ test("home renders its complete semantic structure without runtime errors", asyn
     }),
   ).toBeAttached();
   await expect(page.locator("main")).toBeVisible();
+  const portrait = page.locator('img[alt="Portrait of Jabir Khan"]');
+  await expect(portrait).toBeAttached();
+  await portrait.scrollIntoViewIfNeeded();
+  await expect
+    .poll(() =>
+      portrait.evaluate(
+        (image) =>
+          (image as HTMLImageElement).complete &&
+          (image as HTMLImageElement).naturalWidth > 0,
+      ),
+    )
+    .toBe(true);
+  await expect(page.locator('link[rel="icon"]').first()).toHaveAttribute(
+    "href",
+    /icon/,
+  );
   await expectNoDuplicateIds(page);
   await expectNoHorizontalOverflow(page);
   expect(errors).toEqual([]);
