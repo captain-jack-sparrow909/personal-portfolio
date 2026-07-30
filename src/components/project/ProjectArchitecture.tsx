@@ -1,9 +1,12 @@
 import type { Project } from "@/content/projects";
+import { getProjectStorytelling } from "@/content/project-storytelling";
 
 import styles from "./ProjectCaseStudy.module.css";
 import { ProjectSectionHeader } from "./ProjectSectionHeader";
 
 export function ProjectArchitecture({ project }: { project: Project }) {
+  const story = getProjectStorytelling(project);
+
   return (
     <section
       aria-labelledby="architecture-title"
@@ -11,16 +14,18 @@ export function ProjectArchitecture({ project }: { project: Project }) {
       id="architecture"
     >
       <ProjectSectionHeader
-        description="A conceptual system flow showing responsibility and decision boundaries. It documents direction, not a claim of finalized infrastructure."
-        index="03"
+        description={story.architecture.description}
+        index="04"
         label="Technical architecture"
-        title="A visible path through the system."
+        title={story.architecture.title}
         titleId="architecture-title"
       />
 
       <figure className={styles.architecture} data-reveal>
         <figcaption>
-          <span>{project.shortName} / Conceptual architecture</span>
+          <span>
+            {project.shortName} / {story.architecture.caption}
+          </span>
           <span>FLOW 01—05</span>
         </figcaption>
         <ol>

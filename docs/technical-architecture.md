@@ -120,6 +120,22 @@ The root and project metadata share one validated 1200×630 portfolio social
 card. It is referenced only through Open Graph and X metadata and does not enter
 the visible route payload.
 
+The post-launch storytelling layer lives in
+`src/content/project-storytelling.ts`. It gives each project its own journey,
+section language, contribution record and evidence states without duplicating
+the shared case-study rendering components. Evidence is explicitly labeled as
+live, in development or design direction.
+
+## Lab and command navigation
+
+`/lab` is statically rendered and mounts a focused client workbench for three
+deterministic experiments. The experiments create no API traffic and claim no
+production analysis capability.
+
+The global System Navigator is mounted once in the root layout. It supports
+keyboard search, focus containment, internal and verified external routes, a
+persisted reduced-motion override and a persisted WebGL-effects override.
+
 ## Contact and production boundary
 
 The contact form is the only client-owned production input surface. It performs
@@ -145,6 +161,10 @@ are read only from server environment variables.
 
 Plausible analytics is opt-in: the script component renders nothing unless
 `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` is configured.
+
+Vercel Speed Insights is mounted independently in the root layout so the
+deployed site can collect real-user Core Web Vitals when the feature is enabled
+for the Vercel project.
 
 The homepage structured-data graph connects the portfolio `WebSite`, Jabir's
 verified `Person` identity and an `ItemList` of selected projects. Each

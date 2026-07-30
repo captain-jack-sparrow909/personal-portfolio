@@ -1,0 +1,39 @@
+.button {
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  gap: 0.65rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 0.35rem 0.4rem 0.35rem 0.75rem;
+  color: var(--color-secondary);
+  background: transparent;
+  cursor: pointer;
+  font:
+    500 0.55rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.button i {
+  display: grid;
+  width: 1.7rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--color-background);
+  background: var(--color-text);
+  font-style: normal;
+}
+
+.button:hover,
+.button:focus-visible,
+.button[data-state="copied"] {
+  border-color: var(--color-phosphor);
+  color: var(--color-phosphor);
+}
+
+.button[data-state="copied"] i {
+  background: var(--color-phosphor);
+}

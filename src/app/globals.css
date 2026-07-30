@@ -65,6 +65,15 @@ html[data-canvas="ready"] [data-static-engine] {
   visibility: hidden;
 }
 
+html[data-effects="off"] [data-webgl-scene] {
+  display: none;
+}
+
+html[data-effects="off"] [data-static-engine] {
+  opacity: 1;
+  visibility: visible;
+}
+
 ::selection {
   color: var(--color-background);
   background: var(--color-phosphor);

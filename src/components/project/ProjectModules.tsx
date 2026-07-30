@@ -1,9 +1,12 @@
 import type { Project } from "@/content/projects";
+import { getProjectStorytelling } from "@/content/project-storytelling";
 
 import styles from "./ProjectCaseStudy.module.css";
 import { ProjectSectionHeader } from "./ProjectSectionHeader";
 
 export function ProjectModules({ project }: { project: Project }) {
+  const story = getProjectStorytelling(project);
+
   return (
     <section
       aria-labelledby="modules-title"
@@ -11,10 +14,10 @@ export function ProjectModules({ project }: { project: Project }) {
       id="modules"
     >
       <ProjectSectionHeader
-        description="The system is divided into independently understandable capabilities rather than presented as one opaque AI surface."
-        index="02"
+        description={story.modules.description}
+        index="03"
         label="Core modules"
-        title="The product, decomposed."
+        title={story.modules.title}
         titleId="modules-title"
       />
 

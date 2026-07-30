@@ -36,7 +36,7 @@ export function CognitiveEngineFallback({
       </div>
       <figcaption>
         <span>J/K — CE.01</span>
-        <span>STATIC SYSTEM MODEL</span>
+        <span>RESILIENT SYSTEM FALLBACK</span>
       </figcaption>
     </figure>
   );

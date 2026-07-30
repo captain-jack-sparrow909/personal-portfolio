@@ -37,16 +37,23 @@ function ProjectSignal({
   );
 }
 
-export function ProjectChapter({ project }: { project: Project }) {
+export function ProjectChapter({
+  displayOrder,
+  project,
+}: {
+  displayOrder: number;
+  project: Project;
+}) {
   return (
     <article
       className={cn(styles.project, styles[project.accent])}
+      data-featured={project.featured ? "true" : undefined}
       data-project-chapter
       data-scene-mode={project.sceneMode}
       id={`project-${project.slug}`}
     >
       <div aria-hidden="true" className={styles.projectProgress}>
-        <span>0{project.order}</span>
+        <span>0{displayOrder}</span>
         <i>
           <b />
         </i>
@@ -59,9 +66,12 @@ export function ProjectChapter({ project }: { project: Project }) {
           data-project-index
           data-project-mobile-reveal
         >
-          <span>0{project.order}</span>
+          <span>0{displayOrder}</span>
           <span data-project-category>{project.category}</span>
-          <span>{project.status}</span>
+          <span>
+            {project.featured ? "Flagship / " : ""}
+            {project.status}
+          </span>
         </div>
 
         <div className={styles.projectTitleMask} data-project-mobile-reveal>
@@ -96,6 +106,21 @@ export function ProjectChapter({ project }: { project: Project }) {
           ))}
         </ul>
 
+        {project.proofPoints ? (
+          <dl
+            className={styles.projectProof}
+            data-project-detail
+            data-project-mobile-reveal
+          >
+            {project.proofPoints.map((point) => (
+              <div key={point.label}>
+                <dd>{point.value}</dd>
+                <dt>{point.label}</dt>
+              </div>
+            ))}
+          </dl>
+        ) : null}
+
         <div
           className={styles.projectFoot}
           data-project-detail
@@ -115,7 +140,11 @@ export function ProjectChapter({ project }: { project: Project }) {
         >
           <span>
             View case study
-            <small>Open system 0{project.order}</small>
+            <small>
+              {project.featured
+                ? "Inspect public flagship"
+                : `Open system 0${displayOrder}`}
+            </small>
           </span>
           <i aria-hidden="true">↗</i>
         </Link>

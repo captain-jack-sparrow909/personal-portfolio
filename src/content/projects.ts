@@ -17,6 +17,11 @@ export type ProjectDecision = {
   description: string;
 };
 
+export type ProjectProofPoint = {
+  value: string;
+  label: string;
+};
+
 export type InterfaceConcept = {
   label: string;
   title: string;
@@ -47,6 +52,8 @@ export type Project = {
   domain?: string;
   order: number;
   sceneMode: ProjectSceneMode;
+  featured?: boolean;
+  proofPoints?: readonly ProjectProofPoint[];
 };
 
 export const projects: readonly Project[] = [
@@ -55,7 +62,7 @@ export const projects: readonly Project[] = [
     name: "Dev Pulse AI",
     shortName: "Dev Pulse",
     category: "AI Content Intelligence",
-    status: "Building",
+    status: "Research prototype",
     summary:
       "A research-first AI content platform for software engineers, transforming trusted AI and engineering sources into polished content for X and LinkedIn.",
     detail:
@@ -176,7 +183,7 @@ export const projects: readonly Project[] = [
     nextFocus:
       "Refining source validation, editorial planning and the human-review experience.",
     accent: "warm",
-    order: 1,
+    order: 2,
     sceneMode: "devpulse",
   },
   {
@@ -184,13 +191,15 @@ export const projects: readonly Project[] = [
     name: "RontgenAI",
     shortName: "Rontgen",
     category: "AI Engineering Platform",
-    status: "Early stage / Building",
+    status: "Public preview",
     summary:
       "An AI engineering platform that helps teams understand, review and improve software systems.",
+    detail:
+      "Seven focused product surfaces are publicly available across architecture review, data exploration, repository understanding, pull-request review, implementation planning, incident analysis, and CI optimization.",
     problem:
       "Architecture, repository behavior, pull requests, incidents and delivery pipelines are usually investigated in separate tools. That fragmentation makes it harder to form one reliable picture of how a software system works and where engineering attention is needed.",
     productConcept:
-      "RontgenAI is conceived as a shared engineering-intelligence foundation with independently evolving workflows for architecture review, repository explanation, pull-request review, issue planning, incident analysis, CI/CD optimization and data exploration.",
+      "RontgenAI is a public engineering-intelligence suite with focused workflows for architecture review, repository explanation, pull-request review, issue planning, incident analysis, CI/CD optimization and data exploration.",
     capabilities: [
       "Architecture reviews",
       "Repository explanations",
@@ -201,34 +210,39 @@ export const projects: readonly Project[] = [
     ],
     modules: [
       {
-        name: "Architecture review",
+        name: "Blueprint",
         description:
-          "Surface system boundaries, relationships and questions that deserve engineering review.",
+          "Review architecture diagrams for bottlenecks, single points of failure and improvement paths.",
       },
       {
-        name: "Repository explanation",
+        name: "Pulse",
         description:
-          "Build an understandable view of unfamiliar codebases and their internal structure.",
+          "Explore spreadsheets and SQL data through plain-language questions with inspectable query output.",
       },
       {
-        name: "Pull-request review",
+        name: "Atlas",
         description:
-          "Examine proposed changes in the context of the surrounding system.",
+          "Map unfamiliar repositories, surface architecture decisions and answer questions about the codebase.",
       },
       {
-        name: "Issue planning",
+        name: "Sentinel",
         description:
-          "Translate engineering goals into scoped implementation paths and dependencies.",
+          "Review pull requests for bugs, security concerns and potential regressions in context.",
       },
       {
-        name: "Incident analysis",
+        name: "Forge",
         description:
-          "Connect operational signals and system context during technical investigation.",
+          "Turn an engineering issue into an implementation plan and a proposed pull request.",
       },
       {
-        name: "Delivery optimization",
+        name: "Radar",
         description:
-          "Explore CI/CD behavior and opportunities to simplify delivery workflows.",
+          "Correlate production evidence to support root-cause analysis and remediation.",
+      },
+      {
+        name: "Relay",
+        description:
+          "Inspect CI workflows for critical paths, cache misses, flaky tests and duplicated work.",
       },
     ],
     architecture: [
@@ -304,12 +318,18 @@ export const projects: readonly Project[] = [
     visualMotif:
       "An architecture scanner reveals relationships inside complex systems.",
     currentStatus:
-      "RontgenAI is at an early building stage. The platform direction and workflow boundaries are being defined; no production adoption or review-performance claims are presented here.",
+      "RontgenAI is available as a public preview at rontgenai.dev. Seven focused v1 product surfaces are live, while four additional workflows remain on the roadmap.",
     nextFocus:
-      "Clarifying the shared context layer and the first independently useful engineering workflow.",
+      "Deepening the live workflows, making their evidence easier to inspect and validating them with real engineering teams.",
     accent: "cyan",
     domain: "rontgenai.dev",
-    order: 2,
+    featured: true,
+    proofPoints: [
+      { value: "07", label: "public v1 product surfaces" },
+      { value: "<2s", label: "analysis target shown in product" },
+      { value: "04", label: "additional workflows on roadmap" },
+    ],
+    order: 1,
     sceneMode: "rontgen",
   },
   {
@@ -317,7 +337,7 @@ export const projects: readonly Project[] = [
     name: "CognoraAI",
     shortName: "Cognora",
     category: "AI Learning Workspace",
-    status: "Building",
+    status: "Product design",
     summary:
       "A unified AI learning workspace that helps people plan, understand, practice and improve.",
     detail:
@@ -441,7 +461,7 @@ export const projects: readonly Project[] = [
     name: "OrkestriaAI",
     shortName: "Orkestria",
     category: "Human-Supervised AI Operations",
-    status: "Building",
+    status: "Interaction prototype",
     summary:
       "An intelligent orchestration layer for browser actions, workflows, developer operations, cloud efficiency and security.",
     detail:
@@ -562,10 +582,20 @@ export const projects: readonly Project[] = [
   },
 ] as const;
 
+export const featuredProjects: readonly Project[] = [
+  ...projects.filter((project) => project.featured),
+  ...projects.filter((project) => !project.featured),
+];
+
 export function getProjectBySlug(slug: string): Project | undefined {
   return projects.find((project) => project.slug === slug);
 }
 
 export function getNextProject(project: Project): Project {
-  return projects[project.order % projects.length] ?? project;
+  const currentIndex = featuredProjects.findIndex(
+    (candidate) => candidate.slug === project.slug,
+  );
+  return (
+    featuredProjects[(currentIndex + 1) % featuredProjects.length] ?? project
+  );
 }

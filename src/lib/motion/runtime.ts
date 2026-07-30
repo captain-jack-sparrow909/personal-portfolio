@@ -255,6 +255,19 @@ export function startMotionRuntime(): () => void {
   lenis = createLenis();
   lenis.on("scroll", ScrollTrigger.update);
 
+  const scrollToHashTarget = () => {
+    const targetId = decodeURIComponent(window.location.hash.slice(1));
+    if (!targetId) return;
+
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    lenis?.scrollTo(target, { force: true, immediate: true });
+    ScrollTrigger.refresh();
+  };
+  const hashFrame = window.requestAnimationFrame(scrollToHashTarget);
+  window.addEventListener("hashchange", scrollToHashTarget);
+
   const updateLenis = (time: number) => {
     lenis?.raf(time * 1000);
   };
@@ -275,7 +288,10 @@ export function startMotionRuntime(): () => void {
   document.addEventListener("visibilitychange", handleVisibility);
 
   void document.fonts.ready.then(() => {
-    if (!disposed) ScrollTrigger.refresh();
+    if (!disposed) {
+      ScrollTrigger.refresh();
+      scrollToHashTarget();
+    }
   });
 
   const refreshOnLoad = () => ScrollTrigger.refresh();
@@ -283,6 +299,8 @@ export function startMotionRuntime(): () => void {
 
   return () => {
     disposed = true;
+    window.cancelAnimationFrame(hashFrame);
+    window.removeEventListener("hashchange", scrollToHashTarget);
     document.removeEventListener("visibilitychange", handleVisibility);
     window.removeEventListener("load", refreshOnLoad);
     gsap.ticker.remove(updateLenis);

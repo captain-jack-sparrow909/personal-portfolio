@@ -118,6 +118,21 @@ Budgets are targets rather than license to degrade visual quality. Regressions r
 Run `pnpm audit:bundles` after a production build to enforce the JavaScript and
 asset thresholds.
 
+## Post-launch evidence release
+
+- The new global System Navigator and Speed Insights keep initial modern route
+  JavaScript at approximately 164 KB gzip, within the 170 KB budget.
+- `/lab` is a static route whose experiments use deterministic React state and
+  CSS; it does not load Three.js or the Cognitive Engine.
+- Vercel Speed Insights records real-user Core Web Vitals after deployment.
+  The Vercel project must have Speed Insights enabled for data to appear.
+- User controls can disable visual effects or reduce motion independently of
+  the operating-system preference.
+- Twenty-two curated product captures are stored as 2200-pixel WebP sources.
+  Their combined source weight is approximately 1.5 MB, every capture remains
+  below the 250 KB budget, and `next/image` serves responsive derivatives only
+  as each gallery approaches the viewport.
+
 ## Phase 1 measurement
 
 Phase 1 contains no WebGL or client animation runtime. Validation focuses on semantic HTML, font loading, responsive CSS, zero horizontal overflow, and a production build without warnings.

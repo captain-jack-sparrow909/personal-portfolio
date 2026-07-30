@@ -247,6 +247,39 @@
     color-mix(in srgb, var(--project-accent) 30%, transparent);
 }
 
+.project[data-featured="true"] {
+  min-height: 125svh;
+  border-top-width: 2px;
+}
+
+.project[data-featured="true"]::after {
+  position: absolute;
+  z-index: -1;
+  inset: 1.5rem 0;
+  border: 1px solid color-mix(in srgb, var(--project-accent) 18%, transparent);
+  background: linear-gradient(
+    125deg,
+    color-mix(in srgb, var(--project-accent) 7%, transparent),
+    transparent 50%
+  );
+  content: "";
+  pointer-events: none;
+}
+
+.project[data-featured="true"] .projectCopy {
+  grid-column: 1 / span 7;
+}
+
+.project[data-featured="true"] .projectVisual {
+  grid-column: 8 / -1;
+  width: min(100%, 44rem);
+}
+
+.project[data-featured="true"] h3 {
+  color: var(--project-accent);
+  font-size: clamp(5rem, 9.5vw, 11rem);
+}
+
 .warm {
   --project-accent: var(--color-warm);
 }
@@ -335,6 +368,43 @@
   font:
     500 0.61rem/1 var(--font-mono),
     monospace;
+  text-transform: uppercase;
+}
+
+.projectProof {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 2rem;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.projectProof > div {
+  min-height: 7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.7rem;
+}
+
+.projectProof > div + div {
+  border-left: 1px solid var(--color-border);
+}
+
+.projectProof dd {
+  margin: 0;
+  color: var(--project-accent);
+  font-size: clamp(2rem, 3.4vw, 3.8rem);
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+}
+
+.projectProof dt {
+  color: var(--color-secondary);
+  font:
+    500 0.5rem/1.35 var(--font-mono),
+    monospace;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
@@ -768,6 +838,85 @@
   font-size: 0.88rem;
 }
 
+.buildLog {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: clamp(5rem, 10vw, 10rem);
+}
+
+.buildLog li {
+  min-width: 0;
+}
+
+.buildLog a {
+  min-height: clamp(27rem, 38vw, 38rem);
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.2rem, 2.5vw, 2.2rem);
+  border: 1px solid var(--color-border);
+  background:
+    linear-gradient(145deg, rgba(93, 228, 255, 0.06), transparent 52%),
+    rgba(8, 8, 10, 0.72);
+  transition:
+    border-color 220ms ease,
+    background-color 220ms ease,
+    transform 400ms var(--ease-standard);
+}
+
+.buildLog a:hover,
+.buildLog a:focus-visible {
+  border-color: var(--color-cyan);
+  background-color: rgba(93, 228, 255, 0.05);
+  transform: translateY(-0.5rem);
+}
+
+.buildLog a > div {
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-cyan);
+  font:
+    500 0.55rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.buildLog a small {
+  color: var(--color-secondary);
+  font: inherit;
+}
+
+.buildLog h3 {
+  margin-top: auto;
+  font-size: clamp(2.5rem, 4vw, 4.8rem);
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+}
+
+.buildLog p {
+  margin-top: 1.5rem;
+  color: var(--color-secondary);
+}
+
+.buildLog b {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-cyan);
+  font:
+    500 0.58rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.buildLog b i {
+  font-style: normal;
+}
+
 .about {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -813,6 +962,101 @@
     500 0.65rem/1.4 var(--font-mono),
     monospace;
   letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.experienceTimeline {
+  display: grid;
+  grid-template-columns: 3fr 8fr;
+  gap: clamp(2rem, 6vw, 8rem);
+  margin-top: clamp(6rem, 12vw, 12rem);
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.timelineIntro > span,
+.currentlyExploring span {
+  color: var(--color-cyan);
+  font:
+    500 0.6rem/1.4 var(--font-mono),
+    monospace;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.timelineIntro > p,
+.currentlyExploring > div > p {
+  max-width: 21rem;
+  margin-top: 1rem;
+  color: var(--color-secondary);
+  font-size: 0.88rem;
+}
+
+.experienceTimeline ol {
+  border-top: 1px solid var(--color-border);
+}
+
+.experienceTimeline li {
+  display: grid;
+  grid-template-columns: 2.5rem 1.1fr 2fr 3fr;
+  gap: 1rem;
+  align-items: baseline;
+  padding: clamp(1.5rem, 3vw, 2.8rem) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.experienceTimeline li > span,
+.experienceTimeline li > small {
+  color: var(--color-secondary);
+  font:
+    500 0.54rem/1.4 var(--font-mono),
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.experienceTimeline li > span {
+  color: var(--color-cyan);
+}
+
+.experienceTimeline h3 {
+  font-size: clamp(1.5rem, 2.5vw, 2.7rem);
+  line-height: 1;
+}
+
+.experienceTimeline li > p {
+  color: var(--color-secondary);
+  font-size: 0.86rem;
+}
+
+.currentlyExploring {
+  display: grid;
+  grid-template-columns: 3fr 8fr;
+  gap: clamp(2rem, 6vw, 8rem);
+  margin-top: clamp(4rem, 8vw, 8rem);
+  padding: clamp(1.5rem, 3vw, 3rem);
+  border: 1px solid var(--color-border);
+  background: linear-gradient(
+    120deg,
+    rgba(137, 116, 255, 0.08),
+    transparent 58%
+  );
+}
+
+.currentlyExploring ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  align-content: start;
+}
+
+.currentlyExploring li {
+  padding: 0.7rem 0.9rem;
+  border: 1px solid rgba(137, 116, 255, 0.3);
+  border-radius: var(--radius-pill);
+  font:
+    500 0.62rem/1 var(--font-mono),
+    monospace;
   text-transform: uppercase;
 }
 
@@ -918,8 +1162,59 @@
   transition: border-color 180ms ease;
 }
 
+.emailActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: end;
+  margin-top: 2rem;
+}
+
+.emailActions .contactEmail {
+  margin-top: 0;
+}
+
 .contactEmail:hover {
   border-color: var(--color-phosphor);
+}
+
+.contactFit {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.contactFit > span,
+.contactBrief {
+  color: var(--color-secondary);
+  font:
+    500 0.58rem/1.5 var(--font-mono),
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.contactFit ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.contactFit li {
+  padding: 0.48rem 0.62rem;
+  border: 1px solid rgba(184, 255, 99, 0.22);
+  border-radius: var(--radius-pill);
+  color: var(--color-secondary);
+  font:
+    500 0.54rem/1 var(--font-mono),
+    monospace;
+}
+
+.contactBrief {
+  max-width: 28rem;
+  margin-top: 1.5rem;
+  text-transform: none;
 }
 
 .contactEmail span,
@@ -1074,11 +1369,20 @@
     padding: 0;
   }
 
+  .project[data-featured="true"] {
+    min-height: auto;
+  }
+
   .projectVisual,
   .project:nth-child(even) .projectVisual {
     width: min(85vw, 30rem);
     margin: 3.5rem auto 0;
     justify-self: center;
+  }
+
+  .project[data-featured="true"] .projectVisual {
+    grid-column: auto;
+    width: min(85vw, 34rem);
   }
 
   .project:nth-child(even) .projectVisual {
@@ -1091,6 +1395,10 @@
 
   .project h3 {
     will-change: auto;
+  }
+
+  .project[data-featured="true"] h3 {
+    font-size: clamp(4.5rem, 15vw, 8rem);
   }
 
   .capabilityLayout {
@@ -1145,6 +1453,14 @@
     max-width: 28rem;
   }
 
+  .buildLog {
+    grid-template-columns: 1fr;
+  }
+
+  .buildLog a {
+    min-height: 24rem;
+  }
+
   .aboutLead {
     grid-column: 1 / -1;
   }
@@ -1152,6 +1468,19 @@
   .aboutDetail {
     grid-column: 5 / -1;
     margin-top: 3rem;
+  }
+
+  .experienceTimeline,
+  .currentlyExploring {
+    grid-template-columns: 1fr;
+  }
+
+  .experienceTimeline li {
+    grid-template-columns: 2.5rem 1fr 2fr;
+  }
+
+  .experienceTimeline li > p {
+    grid-column: 3;
   }
 
   .contact {
@@ -1220,6 +1549,23 @@
     font-size: clamp(3.5rem, 18vw, 5.4rem);
   }
 
+  .project[data-featured="true"] h3 {
+    font-size: clamp(3.8rem, 19vw, 5.8rem);
+  }
+
+  .projectProof {
+    grid-template-columns: 1fr;
+  }
+
+  .projectProof > div {
+    min-height: 5.5rem;
+  }
+
+  .projectProof > div + div {
+    border-top: 1px solid var(--color-border);
+    border-left: 0;
+  }
+
   .projectFoot {
     grid-template-columns: 1fr;
   }
@@ -1247,6 +1593,15 @@
 
   .aboutDetail {
     grid-column: 1 / -1;
+  }
+
+  .experienceTimeline li {
+    grid-template-columns: 2rem 1fr;
+  }
+
+  .experienceTimeline h3,
+  .experienceTimeline li > p {
+    grid-column: 2;
   }
 
   .contact {

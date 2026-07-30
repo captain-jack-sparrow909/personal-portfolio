@@ -47,7 +47,7 @@ test("home renders its complete semantic structure without runtime errors", asyn
   );
   await expect(
     page.getByRole("heading", {
-      name: "Products designed to think, adapt, and operate.",
+      name: "Products I have shaped, built, and put to work.",
       includeHidden: true,
     }),
   ).toBeAttached();
@@ -87,6 +87,150 @@ test("desktop navigation and case-study routes work", async ({
   ).toBeVisible();
   await expectNoHorizontalOverflow(page);
   expect(errors).toEqual([]);
+});
+
+test("RontgenAI presents public proof and engineering evidence", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/work/rontgenai");
+
+  await expect(
+    page.getByRole("heading", { level: 1, name: "RontgenAI" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Open it. Inspect it. Use it." }),
+  ).toBeVisible();
+  await expect(page.getByText("What I personally built")).toBeVisible();
+  await expect(page.getByText("Public preview").first()).toBeVisible();
+  await expect(
+    page.locator('#public-proof a[href^="https://rontgenai.dev/app/"]'),
+  ).toHaveCount(7);
+  await expectNoDuplicateIds(page);
+  await expectNoHorizontalOverflow(page);
+});
+
+test("case studies expose curated real-product captures", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+
+  const galleries = [
+    {
+      count: 5,
+      slug: "dev-pulse-ai",
+      title: "The editorial product at work.",
+    },
+    {
+      count: 7,
+      slug: "rontgenai",
+      title: "Seven products, one live workspace.",
+    },
+    {
+      count: 4,
+      slug: "cognoraai",
+      title: "The learner's context, rendered.",
+    },
+    {
+      count: 6,
+      slug: "orkestriaai",
+      title: "Supervision is part of the product.",
+    },
+  ] as const;
+
+  for (const galleryDetails of galleries) {
+    await page.goto(`/work/${galleryDetails.slug}#product-gallery`, {
+      waitUntil: "domcontentloaded",
+    });
+
+    const gallery = page.getByRole("region", {
+      name: galleryDetails.title,
+    });
+    await expect(gallery).toBeVisible();
+    await expect(gallery.locator("figure")).toHaveCount(galleryDetails.count);
+    const firstImage = gallery.locator("img").first();
+    await firstImage.scrollIntoViewIfNeeded();
+    await expect
+      .poll(() =>
+        firstImage.evaluate(
+          (image) =>
+            (image as HTMLImageElement).complete &&
+            (image as HTMLImageElement).naturalWidth > 0,
+        ),
+      )
+      .toBe(true);
+    await expectNoHorizontalOverflow(page);
+  }
+});
+
+test("product capture lightbox supports keyboard navigation", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/work/rontgenai#product-gallery");
+
+  const firstCapture = page.getByRole("button", {
+    name: "Open The product promise is immediate capture",
+  });
+  await firstCapture.click();
+
+  const lightbox = page.getByRole("dialog", {
+    name: "The product promise is immediate",
+  });
+  await expect(lightbox).toBeVisible();
+  await page.keyboard.press("ArrowRight");
+  const nextLightbox = page.getByRole("dialog", {
+    name: "Every focused tool remains one click away",
+  });
+  await expect(
+    nextLightbox.getByRole("heading", {
+      name: "Every focused tool remains one click away",
+    }),
+  ).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(nextLightbox).toBeHidden();
+  await expect(firstCapture).toBeFocused();
+});
+
+test("System Navigator opens from the keyboard and reaches the lab", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await page.keyboard.press("ControlOrMeta+K");
+
+  const navigator = page.getByRole("dialog", { name: "System Navigator" });
+  await expect(navigator).toBeVisible();
+  const labCommand = navigator.getByRole("option", {
+    name: /Explore Systems Lab/,
+  });
+  await labCommand.click();
+
+  await expect(page).toHaveURL(/\/lab$/);
+  await expect(
+    page.getByRole("heading", { level: 1, name: /Ideas you can touch/ }),
+  ).toBeVisible();
+});
+
+test("Systems Lab experiments expose deterministic interaction states", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/lab");
+
+  await page.getByRole("button", { name: "Run sample scan" }).click();
+  await expect(page.getByText("SCAN COMPLETE")).toBeVisible();
+
+  await page.getByRole("button", { name: "Start simulated run" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Approval required" }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Approve" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Approved for execution" }),
+  ).toBeVisible();
+
+  await page.getByRole("button", { name: "Inspect retrieval" }).click();
+  await expect(page.getByText("incident-4821.md")).toBeVisible();
+  await expectNoHorizontalOverflow(page);
 });
 
 test("contact form reports accessible validation errors", async ({ page }) => {

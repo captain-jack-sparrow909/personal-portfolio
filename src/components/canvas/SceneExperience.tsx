@@ -38,6 +38,16 @@ const projectModes: readonly ProjectMode[] = [
   "orkestria",
 ];
 
+const sceneStateLabels: Record<SceneMode, string> = {
+  hero: "ASSEMBLED / CALM",
+  identity: "SIGNAL / IDENTITY",
+  devpulse: "RESEARCH PIPELINE",
+  rontgen: "ARCHITECTURE SCAN",
+  cognora: "KNOWLEDGE GRAPH",
+  orkestria: "APPROVAL ORBIT",
+  contact: "RESOLVE / JK",
+};
+
 function isSceneMode(value: string | undefined): value is SceneMode {
   return sceneModes.includes(value as SceneMode);
 }
@@ -167,13 +177,13 @@ export function SceneExperience() {
   if (!webGLSupported) return null;
 
   return (
-    <div aria-hidden="true" className={styles.scene}>
+    <div aria-hidden="true" className={styles.scene} data-webgl-scene>
       <SceneErrorBoundary>
         <SceneCanvas pointer={pointer} progress={progress} />
       </SceneErrorBoundary>
       <div className={styles.hud}>
         <span>CE / HYBRID-06</span>
-        <span>{currentSection.toUpperCase()}</span>
+        <span>{sceneStateLabels[currentSection]}</span>
         <span>{deviceTier.toUpperCase()} TIER</span>
       </div>
     </div>

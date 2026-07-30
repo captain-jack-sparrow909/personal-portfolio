@@ -1,8 +1,11 @@
 import type { Project } from "@/content/projects";
+import { getProjectStorytelling } from "@/content/project-storytelling";
 
 import styles from "./ProjectCaseStudy.module.css";
 
 export function ProjectStatus({ project }: { project: Project }) {
+  const story = getProjectStorytelling(project);
+
   return (
     <section
       aria-labelledby="status-title"
@@ -11,11 +14,11 @@ export function ProjectStatus({ project }: { project: Project }) {
       id="status"
     >
       <div className={styles.statusMeta}>
-        <span>06 / Current status</span>
+        <span>09 / Current status</span>
         <span>{project.status}</span>
       </div>
       <div className={styles.statusGrid}>
-        <h2 id="status-title">Building in public, describing it honestly.</h2>
+        <h2 id="status-title">{story.status.title}</h2>
         <div>
           <p>{project.currentStatus}</p>
           <span>Next focus</span>

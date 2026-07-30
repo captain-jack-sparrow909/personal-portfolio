@@ -1,9 +1,12 @@
 import type { Project } from "@/content/projects";
+import { getProjectStorytelling } from "@/content/project-storytelling";
 
 import styles from "./ProjectCaseStudy.module.css";
 import { ProjectSectionHeader } from "./ProjectSectionHeader";
 
 export function ProjectDecisions({ project }: { project: Project }) {
+  const story = getProjectStorytelling(project);
+
   return (
     <section
       aria-labelledby="decisions-title"
@@ -11,9 +14,9 @@ export function ProjectDecisions({ project }: { project: Project }) {
       id="decisions"
     >
       <ProjectSectionHeader
-        index="05"
+        index="08"
         label="Challenges and decisions"
-        title="The choices shaping the product."
+        title={story.decisions.title}
         titleId="decisions-title"
       />
 

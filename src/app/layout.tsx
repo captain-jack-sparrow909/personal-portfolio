@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Instrument_Serif, Manrope } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { Analytics } from "@/components/analytics/Analytics";
 import { PageTransition } from "@/components/layout/PageTransition";
+import { SystemNavigator } from "@/components/navigation/SystemNavigator";
 import { siteConfig, getSiteUrl } from "@/content/site";
 
 import "./globals.css";
@@ -83,7 +85,9 @@ export default function RootLayout({
       <body>
         <PageTransition />
         {children}
+        <SystemNavigator />
         <Analytics />
+        {process.env.VERCEL === "1" ? <SpeedInsights /> : null}
       </body>
     </html>
   );

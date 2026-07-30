@@ -5,7 +5,7 @@ export const siteConfig = {
   description:
     "Portfolio of Jabir Khan, an AI/ML engineer and full-stack web and mobile developer building intelligent products, developer tools and scalable digital systems.",
   location: "Dubai, UAE",
-  availability: "Available for select collaborations",
+  availability: "Open to ambitious product collaborations",
   email: "khanjabir909@gmail.com",
   socialLinks: [
     {

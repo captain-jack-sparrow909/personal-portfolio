@@ -1,9 +1,12 @@
 import type { Project } from "@/content/projects";
+import { getProjectStorytelling } from "@/content/project-storytelling";
 
 import styles from "./ProjectCaseStudy.module.css";
 import { ProjectSectionHeader } from "./ProjectSectionHeader";
 
 export function ProjectOverview({ project }: { project: Project }) {
+  const story = getProjectStorytelling(project);
+
   return (
     <section
       aria-labelledby="overview-title"
@@ -11,10 +14,10 @@ export function ProjectOverview({ project }: { project: Project }) {
       id="overview"
     >
       <ProjectSectionHeader
-        description="The case study separates the underlying problem from the product response, keeping the engineering intent explicit."
+        description={story.overview.description}
         index="01"
         label="Overview"
-        title="Why this system should exist."
+        title={story.overview.title}
         titleId="overview-title"
       />
 

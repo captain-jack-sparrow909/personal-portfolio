@@ -1,9 +1,12 @@
 import type { Project } from "@/content/projects";
+import { getProjectStorytelling } from "@/content/project-storytelling";
 
 import styles from "./ProjectCaseStudy.module.css";
 import { ProjectSectionHeader } from "./ProjectSectionHeader";
 
 export function ProjectConceptFrames({ project }: { project: Project }) {
+  const story = getProjectStorytelling(project);
+
   return (
     <section
       aria-labelledby="concepts-title"
@@ -11,10 +14,10 @@ export function ProjectConceptFrames({ project }: { project: Project }) {
       id="concepts"
     >
       <ProjectSectionHeader
-        description="These frames communicate product hierarchy and interaction intent. They are deliberately presented as concepts, not production screenshots."
-        index="04"
+        description={story.concepts.description}
+        index="07"
         label="Interface explorations"
-        title="Making system behavior legible."
+        title={story.concepts.title}
         titleId="concepts-title"
       />
 
@@ -47,7 +50,11 @@ export function ProjectConceptFrames({ project }: { project: Project }) {
               <span>{concept.label}</span>
               <h3>{concept.title}</h3>
               <p>{concept.description}</p>
-              <small>Conceptual interface — not final product UI</small>
+              <small>
+                {project.featured
+                  ? "Interaction study informed by the public preview"
+                  : "Conceptual interface — not final product UI"}
+              </small>
             </figcaption>
           </figure>
         ))}

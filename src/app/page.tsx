@@ -3,6 +3,7 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { AboutSection } from "@/components/sections/AboutSection";
+import { BuildLogSection } from "@/components/sections/BuildLogSection";
 import { CapabilitiesSection } from "@/components/sections/CapabilitiesSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { HeroSection } from "@/components/sections/HeroSection";
@@ -30,6 +31,7 @@ export default function HomePage() {
         <ProjectsSection />
         <CapabilitiesSection />
         <ProcessSection />
+        <BuildLogSection />
         <AboutSection />
         <ContactSection />
       </main>

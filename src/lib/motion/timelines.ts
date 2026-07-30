@@ -10,16 +10,11 @@ export function createHeroTimeline(): ReturnType<typeof gsap.timeline> {
   });
 
   timeline
-    .fromTo(
-      "[data-hero-eyebrow]",
-      { autoAlpha: 0, y: 18 },
-      { autoAlpha: 1, duration: 0.7, y: 0 },
-    )
+    .fromTo("[data-hero-eyebrow]", { y: 10 }, { duration: 0.7, y: 0 })
     .fromTo(
       "[data-hero-line]",
-      { autoAlpha: 0, yPercent: 112 },
+      { yPercent: 18 },
       {
-        autoAlpha: 1,
         duration: 1.05,
         stagger: 0.09,
         yPercent: 0,
@@ -28,19 +23,19 @@ export function createHeroTimeline(): ReturnType<typeof gsap.timeline> {
     )
     .fromTo(
       "[data-hero-support]",
-      { autoAlpha: 0, y: 24 },
-      { autoAlpha: 1, duration: 0.8, stagger: 0.1, y: 0 },
+      { y: 14 },
+      { duration: 0.8, stagger: 0.1, y: 0 },
       "-=0.52",
     )
     .fromTo(
       "[data-hero-visual]",
-      { autoAlpha: 0, scale: 0.92, rotate: -4 },
+      { autoAlpha: 0.72, scale: 0.96, rotate: -2 },
       { autoAlpha: 1, duration: 1.3, ease: "power2.out", rotate: 0, scale: 1 },
       0.12,
     )
     .fromTo(
       "[data-hero-rail]",
-      { autoAlpha: 0 },
+      { autoAlpha: 0.72 },
       { autoAlpha: 1, duration: 0.7 },
       "-=0.48",
     );

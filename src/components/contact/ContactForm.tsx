@@ -75,7 +75,10 @@ export function ContactForm() {
       }
 
       formRef.current?.reset();
-      setStatus({ state: "success", message: result.message });
+      setStatus({
+        state: "success",
+        message: `${result.message} I’ll review the context and reply with a concrete next step.`,
+      });
     } catch {
       setStatus({
         state: "error",

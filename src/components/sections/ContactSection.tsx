@@ -1,4 +1,5 @@
 import { ContactForm } from "@/components/contact/ContactForm";
+import { CopyEmailButton } from "@/components/contact/CopyEmailButton";
 import { siteConfig } from "@/content/site";
 
 import styles from "./Sections.module.css";
@@ -13,7 +14,7 @@ export function ContactSection() {
     >
       <div className={styles.contactMeta} data-reveal>
         <p className="eyebrow">OPEN CHANNEL / DUBAI — GLOBAL</p>
-        <span>06 / CONTACT</span>
+        <span>07 / CONTACT</span>
       </div>
       <h2 data-reveal id="contact-title">
         Let&apos;s build what
@@ -23,16 +24,32 @@ export function ContactSection() {
         <aside className={styles.contactChannels}>
           <div>
             <p className={styles.contactLead}>
-              Available for ambitious AI, web, mobile and product-engineering
-              collaborations.
+              Open to senior product-engineering conversations and ambitious AI,
+              web, mobile and developer-tool collaborations.
             </p>
-            <a
-              className={styles.contactEmail}
-              href={`mailto:${siteConfig.email}`}
-            >
-              <span>Direct email</span>
-              {siteConfig.email}
-            </a>
+            <div className={styles.emailActions}>
+              <a
+                className={styles.contactEmail}
+                href={`mailto:${siteConfig.email}`}
+              >
+                <span>Direct email</span>
+                {siteConfig.email}
+              </a>
+              <CopyEmailButton email={siteConfig.email} />
+            </div>
+            <div className={styles.contactFit}>
+              <span>Best fit</span>
+              <ul>
+                <li>AI products and applied ML</li>
+                <li>Developer tools and platform engineering</li>
+                <li>High-craft web and mobile products</li>
+                <li>Technical product architecture</li>
+              </ul>
+            </div>
+            <p className={styles.contactBrief}>
+              A useful first message includes the problem, current stage,
+              desired outcome and approximate timing.
+            </p>
           </div>
           <nav aria-label="Social profiles">
             <p>Elsewhere / verified channels</p>

@@ -1,5 +1,5 @@
 import type { Project } from "@/content/projects";
-import { projects } from "@/content/projects";
+import { featuredProjects } from "@/content/projects";
 import { siteConfig } from "@/content/site";
 import { getSiteUrl } from "@/content/site";
 
@@ -41,8 +41,8 @@ export function getPersonStructuredData() {
       {
         "@type": "ItemList",
         name: "Selected engineering work",
-        numberOfItems: projects.length,
-        itemListElement: projects.map((project, index) => ({
+        numberOfItems: featuredProjects.length,
+        itemListElement: featuredProjects.map((project, index) => ({
           "@type": "ListItem",
           position: index + 1,
           url: new URL(`/work/${project.slug}`, siteUrl).toString(),

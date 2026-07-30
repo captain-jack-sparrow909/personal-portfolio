@@ -56,11 +56,21 @@ export function MotionProvider({ children }: MotionProviderProps) {
     root.dataset.motion = reducedMotion ? "reduced" : "ready";
 
     if (reducedMotion) {
+      const scrollToHashTarget = () => {
+        const targetId = decodeURIComponent(window.location.hash.slice(1));
+        if (!targetId) return;
+        document.getElementById(targetId)?.scrollIntoView();
+      };
+      const hashFrame = window.requestAnimationFrame(scrollToHashTarget);
+      window.addEventListener("hashchange", scrollToHashTarget);
+
       revealWithoutMotion();
       root.classList.remove("lenis", "lenis-smooth");
 
       return () => {
         active = false;
+        window.cancelAnimationFrame(hashFrame);
+        window.removeEventListener("hashchange", scrollToHashTarget);
         delete root.dataset.motion;
       };
     }
