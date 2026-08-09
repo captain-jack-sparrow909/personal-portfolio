@@ -1,17 +1,33 @@
 :root {
+  /* Base palette */
   --color-background: #050506;
   --color-background-secondary: #0a0a0c;
   --color-surface: #101014;
   --color-text: #f2f1ec;
   --color-secondary: #9b9b9f;
   --color-border: rgba(255, 255, 255, 0.12);
+
+  /* Luminous accents */
   --color-phosphor: #b8ff63;
   --color-cyan: #5de4ff;
   --color-violet: #8974ff;
   --color-warm: #ff8a5c;
+
+  /* Glow values — for box-shadow and filter layering */
+  --glow-phosphor: rgba(184, 255, 99, 0.45);
+  --glow-cyan: rgba(93, 228, 255, 0.45);
+  --glow-violet: rgba(137, 116, 255, 0.45);
+  --glow-warm: rgba(255, 138, 92, 0.45);
+
+  /* Layout */
   --content-max: 120rem;
   --gutter: clamp(1rem, 3vw, 3.5rem);
   --section-space: clamp(7rem, 14vw, 14rem);
   --radius-pill: 999px;
+
+  /* Easing */
   --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
 }

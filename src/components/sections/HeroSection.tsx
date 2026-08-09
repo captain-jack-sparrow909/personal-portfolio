@@ -16,6 +16,16 @@ export function HeroSection() {
         className={styles.heroField}
         data-parallax="slow"
       />
+
+      {/* Ambient horizontal scan line */}
+      <div aria-hidden="true" className={styles.heroScan} />
+
+      {/* Geo-coordinate display */}
+      <div aria-hidden="true" className={styles.heroCoords}>
+        <span>23.4521° N / 55.3773° E</span>
+        <span>GCC — GLOBAL REACH</span>
+      </div>
+
       <div className={styles.heroGrid}>
         <div className={styles.heroCopy}>
           <p className="eyebrow" data-hero-eyebrow>

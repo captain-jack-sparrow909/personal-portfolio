@@ -3,6 +3,35 @@
 @import "../styles/typography.css";
 @import "../styles/utilities.css";
 
+/* ================================================================
+   KEYFRAME ANIMATIONS — GLOBAL
+   ================================================================ */
+
+@keyframes aurora-drift {
+  0%, 100% { transform: scale(1) translate(0%, 0%); opacity: 0.75; }
+  25%       { transform: scale(1.09) translate(1.5%, -1.5%); opacity: 1; }
+  50%       { transform: scale(1.04) translate(-1%, 1%); opacity: 0.65; }
+  75%       { transform: scale(1.11) translate(0.5%, 0.5%); opacity: 0.9; }
+}
+
+@keyframes dot-breathe {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0.5rem rgba(184, 255, 99, 0.7);
+  }
+  50% {
+    transform: scale(1.45);
+    box-shadow:
+      0 0 1.2rem rgba(184, 255, 99, 1),
+      0 0 3rem rgba(184, 255, 99, 0.4),
+      0 0 6rem rgba(184, 255, 99, 0.15);
+  }
+}
+
+/* ================================================================
+   RESET & BASE
+   ================================================================ */
+
 *,
 *::before,
 *::after {
@@ -38,6 +67,7 @@ body {
   background-size: 5rem 5rem;
 }
 
+/* Grain overlay */
 body::before {
   position: fixed;
   z-index: 20;
@@ -46,6 +76,21 @@ body::before {
   content: "";
   opacity: 0.18;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
+}
+
+/* Animated aurora overlay */
+body::after {
+  position: fixed;
+  z-index: 0;
+  inset: -20%;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(ellipse 80% 55% at 74% 12%, rgba(93, 228, 255, 0.065), transparent 52%),
+    radial-gradient(ellipse 60% 75% at 14% 82%, rgba(137, 116, 255, 0.055), transparent 54%),
+    radial-gradient(ellipse 50% 40% at 48% 52%, rgba(184, 255, 99, 0.022), transparent 60%);
+  animation: aurora-drift 22s ease-in-out infinite;
+  will-change: transform;
 }
 
 main,
@@ -106,6 +151,10 @@ a {
   outline-offset: 4px;
 }
 
+/* ================================================================
+   SKIP LINK
+   ================================================================ */
+
 .skip-link {
   position: fixed;
   z-index: 100;
@@ -120,6 +169,10 @@ a {
 .skip-link:focus {
   transform: translateY(0);
 }
+
+/* ================================================================
+   SITE HEADER
+   ================================================================ */
 
 .site-header {
   position: fixed;
@@ -143,7 +196,7 @@ a {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-pill);
   background: rgba(5, 5, 6, 0.28);
-  backdrop-filter: blur(1.2rem);
+  backdrop-filter: blur(1.2rem) saturate(1.5);
   pointer-events: auto;
   transition:
     width 650ms var(--ease-standard),
@@ -155,8 +208,11 @@ a {
 .site-header__inner[data-scrolled="true"] {
   width: min(100%, 72rem);
   border-color: rgba(255, 255, 255, 0.17);
-  background: rgba(10, 10, 12, 0.86);
-  box-shadow: 0 0.8rem 3rem rgba(0, 0, 0, 0.3);
+  background: rgba(10, 10, 12, 0.88);
+  box-shadow:
+    0 0.8rem 3rem rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(93, 228, 255, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .site-header__monogram {
@@ -170,6 +226,11 @@ a {
   font:
     700 0.78rem/1 var(--font-mono),
     monospace;
+  transition: box-shadow 300ms ease;
+}
+
+.site-header__monogram:hover {
+  box-shadow: 0 0 1.8rem rgba(242, 241, 236, 0.28);
 }
 
 .site-header__links {
@@ -199,6 +260,7 @@ a {
   left: 0;
   height: 1px;
   background: var(--color-cyan);
+  box-shadow: 0 0 0.7rem var(--color-cyan);
   content: "";
   opacity: 0;
   transform: scaleX(0);
@@ -243,11 +305,16 @@ a {
   border-radius: 50%;
   background: var(--color-phosphor);
   box-shadow: 0 0 0.7rem rgba(184, 255, 99, 0.8);
+  animation: dot-breathe 2.6s ease-in-out infinite;
 }
 
 .site-header__menu-trigger {
   display: none;
 }
+
+/* ================================================================
+   MOBILE MENU
+   ================================================================ */
 
 .mobile-menu {
   position: fixed;
@@ -383,6 +450,10 @@ a {
   font-size: 0.9rem;
 }
 
+/* ================================================================
+   SITE FOOTER
+   ================================================================ */
+
 .site-footer {
   position: relative;
   z-index: 1;
@@ -414,6 +485,10 @@ a {
 .site-footer a:hover {
   color: var(--color-text);
 }
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
 
 @media (max-width: 56rem) {
   .site-header {
@@ -532,11 +607,22 @@ a {
   *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 
   .mobile-menu {
     transition:
       opacity 100ms ease,
       visibility 100ms;
+  }
+
+  .status-dot {
+    animation: none;
+    box-shadow: 0 0 0.7rem rgba(184, 255, 99, 0.8);
+  }
+
+  body::after {
+    animation: none;
   }
 }

@@ -17,22 +17,49 @@ function ProjectSignal({
       aria-hidden="true"
       className={cn(styles.projectSignal, styles[accent])}
     >
+      {/* Scan line that sweeps the sphere */}
+      <div className={styles.signalScan} />
+
+      {/* Outermost slow-orbit ring (CW) with 2 nodes */}
+      <div className={styles.signalOrbitOuter}>
+        <span />
+        <span />
+      </div>
+
+      {/* Coordinate / system label */}
       <div className={styles.signalCoordinates}>
         <span>SYS / {accent.toUpperCase()}</span>
         <span>LIVE SCENE</span>
       </div>
+
+      {/* Main orbit ring — CCW */}
       <div className={styles.signalOrbit} data-signal-orbit>
         <span />
         <span />
         <span />
         <span />
       </div>
+
+      {/* Inner fast orbit ring (CW) */}
+      <div className={styles.signalOrbitInner}>
+        <span />
+        <span />
+      </div>
+
+      {/* Glowing pulsing core */}
       <div className={styles.signalCore} />
+
+      {/* Tech labels */}
       <div className={styles.signalLabels}>
         {technologies.map((technology) => (
           <span key={technology}>{technology}</span>
         ))}
       </div>
+
+      {/* Floating data fragments */}
+      <div className={styles.signalFragment} />
+      <div className={styles.signalFragment} />
+      <div className={styles.signalFragment} />
     </div>
   );
 }
